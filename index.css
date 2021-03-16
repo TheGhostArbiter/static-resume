@@ -16,7 +16,7 @@ div {
     height: 40px;
     width: 100%;
     background-color: #4169e1;
-    position: fixed;
+    position: relative;
     z-index: 1;
 }
 
