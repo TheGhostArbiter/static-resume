@@ -35,22 +35,22 @@ div {
 .left {
     height: 1000px;
     width: 45px;
-    background-color: #e0eeee;
+    background-color: #ffffff;
     float: left;
-    position: fixed;
+/*     position: fixed; */
 }
 
 .right {
     height: 1000px;
     width: 45px;
-    background-color: #e0eeee;
+    background-color: #ffffff;
     float: right;
-    position: inherit;
+/*     position: inherit; */
 }
 
 .stuff {
     display: inline-block;
-    margin-top: 6px;
+/*     margin-top: 6px; */
     margin-left: 55px;
     width: 75%;
     height: 1000px;
