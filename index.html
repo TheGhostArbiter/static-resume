@@ -1,237 +1,2477 @@
-<!DOCTYPE html>
-<html>
-
+<!doctype html>
+<html lang="en" data-theme="dark" data-atmosphere="blue">
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <meta charset="UTF-8">
-    <meta name="description" content="Resume">
-    <meta name="keywords" content="HTML, CSS, JavaScript">
-    <meta name="author" content="Brandon Clark">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="bsc_resume_2021.css">
-    <title>Brandon S. Clark</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#04070f" />
+
+  <title>Brandon S. Clark — Resume Home</title>
+  <meta name="description" content="Cinematic resume homepage for Brandon S. Clark with Atlas, Signal, Proof Hub, tailored links, and a low-motion switchboard." />
+  <meta property="og:title" content="Brandon S. Clark — Resume Home" />
+  <meta property="og:description" content="Secure AWS systems, maintainable APIs, and calm operational delivery for cloud, data, and IoT platforms." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    :root{
+      --bg:#f6fbff;
+      --fg:#0b1325;
+      --muted:#5b6c8c;
+      --panel:rgba(255,255,255,.56);
+      --panel-strong:rgba(255,255,255,.74);
+      --card-preview:rgba(255,255,255,.86);
+      --border:rgba(86,109,145,.20);
+      --accent:#2f64ff;
+      --accent2:#67e8c8;
+      --accent-soft:rgba(47,100,255,.16);
+      --shadow:0 26px 80px rgba(11,18,38,.17);
+      --shadow-soft:0 14px 40px rgba(11,18,38,.10);
+      --shadow-hover:0 22px 58px rgba(11,18,38,.18);
+      --radius:28px;
+      --max:1140px;
+      --hero:980px;
+      --sans:ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    html[data-theme="dark"]{
+      --bg:#04070f;
+      --fg:#eef4ff;
+      --muted:#a9b6d8;
+      --panel:rgba(10,16,31,.42);
+      --panel-strong:rgba(10,16,31,.58);
+      --card-preview:rgba(14,22,40,.92);
+      --border:rgba(203,220,255,.12);
+      --accent:#86a6ff;
+      --accent2:#6fffd1;
+      --accent-soft:rgba(120,162,255,.16);
+      --shadow:0 28px 90px rgba(0,0,0,.44);
+      --shadow-soft:0 14px 50px rgba(0,0,0,.28);
+      --shadow-hover:0 22px 68px rgba(0,0,0,.36);
+    }
+
+    html[data-atmosphere="blue"]{
+      --accent:#86a6ff;
+      --accent2:#6fffd1;
+      --accent-soft:rgba(120,162,255,.16);
+    }
+    html[data-atmosphere="crimson"]{
+      --accent:#ff6b8e;
+      --accent2:#ffb38a;
+      --accent-soft:rgba(255,107,142,.18);
+    }
+    html[data-atmosphere="emerald"]{
+      --accent:#45e3a4;
+      --accent2:#9dffe2;
+      --accent-soft:rgba(69,227,164,.18);
+    }
+    html[data-atmosphere="violet"]{
+      --accent:#b287ff;
+      --accent2:#ff9bf0;
+      --accent-soft:rgba(178,135,255,.18);
+    }
+
+    *{box-sizing:border-box}
+    html,body{min-height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 720px at 14% -8%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 62%),
+        radial-gradient(980px 560px at 88% 8%, color-mix(in srgb, var(--accent2) 16%, transparent), transparent 60%),
+        radial-gradient(760px 440px at 52% 108%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 68%),
+        linear-gradient(180deg, color-mix(in srgb, var(--bg) 92%, #000 8%), var(--bg));
+      line-height:1.55;
+      overflow-x:hidden;
+    }
+    body.modal-open{overflow:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible,
+    input:focus-visible{
+      outline:2px solid color-mix(in srgb, var(--accent) 78%, white 10%);
+      outline-offset:3px;
+    }
+
+    .skip{
+      position:absolute;
+      left:-999px;
+      top:12px;
+      z-index:100;
+      padding:.7rem .95rem;
+      border-radius:999px;
+      background:var(--panel-strong);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(10px);
+    }
+    .skip:focus{left:12px}
+
+    #vanta,
+    .atmosphere-fallback,
+    .scrim{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+    }
+    #vanta{z-index:0}
+    .atmosphere-fallback{
+      z-index:0;
+      opacity:0;
+      transition:opacity .45s ease;
+      background:
+        radial-gradient(46rem 24rem at 16% 18%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 66%),
+        radial-gradient(38rem 20rem at 82% 12%, color-mix(in srgb, var(--accent2) 18%, transparent), transparent 62%),
+        radial-gradient(52rem 28rem at 56% 104%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 72%);
+      filter:blur(18px) saturate(1.05);
+      will-change:opacity;
+    }
+    html.use-fallback .atmosphere-fallback,
+    html.plain .atmosphere-fallback{opacity:.96}
+    html.vanta-active .atmosphere-fallback{opacity:0}
+    .scrim{
+      z-index:1;
+      background:
+        radial-gradient(1200px 720px at 50% 40%, transparent 6%, rgba(4,7,15,.10) 70%, rgba(4,7,15,.20) 100%),
+        linear-gradient(180deg, rgba(4,7,15,.02), rgba(4,7,15,.08));
+    }
+    html[data-theme="light"] .scrim{
+      background:
+        radial-gradient(1200px 720px at 50% 38%, rgba(255,255,255,.03) 0%, rgba(255,255,255,0) 64%, rgba(8,14,28,.05) 100%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(8,14,28,.04));
+    }
+    html.plain #vanta{display:none}
+    html.plain .scrim{opacity:.68}
+    #confetti{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:55;
+      opacity:0;
+      transition:opacity .18s ease;
+    }
+    #confetti.is-on{opacity:1}
+    html.plain #confetti{display:none}
+
+    .site{
+      position:relative;
+      z-index:2;
+      min-height:100svh;
+      display:flex;
+      flex-direction:column;
+      padding:20px 20px 30px;
+    }
+    .topbar{
+      width:min(var(--max), calc(100vw - 40px));
+      margin:0 auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .brand-tag,
+    .micro-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      padding:.6rem .92rem;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:color-mix(in srgb, var(--panel-strong) 94%, transparent);
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(14px);
+      color:color-mix(in srgb, var(--fg) 92%, var(--muted));
+      font-weight:760;
+    }
+    .brand-tag{
+      font-size:.84rem;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      gap:.65rem;
+    }
+    .brand-dot{
+      width:.55rem;
+      height:.55rem;
+      border-radius:999px;
+      background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 86%, white 10%), rgba(158,255,230,.88));
+      box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 12%, transparent);
+      flex:none;
+    }
+    .top-actions{
+      display:flex;
+      gap:.6rem;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .appearance-panel{
+      position:relative;
+    }
+    .appearance-panel summary{
+      list-style:none;
+    }
+    .appearance-panel summary::-webkit-details-marker{display:none}
+    .appearance-panel[open] summary{
+      border-color:color-mix(in srgb, var(--accent) 48%, var(--border));
+      box-shadow:var(--shadow-hover);
+    }
+    .appearance-menu{
+      position:absolute;
+      right:0;
+      top:calc(100% + .55rem);
+      width:min(360px, calc(100vw - 40px));
+      padding:12px;
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 92%, transparent), color-mix(in srgb, var(--panel) 96%, transparent));
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(16px);
+      display:grid;
+      gap:10px;
+      z-index:14;
+    }
+    .appearance-kicker{
+      margin:0;
+      font-size:.78rem;
+      font-weight:840;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .swatch-row{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:8px;
+    }
+    .swatch{
+      min-height:44px;
+      padding:.7rem .78rem;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:color-mix(in srgb, var(--panel-strong) 92%, transparent);
+      color:var(--fg);
+      font-weight:780;
+      display:inline-flex;
+      align-items:center;
+      justify-content:flex-start;
+      gap:.55rem;
+      cursor:pointer;
+      box-shadow:none;
+      transition:transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .swatch:hover{
+      transform:translateY(-1px);
+      box-shadow:var(--shadow-soft);
+      border-color:color-mix(in srgb, var(--accent) 48%, var(--border));
+    }
+    .swatch::before{
+      content:"";
+      width:.82rem;
+      height:.82rem;
+      border-radius:999px;
+      flex:none;
+      box-shadow:0 0 0 6px rgba(255,255,255,.04);
+      background:linear-gradient(135deg, var(--swatch-a), var(--swatch-b));
+    }
+    .swatch[data-atmosphere-btn="blue"]{--swatch-a:#86a6ff; --swatch-b:#6fffd1;}
+    .swatch[data-atmosphere-btn="crimson"]{--swatch-a:#ff6b8e; --swatch-b:#ffb38a;}
+    .swatch[data-atmosphere-btn="emerald"]{--swatch-a:#45e3a4; --swatch-b:#9dffe2;}
+    .swatch[data-atmosphere-btn="violet"]{--swatch-a:#b287ff; --swatch-b:#ff9bf0;}
+    .swatch[aria-pressed="true"]{
+      border-color:color-mix(in srgb, var(--accent) 58%, var(--border));
+      box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent);
+    }
+
+    .btn{
+      min-height:50px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.55rem;
+      padding:.88rem 1.12rem;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:color-mix(in srgb, var(--panel-strong) 95%, transparent);
+      color:var(--fg);
+      font-weight:820;
+      text-decoration:none !important;
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(14px);
+      cursor:pointer;
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      transition:transform .14s ease, box-shadow .24s ease, border-color .24s ease, background .24s ease, filter .24s ease;
+    }
+    .btn::before{
+      content:"";
+      position:absolute;
+      inset:1px 1px auto 1px;
+      height:52%;
+      border-radius:inherit;
+      background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0));
+      opacity:.78;
+      pointer-events:none;
+    }
+    html[data-theme="dark"] .btn::before{opacity:.15}
+    .btn:hover{text-decoration:none !important}
+    .btn.lift:hover,
+    .btn.lift:focus-visible{
+      transform:translateY(-1px);
+      border-color:color-mix(in srgb, var(--accent) 48%, var(--border));
+      box-shadow:var(--shadow-hover);
+    }
+    .btn.lift:active{
+      transform:translateY(0);
+      filter:saturate(1.02);
+    }
+    .btn.cta{
+      border-color:color-mix(in srgb, var(--accent) 60%, var(--border));
+      background:
+        linear-gradient(135deg,
+          color-mix(in srgb, var(--accent) 22%, var(--panel-strong)),
+          color-mix(in srgb, #9ff6e4 16%, var(--panel))
+        ),
+        color-mix(in srgb, var(--panel-strong) 96%, transparent);
+    }
+    .btn.cta::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      pointer-events:none;
+      background:linear-gradient(118deg, transparent 0%, transparent 34%, rgba(255,255,255,.14) 48%, transparent 62%, transparent 100%);
+      opacity:.7;
+    }
+    .btn.small{
+      min-height:44px;
+      padding:.72rem .96rem;
+      font-size:.92rem;
+      font-weight:790;
+    }
+
+    .warn{
+      width:min(var(--hero), calc(100vw - 40px));
+      margin:14px auto 0;
+      padding:.92rem 1rem;
+      border-radius:20px;
+      border:1px solid rgba(255, 208, 122, .28);
+      background:rgba(255, 208, 122, .14);
+      color:color-mix(in srgb, #fff1d7 72%, var(--fg));
+      backdrop-filter:blur(10px);
+      box-shadow:var(--shadow-soft);
+    }
+    .warn[hidden]{display:none}
+
+    .main{
+      flex:1;
+      padding:46px 0 20px;
+    }
+
+    .hero-wrap{
+      width:min(var(--hero), calc(100vw - 40px));
+      margin:0 auto;
+    }
+    .hero-shell{
+      width:100%;
+      text-align:center;
+      padding:clamp(3rem, 6vw, 4.9rem) clamp(1.55rem, 4vw, 3.3rem);
+      border-radius:clamp(32px, 4vw, 44px);
+      border:1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 86%, transparent), color-mix(in srgb, var(--panel) 94%, transparent));
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(24px);
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .hero-shell::before{
+      content:"";
+      position:absolute;
+      inset:auto auto 58% -10%;
+      width:500px;
+      height:500px;
+      border-radius:50%;
+      background:radial-gradient(circle, color-mix(in srgb, var(--accent) 26%, transparent) 0%, transparent 72%);
+      pointer-events:none;
+      z-index:-1;
+    }
+    .hero-shell::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      background:linear-gradient(180deg, rgba(255,255,255,.10), transparent 24%, transparent 74%, rgba(255,255,255,.05));
+      pointer-events:none;
+    }
+    .eyebrow{
+      margin:0;
+      color:var(--muted);
+      font-size:.82rem;
+      font-weight:840;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+    }
+    h1{
+      margin:.92rem auto 0;
+      max-width:none;
+      font-size:clamp(3rem, 10vw, 6.8rem);
+      line-height:.92;
+      letter-spacing:-.06em;
+      white-space:nowrap;
+    }
+    .name-lockup{
+      display:inline-block;
+      white-space:nowrap;
+    }
+    .strap{
+      margin:.92rem auto 0;
+      max-width:30rem;
+      font-size:clamp(1.04rem, 2.35vw, 1.28rem);
+      color:color-mix(in srgb, var(--fg) 92%, var(--muted));
+      font-weight:740;
+      letter-spacing:.05em;
+      text-wrap:pretty;
+    }
+    .lede{
+      margin:1.35rem auto 0;
+      max-width:38rem;
+      font-size:clamp(1.02rem, 2.1vw, 1.18rem);
+      color:color-mix(in srgb, var(--fg) 84%, var(--muted));
+      font-weight:620;
+      text-wrap:pretty;
+    }
+    .cta-row{
+      margin-top:1.95rem;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:.82rem;
+    }
+    .subtle-note{
+      margin:1.2rem auto 0;
+      max-width:33rem;
+      color:var(--muted);
+      font-weight:690;
+      font-size:.96rem;
+      text-wrap:pretty;
+    }
+    .hero-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:1.05rem;
+      font-size:.95rem;
+      font-weight:780;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .hero-utilities{
+      margin-top:1rem;
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:.75rem 1rem;
+    }
+    .hero-utility-link{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      color:var(--muted);
+      font-size:.95rem;
+      font-weight:760;
+      text-decoration:none !important;
+      transition:color .18s ease, transform .12s ease;
+    }
+    .hero-utility-link strong{
+      color:var(--fg);
+      font-weight:820;
+    }
+    .hero-utility-link:hover,
+    .hero-utility-link:focus-visible{
+      color:var(--fg);
+      transform:translateY(-1px);
+    }
+    .continue{
+      margin-top:1.05rem;
+      display:inline-flex;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:.55rem;
+      color:var(--muted);
+      font-weight:700;
+    }
+    .continue[hidden]{display:none}
+    .continue.show{display:inline-flex}
+
+    .meta-row{
+      width:min(940px, calc(100vw - 40px));
+      margin:26px auto 0;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:.65rem;
+      opacity:.97;
+    }
+    .micro-pill{
+      font-size:.94rem;
+      font-weight:760;
+    }
+    .micro-pill a,
+    .micro-pill[href]{color:inherit}
+
+    #formats{scroll-margin-top:20px;}
+    .section-shell{
+      width:min(var(--max), calc(100vw - 40px));
+      margin:32px auto 0;
+      display:grid;
+      gap:18px;
+    }
+    .card{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 90%, transparent), color-mix(in srgb, var(--panel) 96%, transparent));
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(20px);
+      padding:22px;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), transparent 28%);
+      pointer-events:none;
+    }
+    .card > *{position:relative; z-index:1}
+    .kicker,
+    .previewMeta,
+    h3{
+      margin:0 0 8px;
+      font-size:.78rem;
+      font-weight:840;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:color-mix(in srgb, var(--fg) 78%, var(--muted));
+    }
+    .section-title,
+    .card h2{
+      margin:0;
+      font-size:1.18rem;
+      letter-spacing:-.02em;
+      line-height:1.2;
+    }
+    .sub{
+      margin:.35rem 0 0;
+      color:var(--muted);
+      font-weight:730;
+      font-size:.95rem;
+      text-wrap:pretty;
+    }
+    .hint{
+      margin:.65rem 0 0;
+      color:var(--muted);
+      font-weight:650;
+    }
+    .mono{font-family:var(--mono)}
+    .plainLink{
+      color:inherit;
+      text-decoration:underline;
+      text-decoration-style:dotted;
+      text-underline-offset:4px;
+    }
+    .plainLink:hover{opacity:.92}
+
+    .route-panel{
+      display:grid;
+      gap:12px;
+    }
+    .route-copy{
+      margin:0;
+      color:var(--muted);
+      font-weight:680;
+      max-width:54rem;
+      text-wrap:pretty;
+    }
+    .route-actions,
+    .presets,
+    .chips,
+    .rowBtns{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.6rem;
+      align-items:center;
+    }
+    .swipe-hint{
+      display:none;
+      margin:2px 0 0;
+      color:var(--muted);
+      font-weight:730;
+      font-size:.92rem;
+      text-align:center;
+    }
+    .tools-card{
+      padding:16px 18px;
+    }
+    .tools-summary{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .tools-summary::-webkit-details-marker{display:none}
+    .tools-copy{
+      display:grid;
+      gap:6px;
+      min-width:0;
+    }
+    .tools-summary .kicker{margin:0}
+    .tools-title{
+      display:block;
+      font-size:1.08rem;
+      line-height:1.25;
+      letter-spacing:-.02em;
+      font-weight:780;
+    }
+    .summaryMeta{
+      flex:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:.65rem .9rem;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:color-mix(in srgb, var(--panel-strong) 94%, transparent);
+      box-shadow:var(--shadow-soft);
+      color:color-mix(in srgb, var(--fg) 92%, var(--muted));
+      font-weight:760;
+      white-space:nowrap;
+    }
+    .tools-card[open] .summaryMeta{
+      border-color:color-mix(in srgb, var(--accent) 48%, var(--border));
+      color:var(--fg);
+    }
+    .tools-card > .split-panels{
+      margin-top:14px;
+    }
+
+    .grid{
+      display:grid;
+      gap:16px;
+    }
+    .formats-grid{
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      align-items:stretch;
+    }
+    .formats-grid > .card{
+      height:100%;
+    }
+    .list{
+      margin:.7rem 0 0;
+      padding-left:1.1rem;
+    }
+    .list li{margin:.35rem 0}
+    .previewCaption{
+      margin:.62rem 0 0;
+      color:var(--muted);
+      font-size:.93rem;
+      font-weight:700;
+      text-wrap:pretty;
+    }
+    .layoutPreview{
+      margin-top:10px;
+      position:relative;
+      padding:10px;
+      border-radius:20px;
+      border:1px solid color-mix(in srgb, var(--border) 88%, transparent);
+      background:
+        radial-gradient(130% 110% at 0% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 56%),
+        radial-gradient(110% 100% at 100% 0%, color-mix(in srgb, var(--accent2) 10%, transparent), transparent 52%),
+        linear-gradient(180deg,
+          color-mix(in srgb, var(--card-preview) 96%, transparent),
+          color-mix(in srgb, var(--panel) 88%, var(--bg)));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.10),
+        0 14px 30px rgba(2,6,23,.12);
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .layoutPreview::before{
+      content:"";
+      position:absolute;
+      inset:-20px auto auto -24px;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent), transparent 70%);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .layoutPreview::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), transparent 26%);
+      pointer-events:none;
+    }
+    .shot{
+      position:relative;
+      z-index:1;
+      min-height:136px;
+      border:1px solid color-mix(in srgb, var(--border) 88%, transparent);
+      border-radius:15px;
+      overflow:hidden;
+      background:color-mix(in srgb, var(--bg) 76%, var(--panel-strong));
+      box-shadow:
+        0 14px 28px rgba(2,6,23,.10),
+        inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .shotBar{
+      height:26px;
+      display:flex;
+      align-items:center;
+      gap:7px;
+      padding:0 10px;
+      border-bottom:1px solid color-mix(in srgb, var(--border) 82%, transparent);
+      background:linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 98%, transparent), color-mix(in srgb, var(--panel) 92%, transparent));
+    }
+    .shotDots{
+      display:flex;
+      gap:5px;
+      margin-right:4px;
+      opacity:.8;
+    }
+    .shotDots span{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:color-mix(in srgb, var(--fg) 16%, transparent);
+    }
+    .shotTab{
+      display:inline-flex;
+      align-items:center;
+      height:18px;
+      padding:0 .56rem;
+      border-radius:999px;
+      border:1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+      background:color-mix(in srgb, var(--accent) 14%, var(--panel));
+      color:color-mix(in srgb, var(--fg) 90%, var(--muted));
+      font-size:.68rem;
+      font-weight:840;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      white-space:nowrap;
+    }
+    .shotBody{
+      padding:10px;
+    }
+    .miniLine{
+      display:block;
+      height:6px;
+      border-radius:999px;
+      background:color-mix(in srgb, var(--fg) 12%, transparent);
+    }
+    .miniLine.thick{height:9px}
+    .miniLine.tiny{height:5px}
+
+    .signalShotBody{
+      display:grid;
+      grid-template-columns:62px 1fr;
+      gap:10px;
+      min-height:110px;
+      align-items:stretch;
+    }
+    .sigSide{
+      padding:8px;
+      display:grid;
+      gap:7px;
+      align-content:start;
+      border:1px solid color-mix(in srgb, var(--border) 86%, transparent);
+      border-radius:12px;
+      background:color-mix(in srgb, var(--bg) 80%, var(--panel-strong));
+    }
+    .sigPill{
+      height:11px;
+      border-radius:999px;
+      background:color-mix(in srgb, var(--fg) 12%, transparent);
+    }
+    .sigPill.active{
+      background:linear-gradient(90deg,
+        color-mix(in srgb, var(--accent) 58%, transparent),
+        color-mix(in srgb, var(--accent2) 30%, transparent));
+      box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 16%, transparent);
+    }
+    .sigMain{
+      display:grid;
+      gap:8px;
+    }
+    .sigHero{
+      padding:10px;
+      display:grid;
+      gap:6px;
+      border:1px solid color-mix(in srgb, var(--border) 84%, transparent);
+      border-radius:12px;
+      background:
+        linear-gradient(135deg,
+          color-mix(in srgb, var(--accent) 18%, transparent),
+          color-mix(in srgb, var(--accent2) 10%, transparent)),
+        color-mix(in srgb, var(--bg) 78%, var(--panel-strong));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .sigTagRow{
+      display:flex;
+      gap:5px;
+      margin-top:2px;
+    }
+    .sigTagRow span{
+      flex:1;
+      height:14px;
+      border-radius:999px;
+      background:color-mix(in srgb, var(--fg) 9%, transparent);
+    }
+    .sigGrid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:8px;
+    }
+    .sigCard{
+      padding:8px;
+      display:grid;
+      gap:6px;
+      border:1px solid color-mix(in srgb, var(--border) 86%, transparent);
+      border-radius:12px;
+      background:color-mix(in srgb, var(--bg) 80%, var(--panel-strong));
+    }
+    .sigCard.active{
+      background:
+        linear-gradient(135deg,
+          color-mix(in srgb, var(--accent) 14%, transparent),
+          color-mix(in srgb, var(--accent2) 8%, transparent)),
+        color-mix(in srgb, var(--bg) 80%, var(--panel-strong));
+      box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent);
+    }
+    .sigStats{
+      display:flex;
+      gap:5px;
+      margin-top:2px;
+    }
+    .sigStats span{
+      flex:1;
+      height:15px;
+      border-radius:8px;
+      background:color-mix(in srgb, var(--fg) 10%, transparent);
+    }
+
+    .atlasPreview{
+      padding:12px 12px 14px;
+    }
+    .atlasStack{
+      position:relative;
+      min-height:138px;
+    }
+    .atlasPage{
+      position:absolute;
+      inset:0 12px 0 12px;
+      border-radius:12px;
+      border:1px solid rgba(15,23,42,.10);
+      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(245,248,255,.98));
+      box-shadow:0 12px 28px rgba(15,23,42,.12);
+    }
+    html[data-theme="dark"] .atlasPage{
+      border-color:rgba(224,232,255,.10);
+      background:linear-gradient(180deg, rgba(248,250,255,.96), rgba(233,239,250,.94));
+    }
+    .atlasPage.back{
+      transform:translate(8px, 8px) rotate(2.15deg);
+      opacity:.56;
+    }
+    .atlasPage.front{
+      transform:translate(-3px, 1px) rotate(-1.1deg);
+      padding:12px;
+      display:grid;
+      gap:8px;
+      color:#0b1325;
+    }
+    .atlasHeader{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .atlasName{
+      display:block;
+      width:46%;
+      height:10px;
+      border-radius:999px;
+      background:rgba(11,19,37,.16);
+    }
+    .atlasBadge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      height:20px;
+      padding:0 .5rem;
+      border-radius:999px;
+      font-size:.62rem;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#274086;
+      background:linear-gradient(135deg, rgba(47,100,255,.16), rgba(19,199,162,.12));
+      border:1px solid rgba(47,100,255,.14);
+    }
+    .atlasColumns{
+      display:grid;
+      grid-template-columns:68px 1fr;
+      gap:10px;
+    }
+    .atlasSidebar,
+    .atlasContent{
+      display:grid;
+      gap:6px;
+      align-content:start;
+    }
+    .atlasLine{
+      display:block;
+      height:6px;
+      border-radius:999px;
+      background:rgba(11,19,37,.14);
+    }
+    .atlasLine.atlasTitle{
+      height:8px;
+      background:rgba(11,19,37,.20);
+    }
+    .atlasRule{
+      height:1px;
+      background:rgba(11,19,37,.12);
+      margin:1px 0;
+    }
+
+    .proofShotBody{
+      display:grid;
+      gap:8px;
+      min-height:110px;
+    }
+    .proofLead{
+      display:grid;
+      grid-template-columns:1.18fr .9fr;
+      gap:8px;
+    }
+    .proofCaseCard,
+    .proofMetricCard,
+    .proofSnippet{
+      padding:8px;
+      display:grid;
+      gap:6px;
+      border:1px solid color-mix(in srgb, var(--border) 86%, transparent);
+      border-radius:12px;
+      background:color-mix(in srgb, var(--bg) 80%, var(--panel-strong));
+    }
+    .proofCaseCard{
+      background:
+        linear-gradient(135deg,
+          color-mix(in srgb, var(--accent) 14%, transparent),
+          color-mix(in srgb, var(--accent2) 10%, transparent)),
+        color-mix(in srgb, var(--bg) 80%, var(--panel-strong));
+    }
+    .proofAccent{
+      display:block;
+      width:36%;
+      height:10px;
+      border-radius:999px;
+      background:linear-gradient(90deg,
+        color-mix(in srgb, var(--accent2) 54%, transparent),
+        color-mix(in srgb, var(--accent) 30%, transparent));
+    }
+    .proofMiniStats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6px;
+      margin-top:2px;
+    }
+    .proofMiniStats span{
+      display:block;
+      height:17px;
+      border-radius:8px;
+      background:color-mix(in srgb, var(--fg) 10%, transparent);
+    }
+    .proofMetrics{
+      display:grid;
+      gap:8px;
+    }
+    .proofMetricBar{
+      height:22px;
+      border-radius:10px;
+      background:linear-gradient(135deg,
+        color-mix(in srgb, var(--accent) 48%, transparent),
+        color-mix(in srgb, var(--accent2) 18%, transparent));
+      box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent);
+    }
+    .proofMetricBar.soft{
+      background:linear-gradient(135deg,
+        color-mix(in srgb, var(--accent) 22%, transparent),
+        color-mix(in srgb, var(--accent2) 12%, transparent));
+    }
+    .proofTrail{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:8px;
+    }
+
+    .switchShotBody{
+      display:grid;
+      gap:8px;
+      min-height:110px;
+    }
+    .switchMiniHero{
+      height:24px;
+      border-radius:10px;
+      background:linear-gradient(90deg,
+        color-mix(in srgb, var(--accent) 26%, transparent),
+        color-mix(in srgb, var(--accent2) 12%, transparent));
+      box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+    .switchRouteStack{
+      display:grid;
+      gap:7px;
+    }
+    .switchRouteRow{
+      display:grid;
+      grid-template-columns:12px 1fr 44px;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border:1px solid color-mix(in srgb, var(--border) 86%, transparent);
+      border-radius:12px;
+      background:color-mix(in srgb, var(--bg) 80%, var(--panel-strong));
+    }
+    .switchRouteRow.active{
+      background:
+        linear-gradient(90deg,
+          color-mix(in srgb, var(--accent) 18%, transparent),
+          color-mix(in srgb, var(--accent2) 8%, transparent)),
+        color-mix(in srgb, var(--bg) 80%, var(--panel-strong));
+      border-color:color-mix(in srgb, var(--accent) 28%, var(--border));
+    }
+    .routeDot{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:color-mix(in srgb, var(--fg) 18%, transparent);
+    }
+    .switchRouteRow.active .routeDot{
+      background:linear-gradient(135deg,
+        color-mix(in srgb, var(--accent) 82%, white 8%),
+        color-mix(in srgb, var(--accent2) 64%, white 8%));
+    }
+    .switchMeta{
+      display:block;
+      height:6px;
+      border-radius:999px;
+      background:color-mix(in srgb, var(--fg) 10%, transparent);
+    }
+
+    .w100{width:100%}
+    .w92{width:92%}
+    .w90{width:90%}
+    .w88{width:88%}
+    .w86{width:86%}
+    .w85{width:85%}
+    .w78{width:78%}
+    .w74{width:74%}
+    .w72{width:72%}
+    .w64{width:64%}
+    .w56{width:56%}
+    .w48{width:48%}
+
+    .split-panels{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+    .custom{
+      display:grid;
+      gap:14px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.56rem .78rem;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:color-mix(in srgb, var(--panel-strong) 94%, transparent);
+      box-shadow:var(--shadow-soft);
+      cursor:pointer;
+      user-select:none;
+      font-weight:760;
+      color:color-mix(in srgb, var(--fg) 90%, var(--muted));
+    }
+    .chip input{accent-color:var(--accent)}
+    .chip[data-on="true"]{
+      border-color:color-mix(in srgb, var(--accent) 58%, var(--border));
+      box-shadow:inset 0 0 0 2px color-mix(in srgb, var(--accent) 20%, transparent), var(--shadow-soft);
+      color:var(--fg);
+    }
+    .searchRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.65rem;
+      align-items:center;
+    }
+    .searchRow input{
+      flex:1 1 280px;
+      min-height:48px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:.75rem .96rem;
+      background:color-mix(in srgb, var(--panel-strong) 96%, transparent);
+      color:var(--fg);
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(12px);
+    }
+
+    .toast{
+      position:fixed;
+      bottom:18px;
+      left:50%;
+      transform:translateX(-50%);
+      background:color-mix(in srgb, var(--fg) 92%, var(--bg));
+      color:var(--bg);
+      border-radius:999px;
+      padding:.55rem .9rem;
+      font-weight:900;
+      box-shadow:var(--shadow-soft);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease, transform .2s ease;
+      z-index:60;
+    }
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(-6px);
+    }
+
+    footer{
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .specular-headline{
+      position:relative;
+      display:inline-block;
+      isolation:isolate;
+    }
+    .specular-headline::after{
+      content: attr(data-text);
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      color:transparent;
+      -webkit-text-fill-color: transparent;
+      background:
+        linear-gradient(
+          110deg,
+          transparent 0%,
+          transparent 38%,
+          rgba(255,255,255,0) 44%,
+          rgba(255,255,255,.98) 50%,
+          rgba(255,255,255,0) 56%,
+          transparent 62%,
+          transparent 100%
+        );
+      background-size:230% 100%;
+      background-position:135% 50%;
+      -webkit-background-clip:text;
+      background-clip:text;
+      opacity:0;
+      will-change:background-position, opacity;
+    }
+    html[data-theme="light"] .specular-headline::after{
+      background:
+        linear-gradient(
+          110deg,
+          transparent 0%,
+          transparent 38%,
+          rgba(255,255,255,0) 44%,
+          rgba(255,255,255,.96) 50%,
+          rgba(255,255,255,0) 56%,
+          transparent 62%,
+          transparent 100%
+        );
+    }
+    .specular-headline.specular-run::after{
+      animation:headlineSpecularPass .78s cubic-bezier(.23,.68,.22,1) 1;
+    }
+    @keyframes headlineSpecularPass{
+      0%{background-position:135% 50%; opacity:0;}
+      12%{opacity:.18;}
+      34%{opacity:.96;}
+      100%{background-position:-40% 50%; opacity:0;}
+    }
+    html.plain .specular-headline::after{display:none;}
+
+    .bsc-dock{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      z-index:9999;
+      font-family:var(--sans);
+      opacity:0;
+      transform:translateY(14px);
+      pointer-events:none;
+      transition:opacity .22s ease, transform .22s ease;
+    }
+    html.show-dock .bsc-dock{
+      opacity:1;
+      transform:none;
+      pointer-events:auto;
+    }
+    .bsc-dock summary{
+      list-style:none;
+      cursor:pointer;
+      user-select:none;
+      min-height:46px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.55rem;
+      padding:.75rem .98rem;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:color-mix(in srgb, var(--panel-strong) 95%, transparent);
+      color:var(--fg);
+      font-weight:820;
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(14px);
+    }
+    .bsc-dock summary::-webkit-details-marker{display:none}
+    .bsc-dock-panel{
+      width:min(340px, calc(100vw - 32px));
+      margin-top:.55rem;
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 92%, transparent), color-mix(in srgb, var(--panel) 96%, transparent));
+      box-shadow:var(--shadow-soft);
+      padding:12px;
+      backdrop-filter:blur(16px);
+    }
+    .bsc-dock-kicker{
+      margin:0 0 10px;
+      font-size:.78rem;
+      font-weight:840;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .bsc-dock-grid{
+      display:grid;
+      gap:8px;
+    }
+    .bsc-dock-link{
+      display:block;
+      padding:.8rem .84rem;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:color-mix(in srgb, var(--panel-strong) 92%, transparent);
+      color:inherit !important;
+      text-decoration:none !important;
+      transition:transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .bsc-dock-link:hover{
+      transform:translateY(-1px);
+      box-shadow:var(--shadow-soft);
+      border-color:color-mix(in srgb, var(--accent) 48%, var(--border));
+    }
+    .bsc-dock-link strong{
+      display:block;
+      font-size:.95rem;
+      letter-spacing:-.01em;
+    }
+    .bsc-dock-link span{
+      display:block;
+      margin-top:2px;
+      font-size:.82rem;
+      color:var(--muted);
+    }
+    .bsc-dock-link[aria-current="page"]{
+      border-color:color-mix(in srgb, var(--accent) 55%, var(--border));
+      box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent);
+    }
+
+    @media (max-width: 900px){
+      .split-panels{grid-template-columns:1fr}
+      .swipe-hint{display:none}
+      .formats-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+      .route-actions,
+      .rowBtns{
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        align-items:stretch;
+      }
+      .route-actions .btn,
+      .rowBtns .btn{width:100%}
+      .presets{
+        display:grid;
+        grid-auto-flow:column;
+        grid-auto-columns:minmax(240px, 1fr);
+        overflow-x:auto;
+        scroll-snap-type:x proximity;
+        padding-bottom:4px;
+      }
+      .presets .btn{width:100%; scroll-snap-align:start}
+    }
+    @media (max-width: 720px){
+      .signalShotBody{grid-template-columns:56px 1fr}
+      .atlasColumns{grid-template-columns:60px 1fr}
+      .hero-shell{padding:2.45rem 1.2rem 2rem}
+      h1{font-size:clamp(1.76rem, 8.8vw, 3.05rem); letter-spacing:-.042em; white-space:nowrap}
+      .topbar{justify-content:center}
+      .top-actions{justify-content:center}
+      .meta-row{width:calc(100vw - 24px)}
+      .warn,.hero-wrap,.section-shell{width:calc(100vw - 24px)}
+      .card{padding:18px}
+      .cta-row{
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+      .cta-row .btn{width:100%}
+      .subtle-note{font-size:.92rem}
+      .swipe-hint{display:block}
+      .formats-grid{
+        grid-auto-flow:column;
+        grid-template-columns:none;
+        grid-auto-columns:minmax(88vw, 1fr);
+        overflow-x:auto;
+        overscroll-behavior-x:contain;
+        scroll-snap-type:x proximity;
+        padding-bottom:6px;
+        scrollbar-width:thin;
+      }
+      .formats-grid > .card{
+        scroll-snap-align:start;
+        height:auto;
+      }
+      .bsc-dock{right:12px; bottom:12px}
+      .bsc-dock-panel{width:min(320px, calc(100vw - 24px))}
+    }
+    @media (max-width: 520px){
+      .top-actions{width:100%; justify-content:center}
+      .top-actions .btn{flex:1 1 calc(50% - .45rem)}
+      .route-actions,
+      .rowBtns,
+      .cta-row{grid-template-columns:1fr}
+      .formats-grid{grid-auto-columns:minmax(90vw, 1fr)}
+      .presets{grid-auto-columns:minmax(84vw, 1fr)}
+      .tools-summary{align-items:flex-start; flex-direction:column}
+      .summaryMeta{width:100%; justify-content:center}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important; scroll-behavior:auto !important}
+      .specular-headline::after{display:none}
+      #confetti{display:none}
+    }
+
+    @media print{
+      #vanta,.atmosphere-fallback,.scrim,#confetti,.topbar,.warn,.toast,.bsc-dock{display:none !important}
+      body{background:#fff;color:#111}
+      .site{padding:0}
+      .hero-shell,.card{
+        box-shadow:none !important;
+        border:1px solid #d8deea !important;
+        background:#fff !important;
+        backdrop-filter:none !important;
+      }
+      .hero-wrap,.section-shell,.meta-row{width:100%; max-width:none}
+      .btn,.chip,.micro-pill{
+        box-shadow:none !important;
+        background:#fff !important;
+        border:1px solid #d8deea !important;
+        color:#111 !important;
+      }
+      a{color:#111 !important; text-decoration:none !important}
+    }
+  </style>
 </head>
-<style>
-html,
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: "Roboto", sans-serif
-}
-</style>
+<body>
+  <a class="skip" href="#formats">Skip to resume formats</a>
+  <div id="vanta" aria-hidden="true"></div>
+  <div class="atmosphere-fallback" aria-hidden="true"></div>
+  <div class="scrim" aria-hidden="true"></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
 
-<body class="w3-light-grey">
-    <!-- Page Container -->
-    <div class="w3-content w3-margin-top" style="max-width:1400px;">
-        <!-- The Grid -->
-        <div class="w3-row-padding">
-            <!-- Left Column -->
-            <div class="w3-third">
-                <div class="w3-white w3-text-grey w3-card-4">
-                    <div class="w3-display-container">
-                        <!-- <img src="/w3images/avatar_hat.jpg" style="width:100%" alt="Avatar"> -->
-                        <div class="w3-display-bottomleft w3-container w3-text-black">
-                            <h2>Brandon S. Clark</h2>
-                        </div>
-                    </div>
-                    <div class="w3-container">
-                        <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>IT Professional</p>
-                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Wausau, WI</p>
-                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>bsc_work@yahoo.com</p>
-                        <hr>
-                        <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
-                        <p>Full-Stack Software Development</p>
-                        <div class="w3-light-grey w3-round-xlarge w3-small"></div>
-                        <p>Back-End Web Development</p>
-                        <div class="w3-light-grey w3-round-xlarge w3-small"></div>
-                        <p>Amazon Web Services (DevOps)</p>
-                        <div class="w3-light-grey w3-round-xlarge w3-small"></div>
-                        <p>IT Process Automation</p>
-                        <div class="w3-light-grey w3-round-xlarge w3-small">
-                        </div>
-                        <br>
-                        <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Software/Languages</b></p>
-                        <p>NodeJS</p>
-                        <p>ExpressJS</p>
-                        <p>ReactJS</p>
-                        <p>TypeScript</p>
-                        <p>VueJS</p>
-                        <p>HTML</p>
-                        <p>CSS</p>
-                        <div class="w3-light-grey w3-round-xlarge"></div>
-                        <p>Java</p>
-                        <p>Java Spring</p>
-                        <p>C#</p>
-                        <p>VBA</p>
-                        <p>Python</p>
-                        <p>Bash</p>
-                        <p>Shell Scripting</p>
-                        <p>AWS-CLI</p>
-                        <div class="w3-light-grey w3-round-xlarge"></div>
-                        <p>MS SQL Server</p>
-                        <p>Mongo</p>
-                        <p>Redis</p>
-                        <p>MS Word</p>
-                        <p>MS Excel</p>
-                        <p>MS Access</p>
-                        <div class="w3-light-grey w3-round-xlarge"></div>
-                        <br>
-                    </div>
-                </div><br>
-                <!-- End Left Column -->
+  <div class="site">
+    <header class="topbar" aria-label="Page utilities">
+      <div class="brand-tag"><span class="brand-dot" aria-hidden="true"></span> Brandon S. Clark · Cinematic Resume Home</div>
+      <div class="top-actions">
+        <a class="btn lift small" href="?plain=1" id="plainModeLink" aria-label="Toggle plain mode">Plain mode</a>
+        <button class="btn lift small" id="themeBtn" type="button">Light mode</button>
+        <details class="appearance-panel" id="appearancePanel">
+          <summary class="btn lift small">Atmosphere</summary>
+          <div class="appearance-menu">
+            <p class="appearance-kicker">Fog palette</p>
+            <div class="swatch-row" role="group" aria-label="Atmosphere colors">
+              <button class="swatch" type="button" data-atmosphere-btn="blue" aria-pressed="true">Blue</button>
+              <button class="swatch" type="button" data-atmosphere-btn="crimson" aria-pressed="false">Crimson</button>
+              <button class="swatch" type="button" data-atmosphere-btn="emerald" aria-pressed="false">Emerald</button>
+              <button class="swatch" type="button" data-atmosphere-btn="violet" aria-pressed="false">Violet</button>
             </div>
-            <!-- Right Column -->
-            <div class="w3-twothird">
-                <div class="w3-container w3-card w3-white w3-margin-bottom">
-                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Software Engineer / Milwaukee Tool, INC.</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>September 2021 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
-                        <ul>
-                            <li>Assigned as the only Software Engineer on the OneKey Integration’s Team, with an
-intensive focus on creating web-based integration services for external partners.</li>
-                            <li>Immediately started writing detailed documentation on the current infrastructure and the
-team’s own code repositories.</li>
-                            <li>Extended existing customer-facing OpenAPI using Terraform as Infrastructure as Code (IaC) for the AWS API Gateway.</li>
-<li>Designed, created, and deployed multiple proof of concepts including integrating AWS API Gateway Resources to trigger Step Function workflows that orchestrate several Lambda Functions and using VTL Mapping Templates for request/response formatting.</li>
-<li>Designed and developed solutions using AWS services including Serverless Lambda
-Functions written in NodeJS, DyanmoDB, and Containerized Web Applications hosted on
-EC2 instances.</li>
-<li>Improved existing C# web applications by re-writing the code in a more reusable way.</li>
-<li>Researched, designed, and developed a Python based “Fuzzy Matching/Machine Learning”
-proof of concept to prevent data duplication, as well as to assist in auto syncing and
-importing of external user accounts.</li>
-<li>Contributed to existing UI/Front-End Web Applications using AngularJS, Typescript, NodeJS,
-and NPM.</li>
-<li>Developed auto-populating dynamic URLs, also known as “deep links”, that are embedded
-into the pages of various PDF reports.</li>
-<li>Researched, designed, and presented solutions for handling user “Entitlements & Data
-Scopes”, to build and maintain user trust and data control.</li>
-<li>Lead the effort in a complete redesign and modernization of the existing architecture
-using a Chain of Responsibility system design pattern, along with NodeJS and ExpressJS as
-the Framework.</li>
-<li>Improved existing processes by implementing a new step-by-step Feature Story Life-Cycle
-confluence page, with guided examples and other documentation.</li>
-<li>Contributed to Pull Request Reviews to better provide guidance, while ensuring that best
-practices are followed.</li>
-<li>Deconstructed multiple complex internal systems, and documented there processes and
-behaviors, in order to achieve a better understanding during the on-boarding of new
-developers.</li>                 
-                        </ul>
-                        <hr>
-                    </div>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Full-Stack Developer / Foundation Finance Company, LLC.</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>February 2020 - September 2021</h6>
-                        <ul>
-                            <li>Assisted with the design and implementation web applications in Amazon Web Services (AWS) Cloud.</li>
-                            <li>CI/CD Pipeline Integration using Bitbucket Pipeline to automatically build and run QA tests and deploy web applications.</li>
-                            <li>Superior technical expertise and troubleshooting skills, able to jump right in.</li>
-                            <li>Collaborated with project managers to scope milestones, resource use, and delivery estimates and reported to executives on project progress.</li>
-                            <li>Lead the team to develop technical solutions and implementing best practices.</li>
-                            <li>Developed and deployed a client facing payment portal which has taken in ~250,000 payments for a total of ~$85,000,000.</li>
-                            <li>Created internal software coding standards guidelines, including nomenclature, comment styling, API versions, and unit test scripts design.</li>
-                            <li>Developed and Implemented Custom SQL Server Functions and Stored Procedures.</li>
-                            <li>Researched into implementing Machine Learning using JavaScript and Python to improve and automate work processes.</li>
-                            <li>UI/UX website design using ReactJS.</li>
-                            <li>Designed, Developed and Implemented "Role Based Security Model" for end users.</li>
-                            <li>Created detailed API documentation for client integrated users (api-docs).</li>
-                        </ul>
-                        <hr>
-                    </div>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Software Developer / Foundation Finance Company, LLC.</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>April 2019 - February 2020</h6>
-                        <ul>
-                            <li>Developed Automated Data Entry Program with Java and MS SQL Server, which saved over 1200 Human hours and ~$40,000.00.</li>
-                            <li>Developed new Client Portal from scratch using MERN stack (MongoDB Express ReactJS and NodeJS). Some of the features include a focus on Dependency Injection, Driver’s License Scanner, Passport-JWT Token based Authentication, and much more.</li>
-                            <li>Developed Client facing Payment Portal using Node, Express, and SQL.</li>
-                            <li>Researched then developed multiple Proof of Concepts prior to implementing into platform (i.e. ID Scanning Software Vendor, Mongo Database Tools, Software Stack for new portal platform "MERN Stack")</li>
-                            <li>Automated Active Directory PowerShell scripts for extracting user information and creating new users with default parameters set.</li>
-                            <li>Implemented VisualCron Server and Setup Automated Scheduled Jobs.</li>
-                            <li>This allows the application to spin up or down resources based on load, saving time and money.</li>
-                            <li>Implemented MongoDB Atlas Cloud for Centralized Data Storage.</li>
-                            <li>Created detailed technical documentation for both IT department and end users.</li>
-                            <li>Researched, Vetted, Selected, and then Implemented "3rd Party Identification Scanning Software" into custom portal platform.</li>
-                        </ul>
-                        <hr>
-                    </div>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Web Developer / Aqua Finance, INC.</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>January 2018 - April 2019</h6>
-                        <ul>
-                            <li>Promoted within 4 months for exceeding senior executive’s expectations.</li>
-                            <li>Troubleshooting internal systems.</li>
-                            <li>Increased scope and responsibility by focusing on Full-Stack development.</li>
-                            <li>New role includes more development in C#, JSP, Java, and SalesForce.</li>
-                            <li>Wrote new .NET software solutions for web-based, dealer, and consumer systems.</li>
-                            <li>Developed Java Spring API and Custom JSP Login Pages.</li>
-                        </ul>
-                        <hr>
-                    </div>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Software Developer / Aqua Finance, INC.</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>September 2017 - January 2018</h6>
-                        <ul>
-                            <li>Developed solutions in AFI’s proprietary software with Alaska Xbase++, and Express++.</li>
-                            <li>Assisted with the design, deployment, and the migration of the new modern environment.</li>
-                            <li>Effectively implement new ideas and reasoning into the program code.</li>
-                            <li>Worked with SLES (Suse Linux Enterprise Server), Windows 10, GroupWise 2012, Advantage Database Server, and UNITRENDS Backup software.</li>
-                            <li>Programming languages included Xbase++, Express++, C#, and Java.</li>
-                            <li>Documented code through standard release notes, structured comments, and user manual updates.</li>
-                            <li>Leveraged knowledge from Finance Degree to implement new solutions based on Accounting principles and concepts.</li>
-                        </ul>
-                        <hr>
-                    </div>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Application Developer / Minnesota State Attorney General's Office</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>July 2016 - August 2017</h6>
-                        <ul>
-                            <li>Support and administer all system applications used by the office and it’s attorneys.</li>
-                            <li>After meeting with members of the office, I determine application needs and database design schemes.</li>
-                            <li>Managed our office wide retention project by reviewing and applying internal retention polices to Case Dockets before purging indefinitely.</li>
-                            <li>Designed and implemented a custom made MS Access database global error handler to track all database errors while increase proficiency of the database team. </li>
-                            <li>Worked with wide variety of languages and tools including MS Office, Relativity, Regular Expressions, VBA, SQL Server, SQL, T-SQL, Visual Studio, ASP.NET, HTML, and Python.</li>
-                            <li>Perform testing for all databases including updates from OS security level patches to finalization tests prior to deployment.</li>
-                        </ul>
-                    </div>
+          </div>
+        </details>
+      </div>
+    </header>
+
+    <div class="warn" id="warn" role="status" aria-live="polite" hidden></div>
+
+    <main class="main" id="content">
+      <div class="hero-wrap">
+        <section class="hero-shell card" aria-label="Cinematic resume hero">
+          <p class="eyebrow">Senior software engineer</p>
+          <h1><span class="name-lockup">Brandon&nbsp;S.&nbsp;Clark</span></h1>
+          <p class="strap"><span class="specular-headline" data-text="Cloud, Data &amp; IoT Platforms" id="heroHeadline">Cloud, Data &amp; IoT Platforms</span></p>
+          <p class="lede">
+            Secure AWS systems, maintainable APIs, and calm operational delivery — then hand each reader the version of the story that fits how they review candidates.
+          </p>
+
+          <div class="cta-row" role="group" aria-label="Primary resume actions">
+            <a class="btn lift cta" href="resume-atlas.html" data-mode="resume-atlas.html">Start with Atlas</a>
+            <a class="btn lift" href="resume-signal.html" data-mode="resume-signal.html">Open Signal</a>
+          </div>
+
+          <p class="subtle-note">
+            Atlas is the clean default. Signal is the tailored route. Keep Proof Hub and the full mode list close, but not competing with the hero.
+          </p>
+
+          <div class="hero-utilities" aria-label="Secondary resume actions">
+            <a class="hero-utility-link" href="proof-hub.html" data-mode="proof-hub.html"><strong>Need proof?</strong> Open Proof Hub</a>
+            <a class="hero-utility-link" href="#formats"><strong>See all modes</strong> Explore every mode ↓</a>
+          </div>
+        </section>
+
+        <section class="meta-row" aria-label="Contact links">
+          <span class="micro-pill">Wisconsin · Remote</span>
+          <a class="micro-pill" href="mailto:bsc_work@yahoo.com">bsc_work@yahoo.com</a>
+          <a class="micro-pill" href="https://github.com/theghostarbiter" target="_blank" rel="noopener">GitHub</a>
+          <a class="micro-pill" href="https://www.linkedin.com/in/brandon-c-it-industry" target="_blank" rel="noopener">LinkedIn</a>
+        </section>
+      </div>
+
+      <div class="section-shell" id="formats">
+        <section class="card route-panel" aria-label="Recommended routes">
+          <div class="kicker">Reader routing</div>
+          <h2 class="section-title">Choose the mode that matches how they review</h2>
+          <p class="route-copy">
+            The homepage stays cinematic and clean. This section handles the practical handoff once someone wants specifics. Toggle motion: <a class="plainLink mono" href="?plain=1" id="plainModeLinkInline">plain mode</a>
+          </p>
+          <div class="route-actions" role="group" aria-label="Audience shortcuts">
+            <a class="btn lift cta small" href="resume-atlas.html" data-mode="resume-atlas.html">Recruiter / ATS → Atlas</a>
+            <a class="btn lift small" href="resume-signal.html" data-mode="resume-signal.html">Hiring manager → Signal</a>
+            <a class="btn lift small" href="proof-hub.html" data-mode="proof-hub.html">Technical deep dive → Proof Hub</a>
+            <a class="btn lift small" href="resume-switchboard.html" data-mode="resume-switchboard.html">Low-motion fallback → Switchboard</a>
+          </div>
+        </section>
+
+        <p class="swipe-hint">On phones, swipe sideways through the resume format cards.</p>
+        <div aria-label="Resume formats" class="grid formats-grid">
+          <section aria-label="Interactive resume" class="card">
+            <div class="kicker">Interactive resume</div>
+            <h2>Signal — Tailorable / Hiring‑manager first</h2>
+            <div class="sub">Best for hiring managers and technical readers who want a focused, highlighted view.</div>
+
+            <div class="previewMeta">Layout preview</div>
+            <div aria-hidden="true" class="layoutPreview signalPreview">
+              <div class="shot">
+                <div class="shotBar">
+                  <div class="shotDots"><span></span><span></span><span></span></div>
+                  <span class="shotTab">Signal</span>
                 </div>
-                <div class="w3-container w3-card w3-white">
-                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>University of Wisconsin-River Falls</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2011 - 2016</h6>
-                        <p>Bachelor of Science in Finance</p>
-                        <p>Minor: Computer Science</p>
-                        <hr>
+                <div class="shotBody signalShotBody">
+                  <div class="sigSide">
+                    <span class="miniLine tiny w48"></span>
+                    <span class="sigPill"></span>
+                    <span class="sigPill active"></span>
+                    <span class="sigPill"></span>
+                    <span class="sigPill"></span>
+                  </div>
+                  <div class="sigMain">
+                    <div class="sigHero">
+                      <span class="miniLine thick w56"></span>
+                      <span class="miniLine w92"></span>
+                      <span class="miniLine w74"></span>
+                      <div class="sigTagRow"><span></span><span></span><span></span></div>
                     </div>
-                    <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Certifications</b></h5>
-                        <p>Bloomberg Terminal</p>
-                        <p>Amazon Web Services – Certified Cloud Practitioner</p>
-                        <p>Amazon Web Services – Certified Solutions Architect - Associate</p>
-                        <p>Amazon Web Services – Certified Solutions Architect - Professional (in progress)</p>
-                        <br>
+                    <div class="sigGrid">
+                      <div class="sigCard active">
+                        <span class="miniLine thick w64"></span>
+                        <span class="miniLine w92"></span>
+                        <span class="miniLine w78"></span>
+                      </div>
+                      <div class="sigCard">
+                        <span class="miniLine thick w56"></span>
+                        <div class="sigStats"><span></span><span></span><span></span></div>
+                        <span class="miniLine w86"></span>
+                      </div>
                     </div>
+                  </div>
                 </div>
-                <!-- End Right Column -->
+              </div>
             </div>
-            <!-- End Grid -->
+            <p class="previewCaption">Interactive layout with focus chips, highlighted bullets, and tailored share links.</p>
+
+            <ul class="list">
+              <li>Focus filters for cloud, APIs, IoT, data, ops, leadership, enablement, and GenAI.</li>
+              <li>Shareable links that open with the right bullets already highlighted.</li>
+              <li>Best when someone wants a curated read instead of a static document.</li>
+            </ul>
+
+            <div class="rowBtns">
+              <a class="btn lift cta small" href="resume-signal.html" data-mode="resume-signal.html">Open Signal</a>
+              <a class="btn lift small" download="BrandonClark_Resume_Signal.html" href="resume-signal.html">Download HTML</a>
+              <button class="btn lift small" data-open-preset="cloud" type="button">Open: Cloud / Platform</button>
+              <button class="btn lift small" data-open-preset="iot" type="button">Open: IoT / Devices</button>
+            </div>
+            <p class="hint mono">Tip: Signal supports URLs like <span id="exampleUrl">resume-signal.html?focus=cloud,api</span></p>
+          </section>
+
+          <section aria-label="Print-ready resume" class="card">
+            <div class="kicker">Print / PDF / classic</div>
+            <h2>Atlas — Recruiter‑safe document view</h2>
+            <div class="sub">Best for recruiters, ATS uploads, printing, and traditional resume review.</div>
+
+            <div class="previewMeta">Layout preview</div>
+            <div aria-hidden="true" class="layoutPreview atlasPreview">
+              <div class="atlasStack">
+                <div class="atlasPage back"></div>
+                <div class="atlasPage front">
+                  <div class="atlasHeader">
+                    <span class="atlasName"></span>
+                    <span class="atlasBadge">PDF</span>
+                  </div>
+                  <div class="atlasColumns">
+                    <div class="atlasSidebar">
+                      <span class="atlasLine w72"></span>
+                      <span class="atlasLine w56"></span>
+                      <span class="atlasLine w48"></span>
+                    </div>
+                    <div class="atlasContent">
+                      <span class="atlasLine atlasTitle w48"></span>
+                      <span class="atlasLine w100"></span>
+                      <span class="atlasLine w92"></span>
+                      <span class="atlasLine w78"></span>
+                    </div>
+                  </div>
+                  <div class="atlasRule"></div>
+                  <span class="atlasLine w100"></span>
+                  <span class="atlasLine w90"></span>
+                  <span class="atlasLine w74"></span>
+                </div>
+              </div>
+            </div>
+            <p class="previewCaption">Classic document-first layout built for PDF, printing, and ATS-safe scanning.</p>
+
+            <ul class="list">
+              <li>Fastest “read it like a PDF” experience.</li>
+              <li>Conservative structure for uploads, attachments, and recruiter screens.</li>
+              <li>Best default when you need the safest all-purpose version.</li>
+            </ul>
+
+            <div class="rowBtns">
+              <a class="btn lift cta small" href="resume-atlas.html" data-mode="resume-atlas.html">Open Atlas</a>
+              <a class="btn lift small" download="BrandonClark_Resume_Atlas.html" href="resume-atlas.html">Download HTML</a>
+              <button class="btn lift small" id="openAtlasAndPrint" type="button">Open &amp; Print PDF</button>
+            </div>
+            <p class="hint">If you are short on time, Atlas is the fastest classic read.</p>
+          </section>
+
+          <section aria-label="Proof hub" class="card">
+            <div class="kicker">Evidence layer</div>
+            <h2>Proof Hub — Case studies / hard metrics / bullet bank</h2>
+            <div class="sub">Best for technical interview loops, validation requests, and deeper proof behind the headline bullets.</div>
+
+            <div class="previewMeta">Layout preview</div>
+            <div aria-hidden="true" class="layoutPreview proofPreview">
+              <div class="shot">
+                <div class="shotBar">
+                  <div class="shotDots"><span></span><span></span><span></span></div>
+                  <span class="shotTab">Proof Hub</span>
+                </div>
+                <div class="shotBody proofShotBody">
+                  <div class="proofLead">
+                    <div class="proofCaseCard">
+                      <span class="proofAccent"></span>
+                      <span class="miniLine thick w56"></span>
+                      <span class="miniLine w92"></span>
+                      <span class="miniLine w74"></span>
+                      <div class="proofMiniStats"><span></span><span></span></div>
+                    </div>
+                    <div class="proofMetrics">
+                      <div class="proofMetricCard">
+                        <span class="miniLine tiny w48"></span>
+                        <span class="proofMetricBar"></span>
+                      </div>
+                      <div class="proofMetricCard">
+                        <span class="miniLine tiny w56"></span>
+                        <span class="proofMetricBar soft"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="proofTrail">
+                    <div class="proofSnippet">
+                      <span class="miniLine tiny w48"></span>
+                      <span class="miniLine w92"></span>
+                      <span class="miniLine w78"></span>
+                    </div>
+                    <div class="proofSnippet">
+                      <span class="miniLine tiny w56"></span>
+                      <span class="miniLine w88"></span>
+                      <span class="miniLine w64"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="previewCaption">Evidence board for case studies, recruiter packs, supporting metrics, and bullet-bank depth.</p>
+
+            <ul class="list">
+              <li>Year-by-year accomplishments, case studies, recruiter pack, and matching tools.</li>
+              <li>Best when someone wants proof behind the core resume story.</li>
+              <li>The evidence layer underneath Atlas and Signal.</li>
+            </ul>
+
+            <div class="rowBtns">
+              <a class="btn lift cta small" href="proof-hub.html" data-mode="proof-hub.html">Open Proof Hub</a>
+              <a class="btn lift small" download="BrandonClark_Proof_Hub.html" href="proof-hub.html">Download HTML</a>
+            </div>
+            <p class="hint">Think of this as the “show your work” version of the resume.</p>
+          </section>
+
+          <section aria-label="Static switchboard" class="card">
+            <div class="kicker">Low-motion fallback</div>
+            <h2>Switchboard — Clean / no-fog / backup hub</h2>
+            <div class="sub">Best for reduced motion, conservative browsers, or a very safe shareable gateway.</div>
+
+            <div class="previewMeta">Layout preview</div>
+            <div aria-hidden="true" class="layoutPreview switchPreview">
+              <div class="shot">
+                <div class="shotBar">
+                  <div class="shotDots"><span></span><span></span><span></span></div>
+                  <span class="shotTab">Switchboard</span>
+                </div>
+                <div class="shotBody switchShotBody">
+                  <div class="switchMiniHero"></div>
+                  <div class="switchRouteStack">
+                    <div class="switchRouteRow active">
+                      <span class="routeDot"></span>
+                      <span class="miniLine w64"></span>
+                      <span class="switchMeta"></span>
+                    </div>
+                    <div class="switchRouteRow">
+                      <span class="routeDot"></span>
+                      <span class="miniLine w72"></span>
+                      <span class="switchMeta"></span>
+                    </div>
+                    <div class="switchRouteRow">
+                      <span class="routeDot"></span>
+                      <span class="miniLine w56"></span>
+                      <span class="switchMeta"></span>
+                    </div>
+                    <div class="switchRouteRow">
+                      <span class="routeDot"></span>
+                      <span class="miniLine w78"></span>
+                      <span class="switchMeta"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="previewCaption">Simple route list with conservative browser safety and no animated atmosphere.</p>
+
+            <ul class="list">
+              <li>Minimal gateway with the same routing logic and no cinematic intro.</li>
+              <li>Best as a no-WebGL fallback and a share-safe alternate homepage.</li>
+              <li>Still includes Signal presets and Atlas shortcuts.</li>
+            </ul>
+
+            <div class="rowBtns">
+              <a class="btn lift cta small" href="resume-switchboard.html" data-mode="resume-switchboard.html">Open Switchboard</a>
+              <a class="btn lift small" download="BrandonClark_Resume_Switchboard.html" href="resume-switchboard.html">Download HTML</a>
+            </div>
+            <p class="hint">Send this when you want the ecosystem without the cinematic layer.</p>
+          </section>
         </div>
-        <!-- End Page Container -->
-    </div>
-    <footer class="w3-container w3-teal w3-center w3-margin-top">
-        <p>Find me on social media.</p>
-        <i class="fa fa-linkedin w3-hover-opacity"></i>
-        <p>Brandon S. Clark</a></p>
-    </footer>
-</body>
 
+        <details class="card tools-card" id="tailorTools">
+          <summary class="tools-summary">
+            <span class="tools-copy">
+              <span class="kicker">Advanced tailoring</span>
+              <span class="tools-title">Build a tailored Signal link or use one-click presets</span>
+            </span>
+            <span class="summaryMeta">Show tools</span>
+          </summary>
+          <div class="split-panels">
+            <section aria-label="One-click presets" class="card">
+            <div class="kicker">One‑click presets</div>
+            <h2 class="section-title">Jump straight into Signal with the right emphasis</h2>
+            <p class="route-copy">These links preselect focus areas so the opening view is already tuned for the reader.</p>
+            <div aria-label="Preset links" class="presets" role="group">
+              <button class="btn lift small" data-open-focus="cloud,api,opex" type="button">Cloud / Platform / AWS</button>
+              <button class="btn lift small" data-open-focus="api,cloud,opex" type="button">APIs / Integrations</button>
+              <button class="btn lift small" data-open-focus="iot,cloud,api,opex" type="button">IoT / Device Services</button>
+              <button class="btn lift small" data-open-focus="data,cloud,api" type="button">Data Platform / ETL</button>
+              <button class="btn lift small" data-open-focus="lead,enable,opex" type="button">Leadership / Enablement</button>
+              <button class="btn lift small" data-open-focus="ai,enable,lead" type="button">GenAI / Automation Mindset</button>
+            </div>
+            <p class="hint">Use these when you want the first screen to feel intentionally tailored.</p>
+          </section>
+
+          <section aria-label="Custom Signal link builder" class="card custom">
+            <div>
+              <div class="kicker">Tailored link builder</div>
+              <h2 class="section-title">Build a custom Signal URL</h2>
+              <p class="route-copy">Pick focus areas, add an optional keyword, and generate a shareable filtered view.</p>
+            </div>
+
+            <div class="chips" id="chips">
+              <label class="chip" data-tag="cloud"><input type="checkbox" value="cloud"/>Cloud &amp; AWS</label>
+              <label class="chip" data-tag="api"><input type="checkbox" value="api"/>APIs &amp; Integrations</label>
+              <label class="chip" data-tag="iot"><input type="checkbox" value="iot"/>IoT &amp; Devices</label>
+              <label class="chip" data-tag="data"><input type="checkbox" value="data"/>Data Platforms</label>
+              <label class="chip" data-tag="opex"><input type="checkbox" value="opex"/>SLAs / Ops</label>
+              <label class="chip" data-tag="lead"><input type="checkbox" value="lead"/>Leadership</label>
+              <label class="chip" data-tag="enable"><input type="checkbox" value="enable"/>Enablement</label>
+              <label class="chip" data-tag="ai"><input type="checkbox" value="ai"/>GenAI</label>
+            </div>
+
+            <div class="searchRow">
+              <input id="q" placeholder="Optional search (e.g., Terraform, Auth0, Step Functions)" type="search"/>
+              <label class="chip" style="cursor:default">
+                <input id="only" type="checkbox"/>
+                Show only matches
+              </label>
+            </div>
+
+            <div class="rowBtns">
+              <button class="btn lift cta small" id="openBuilt" type="button">Open tailored view</button>
+              <button class="btn lift small" id="copyBuilt" type="button">Copy tailored link</button>
+              <button class="btn lift small" id="resetBuilt" type="button">Reset</button>
+            </div>
+            <p class="hint mono">Link preview: <span id="preview">resume-signal.html</span></p>
+          </section>
+          </div>
+        </details>
+
+        <footer>
+          <p style="margin:0">Privacy by default: no analytics on this page. Use <span class="mono">?plain=1</span> for a recruiter-safe, no-animation version, or jump into the Switchboard from the mode dock.</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <div aria-live="polite" class="toast" id="toast" role="status"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
+  <script>
+    (function(){
+      const html = document.documentElement;
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      const warn = document.getElementById('warn');
+      const toast = document.getElementById('toast');
+      const themeBtn = document.getElementById('themeBtn');
+      const plainModeLink = document.getElementById('plainModeLink');
+      const plainModeLinkInline = document.getElementById('plainModeLinkInline');
+      const appearancePanel = document.getElementById('appearancePanel');
+      const atmosphereButtons = Array.from(document.querySelectorAll('[data-atmosphere-btn]'));
+      const tailorTools = document.getElementById('tailorTools');
+      const tailorToolsLabel = tailorTools ? tailorTools.querySelector('.summaryMeta') : null;
+
+      const PAGES = {
+        atlas: 'resume-atlas.html',
+        signal: 'resume-signal.html',
+        proof: 'proof-hub.html',
+        switchboard: 'resume-switchboard.html'
+      };
+
+      const ATMOSPHERES = {
+        blue:{
+          baseDarkCss:'#070a12',
+          baseLightCss:'#f7fbff',
+          highlightDark:0x7aa2ff,
+          midtoneDark:0x0f1732,
+          lowlightDark:0x6fffd1,
+          baseDark:0x070a12,
+          highlightLight:0x2f64ff,
+          midtoneLight:0xe6edf9,
+          lowlightLight:0x13c7a2,
+          baseLight:0xf7fbff
+        },
+        crimson:{
+          baseDarkCss:'#13070c',
+          baseLightCss:'#fff7fa',
+          highlightDark:0xff6b8e,
+          midtoneDark:0x2a0d18,
+          lowlightDark:0xffb38a,
+          baseDark:0x13070c,
+          highlightLight:0xc82f5f,
+          midtoneLight:0xffe8ee,
+          lowlightLight:0xff9a68,
+          baseLight:0xfff7fa
+        },
+        emerald:{
+          baseDarkCss:'#05110c',
+          baseLightCss:'#f5fffa',
+          highlightDark:0x45e3a4,
+          midtoneDark:0x092117,
+          lowlightDark:0x9dffe2,
+          baseDark:0x05110c,
+          highlightLight:0x0d9c66,
+          midtoneLight:0xe8fff5,
+          lowlightLight:0x56dcb1,
+          baseLight:0xf5fffa
+        },
+        violet:{
+          baseDarkCss:'#0b0716',
+          baseLightCss:'#fbfbff',
+          highlightDark:0xb287ff,
+          midtoneDark:0x171031,
+          lowlightDark:0xff9bf0,
+          baseDark:0x0b0716,
+          highlightLight:0x6d48ff,
+          midtoneLight:0xf0ebff,
+          lowlightLight:0xc87bff,
+          baseLight:0xfbfbff
+        }
+      };
+
+      const params = new URLSearchParams(location.search);
+      const plain = params.get('plain') === '1';
+      if(plain) html.classList.add('plain');
+
+      function setWarn(msg){
+        if(!warn) return;
+        if(msg){
+          warn.textContent = msg;
+          warn.hidden = false;
+        }else{
+          warn.hidden = true;
+          warn.textContent = '';
+        }
+      }
+
+      function toastMsg(msg){
+        if(!toast) return;
+        toast.textContent = msg;
+        toast.classList.add('show');
+        window.setTimeout(() => toast.classList.remove('show'), 1600);
+      }
+
+      function getPreferredTheme(){
+        const keys = ['bsc_theme_home', 'bsc_theme2', 'bsc_theme'];
+        for(const key of keys){
+          try{
+            const value = localStorage.getItem(key);
+            if(value === 'light' || value === 'dark') return value;
+          }catch(e){}
+        }
+        try{
+          return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+        }catch(e){
+          return 'dark';
+        }
+      }
+
+      function currentTheme(){
+        return html.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      }
+
+      function getPreferredAtmosphere(){
+        const keys = ['bsc_atmosphere_home', 'bsc_atmosphere'];
+        for(const key of keys){
+          try{
+            const value = localStorage.getItem(key);
+            if(ATMOSPHERES[value]) return value;
+          }catch(e){}
+        }
+        const preset = html.getAttribute('data-atmosphere');
+        return ATMOSPHERES[preset] ? preset : 'blue';
+      }
+
+      function currentAtmosphere(){
+        const preset = html.getAttribute('data-atmosphere');
+        return ATMOSPHERES[preset] ? preset : 'blue';
+      }
+
+      function updateThemeColorMeta(){
+        if(!themeColorMeta) return;
+        const config = ATMOSPHERES[currentAtmosphere()] || ATMOSPHERES.blue;
+        themeColorMeta.setAttribute('content', currentTheme() === 'dark' ? config.baseDarkCss : config.baseLightCss);
+      }
+
+      function syncAtmosphereButtons(){
+        atmosphereButtons.forEach(function(btn){
+          btn.setAttribute('aria-pressed', btn.getAttribute('data-atmosphere-btn') === currentAtmosphere() ? 'true' : 'false');
+        });
+      }
+
+      function applyAtmosphere(name, skipAtmosphere){
+        const next = ATMOSPHERES[name] ? name : 'blue';
+        html.setAttribute('data-atmosphere', next);
+        try{
+          localStorage.setItem('bsc_atmosphere_home', next);
+          localStorage.setItem('bsc_atmosphere', next);
+        }catch(e){}
+        syncAtmosphereButtons();
+        updateThemeColorMeta();
+        if(!skipAtmosphere) startVanta();
+      }
+
+      function applyTheme(theme, skipAtmosphere){
+        html.setAttribute('data-theme', theme);
+        try{
+          localStorage.setItem('bsc_theme_home', theme);
+          localStorage.setItem('bsc_theme2', theme);
+          localStorage.setItem('bsc_theme', theme);
+        }catch(e){}
+        if(themeBtn){
+          themeBtn.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+        }
+        updateThemeColorMeta();
+        if(!skipAtmosphere) startVanta();
+      }
+
+      applyTheme(getPreferredTheme(), true);
+      applyAtmosphere(getPreferredAtmosphere(), true);
+
+      function updatePlainLinks(){
+        const targets = [plainModeLink, plainModeLinkInline].filter(Boolean);
+        targets.forEach(function(link){
+          const p = new URLSearchParams(location.search);
+          if(plain){
+            p.delete('plain');
+            const query = p.toString();
+            link.href = location.pathname + (query ? ('?' + query) : '') + location.hash;
+            link.textContent = link === plainModeLink ? 'Animated mode' : 'animated mode';
+            link.title = 'Return to animated mode';
+          }else{
+            p.set('plain', '1');
+            link.href = location.pathname + '?' + p.toString() + location.hash;
+            link.textContent = link === plainModeLink ? 'Plain mode' : 'plain mode';
+            link.title = 'Open in recruiter-safe plain mode';
+          }
+        });
+      }
+      updatePlainLinks();
+
+      if(tailorTools && tailorToolsLabel){
+        const syncToolsLabel = function(){
+          tailorToolsLabel.textContent = tailorTools.open ? 'Hide tools' : 'Show tools';
+        };
+        syncToolsLabel();
+        tailorTools.addEventListener('toggle', syncToolsLabel);
+      }
+
+      if(themeBtn){
+        themeBtn.addEventListener('click', function(){
+          applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+        });
+      }
+
+      atmosphereButtons.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          const next = btn.getAttribute('data-atmosphere-btn');
+          applyAtmosphere(next);
+          if(appearancePanel) appearancePanel.open = false;
+        });
+      });
+
+      document.addEventListener('click', function(event){
+        if(appearancePanel && appearancePanel.open && !appearancePanel.contains(event.target)){
+          appearancePanel.open = false;
+        }
+      });
+
+      function rememberMode(value){
+        if(!value) return;
+        try{ localStorage.setItem('bsc_last_resume_mode', value); }catch(e){}
+      }
+      document.querySelectorAll('[data-mode]').forEach(function(link){
+        const mode = link.getAttribute('data-mode') || link.getAttribute('href');
+        link.addEventListener('click', function(){
+          rememberMode(mode);
+        });
+      });
+
+      const openAtlasAndPrint = document.getElementById('openAtlasAndPrint');
+      const exampleUrl = document.getElementById('exampleUrl');
+      const chipLabels = Array.from(document.querySelectorAll('.chip[data-tag]'));
+      const chipInputs = Array.from(document.querySelectorAll('.chip input[type="checkbox"][value]'));
+      const q = document.getElementById('q');
+      const only = document.getElementById('only');
+      const preview = document.getElementById('preview');
+      const openBuilt = document.getElementById('openBuilt');
+      const copyBuilt = document.getElementById('copyBuilt');
+      const resetBuilt = document.getElementById('resetBuilt');
+
+      function getSelectedTags(){
+        return chipInputs.filter(function(input){ return input.checked; }).map(function(input){ return input.value; });
+      }
+
+      function buildSignalUrl(){
+        const selected = getSelectedTags();
+        const p = new URLSearchParams();
+        if(selected.length) p.set('focus', selected.join(','));
+        if((q.value || '').trim()) p.set('q', (q.value || '').trim());
+        if(only.checked) p.set('only', '1');
+        const qs = p.toString();
+        return PAGES.signal + (qs ? ('?' + qs) : '');
+      }
+
+      function setChipsUI(){
+        chipLabels.forEach(function(label){
+          const input = label.querySelector('input');
+          label.dataset.on = input && input.checked ? 'true' : 'false';
+        });
+      }
+
+      async function copyToClipboard(text){
+        try{
+          await navigator.clipboard.writeText(text);
+          toastMsg('Copied!');
+        }catch(e){
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          toastMsg('Copied!');
+        }
+      }
+
+      function updatePreview(){
+        const url = buildSignalUrl();
+        if(preview) preview.textContent = url;
+        if(exampleUrl) exampleUrl.textContent = PAGES.signal + '?focus=cloud,api';
+        setChipsUI();
+      }
+
+      chipInputs.forEach(function(input){ input.addEventListener('change', updatePreview); });
+      if(q) q.addEventListener('input', updatePreview);
+      if(only) only.addEventListener('change', updatePreview);
+
+      if(openBuilt){
+        openBuilt.addEventListener('click', function(){
+          rememberMode(PAGES.signal);
+          window.location.href = buildSignalUrl();
+        });
+      }
+      if(copyBuilt){
+        copyBuilt.addEventListener('click', async function(){
+          const absolute = window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + buildSignalUrl();
+          await copyToClipboard(absolute);
+        });
+      }
+      if(resetBuilt){
+        resetBuilt.addEventListener('click', function(){
+          chipInputs.forEach(function(input){ input.checked = false; });
+          if(q) q.value = '';
+          if(only) only.checked = false;
+          updatePreview();
+          toastMsg('Reset');
+        });
+      }
+
+      function openSignalWithFocus(focusCsv){
+        const p = new URLSearchParams();
+        if(focusCsv) p.set('focus', focusCsv);
+        rememberMode(PAGES.signal);
+        window.location.href = PAGES.signal + '?' + p.toString();
+      }
+
+      document.querySelectorAll('[data-open-focus]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          openSignalWithFocus(btn.getAttribute('data-open-focus') || '');
+        });
+      });
+
+      document.querySelectorAll('[data-open-preset]').forEach(function(btn){
+        const preset = btn.getAttribute('data-open-preset');
+        const map = {
+          cloud: 'cloud,api,opex',
+          iot: 'iot,cloud,api,opex'
+        };
+        btn.addEventListener('click', function(){
+          openSignalWithFocus(map[preset] || '');
+        });
+      });
+
+      if(openAtlasAndPrint){
+        openAtlasAndPrint.addEventListener('click', function(){
+          rememberMode(PAGES.atlas);
+          const w = window.open(PAGES.atlas, '_blank');
+          if(!w){
+            toastMsg('Popup blocked — opening Atlas in this tab');
+            window.location.href = PAGES.atlas;
+            return;
+          }
+          w.addEventListener('load', function(){ w.print(); });
+        });
+      }
+
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let vanta = null;
+
+      function setAtmosphereState(mode){
+        html.classList.toggle('vanta-active', mode === 'vanta');
+        html.classList.toggle('use-fallback', mode === 'fallback');
+      }
+
+      function destroyVanta(){
+        if(vanta && vanta.destroy){
+          try{ vanta.destroy(); }catch(e){}
+          vanta = null;
+        }
+        html.classList.remove('vanta-active');
+      }
+
+      function webglAvailable(){
+        try{
+          const c = document.createElement('canvas');
+          return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl')));
+        }catch(e){ return false; }
+      }
+
+      function buildFogConfig(){
+        const dark = currentTheme() === 'dark';
+        const atmosphere = ATMOSPHERES[currentAtmosphere()] || ATMOSPHERES.blue;
+        return {
+          el: '#vanta',
+          mouseControls: !prefersReduced,
+          touchControls: !prefersReduced,
+          gyroControls: false,
+          minHeight: 200.0,
+          minWidth: 200.0,
+          highlightColor: dark ? atmosphere.highlightDark : atmosphere.highlightLight,
+          midtoneColor: dark ? atmosphere.midtoneDark : atmosphere.midtoneLight,
+          lowlightColor: dark ? atmosphere.lowlightDark : atmosphere.lowlightLight,
+          baseColor: dark ? atmosphere.baseDark : atmosphere.baseLight,
+          blurFactor: dark ? 0.50 : 0.42,
+          speed: dark ? 0.82 : 0.56,
+          zoom: dark ? 0.96 : 1.04
+        };
+      }
+
+      function startVanta(){
+        destroyVanta();
+
+        if(plain){
+          setAtmosphereState('fallback');
+          setWarn('Plain mode is on. Motion is disabled, but the static atmosphere remains.');
+          return;
+        }
+        if(prefersReduced){
+          setAtmosphereState('fallback');
+          setWarn('Reduced motion is enabled, so the static atmosphere is being used.');
+          return;
+        }
+        if(!webglAvailable()){
+          setAtmosphereState('fallback');
+          setWarn('Animated fog is unavailable here. The static atmosphere fallback is active.');
+          return;
+        }
+
+        setWarn('');
+        let attempts = 0;
+        const maxAttempts = 20;
+
+        (function waitForVanta(){
+          attempts += 1;
+          if(window.VANTA && window.THREE && window.VANTA.FOG){
+            try{
+              vanta = window.VANTA.FOG(buildFogConfig());
+              setAtmosphereState('vanta');
+            }catch(err){
+              setAtmosphereState('fallback');
+              setWarn('Animated fog could not start here. The static atmosphere fallback is active.');
+            }
+            return;
+          }
+          if(attempts < maxAttempts){
+            window.setTimeout(waitForVanta, 200);
+          }else{
+            setAtmosphereState('fallback');
+            setWarn('Animated fog is unavailable in this preview. The static atmosphere fallback is active.');
+          }
+        })();
+      }
+
+      startVanta();
+      updatePreview();
+
+      function syncDockVisibility(){
+        html.classList.toggle('show-dock', window.scrollY > 160);
+      }
+      syncDockVisibility();
+      window.addEventListener('scroll', syncDockVisibility, { passive:true });
+      window.setTimeout(function(){ html.classList.add('show-dock'); }, 2600);
+
+      const current = location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('.bsc-dock-link').forEach(function(link){
+        const page = link.getAttribute('data-page');
+        if(page === current){
+          link.setAttribute('aria-current', 'page');
+        }
+        link.addEventListener('click', function(){
+          rememberMode(link.getAttribute('data-mode') || page || link.getAttribute('href'));
+        });
+      });
+    })();
+  </script>
+
+  <details class="bsc-dock">
+    <summary>Mode dock</summary>
+    <div class="bsc-dock-panel">
+      <div class="bsc-dock-kicker">One story, five entry points</div>
+      <div class="bsc-dock-grid">
+        <a class="bsc-dock-link" href="index.html" data-page="index.html">
+          <strong>Home</strong>
+          <span>Cinematic routing page</span>
+        </a>
+        <a class="bsc-dock-link" href="resume-atlas.html" data-page="resume-atlas.html" data-mode="resume-atlas.html">
+          <strong>Atlas</strong>
+          <span>Classic recruiter / PDF view</span>
+        </a>
+        <a class="bsc-dock-link" href="resume-signal.html" data-page="resume-signal.html" data-mode="resume-signal.html">
+          <strong>Signal</strong>
+          <span>Interactive tailored resume</span>
+        </a>
+        <a class="bsc-dock-link" href="proof-hub.html" data-page="proof-hub.html" data-mode="proof-hub.html">
+          <strong>Proof Hub</strong>
+          <span>Bullets, cases, and hard evidence</span>
+        </a>
+        <a class="bsc-dock-link" href="resume-switchboard.html" data-page="resume-switchboard.html" data-mode="resume-switchboard.html">
+          <strong>Switchboard</strong>
+          <span>Low-motion fallback hub</span>
+        </a>
+      </div>
+    </div>
+  </details>
+
+
+  <script id="bsc-confetti-script">
+    (function(){
+      const canvas = document.getElementById('confetti');
+      if(!canvas) return;
+
+      const html = document.documentElement;
+      const params = new URLSearchParams(location.search);
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const plain = html.classList.contains('plain') || params.get('plain') === '1';
+      const storageKey = 'bsc_resume_index_confetti_seen';
+      let seen = false;
+      try{ seen = sessionStorage.getItem(storageKey) === '1'; }catch(e){}
+      if(prefersReduced || plain || seen) return;
+
+      const ctx = canvas.getContext('2d');
+      if(!ctx) return;
+
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let raf = 0;
+      let pieces = [];
+      let active = false;
+      let startTs = 0;
+
+      function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.max(1, Math.floor(width * dpr));
+        canvas.height = Math.max(1, Math.floor(height * dpr));
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function palette(){
+        const light = html.getAttribute('data-theme') === 'light';
+        const atmosphere = html.getAttribute('data-atmosphere') || 'blue';
+        if(atmosphere === 'crimson'){
+          return light
+            ? ['rgba(200,47,95,0.92)', 'rgba(255,154,104,0.88)', 'rgba(255,255,255,0.90)', 'rgba(255,213,156,0.86)']
+            : ['rgba(255,107,142,0.94)', 'rgba(255,179,138,0.90)', 'rgba(255,255,255,0.86)', 'rgba(255,213,156,0.86)'];
+        }
+        if(atmosphere === 'emerald'){
+          return light
+            ? ['rgba(13,156,102,0.92)', 'rgba(86,220,177,0.88)', 'rgba(255,255,255,0.90)', 'rgba(214,255,238,0.86)']
+            : ['rgba(69,227,164,0.94)', 'rgba(157,255,226,0.90)', 'rgba(255,255,255,0.86)', 'rgba(214,255,238,0.84)'];
+        }
+        if(atmosphere === 'violet'){
+          return light
+            ? ['rgba(109,72,255,0.92)', 'rgba(200,123,255,0.88)', 'rgba(255,255,255,0.90)', 'rgba(255,214,122,0.86)']
+            : ['rgba(178,135,255,0.94)', 'rgba(255,155,240,0.90)', 'rgba(255,255,255,0.86)', 'rgba(255,214,122,0.86)'];
+        }
+        return light
+          ? ['rgba(47,100,255,0.92)', 'rgba(19,199,162,0.88)', 'rgba(255,255,255,0.90)', 'rgba(255,214,122,0.88)']
+          : ['rgba(134,166,255,0.94)', 'rgba(111,255,209,0.90)', 'rgba(255,255,255,0.86)', 'rgba(255,214,122,0.88)'];
+      }
+
+      function makePiece(index){
+        const colors = palette();
+        const spread = Math.min(width * 0.18, 180);
+        const x = width * 0.5 + (Math.random() - 0.5) * spread;
+        const y = Math.max(120, height * 0.18) + Math.random() * 26;
+        const size = 5 + Math.random() * 7;
+        return {
+          x,
+          y,
+          vx: (Math.random() - 0.5) * 6.6,
+          vy: -6.8 - Math.random() * 4.6,
+          gravity: 0.17 + Math.random() * 0.08,
+          drag: 0.992,
+          size,
+          rotation: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 0.22,
+          tilt: Math.random() * 0.8,
+          alpha: 0.95,
+          color: colors[index % colors.length]
+        };
+      }
+
+      function drawPiece(p){
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size * 0.55, -p.size * 0.18, p.size * 1.1, p.size * 0.36);
+        ctx.restore();
+      }
+
+      function frame(ts){
+        if(!active) return;
+        if(!startTs) startTs = ts;
+        const elapsed = ts - startTs;
+        ctx.clearRect(0, 0, width, height);
+
+        pieces.forEach(function(p){
+          p.vx *= p.drag;
+          p.vy += p.gravity;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rotation += p.spin;
+          if(elapsed > 520){ p.alpha *= 0.972; }
+          drawPiece(p);
+        });
+
+        pieces = pieces.filter(function(p){
+          return p.alpha > 0.03 && p.y < height + 40 && p.x > -50 && p.x < width + 50;
+        });
+
+        if(elapsed < 1400 && pieces.length){
+          raf = window.requestAnimationFrame(frame);
+        }else{
+          stop();
+        }
+      }
+
+      function stop(){
+        active = false;
+        if(raf) window.cancelAnimationFrame(raf);
+        raf = 0;
+        ctx.clearRect(0, 0, width, height);
+        canvas.classList.remove('is-on');
+        window.removeEventListener('resize', resize);
+      }
+
+      function launch(){
+        resize();
+        pieces = Array.from({ length: 56 }, function(_, index){ return makePiece(index); });
+        active = true;
+        startTs = 0;
+        canvas.classList.add('is-on');
+        window.addEventListener('resize', resize, { passive:true });
+        raf = window.requestAnimationFrame(frame);
+        try{ sessionStorage.setItem(storageKey, '1'); }catch(e){}
+      }
+
+      window.setTimeout(launch, 520);
+    })();
+  </script>
+
+  <script id="bsc-hero-specular-script">
+    (function(){
+      const headline = document.getElementById('heroHeadline');
+      if(!headline) return;
+
+      const html = document.documentElement;
+      const params = new URLSearchParams(location.search);
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const plain = html.classList.contains('plain') || params.get('plain') === '1';
+      const storageKey = 'bsc_resume_index_specular_seen';
+      let played = false;
+
+      try{
+        played = sessionStorage.getItem(storageKey) === '1';
+      }catch(e){}
+
+      if(prefersReduced || plain || played) return;
+
+      function playOnce(){
+        if(played) return;
+        played = true;
+        headline.classList.remove('specular-run');
+        void headline.offsetWidth;
+        headline.classList.add('specular-run');
+        try{ sessionStorage.setItem(storageKey, '1'); }catch(e){}
+      }
+
+      const heroCard = headline.closest('.card');
+      if(heroCard){
+        const handoff = function(){ playOnce(); };
+        heroCard.addEventListener('pointerenter', handoff, { once:true, passive:true });
+        heroCard.addEventListener('focusin', handoff, { once:true });
+      }
+
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(entry.isIntersecting){
+              io.disconnect();
+              window.setTimeout(playOnce, 220);
+            }
+          });
+        }, { threshold: 0.72 });
+        io.observe(headline);
+      }else{
+        window.setTimeout(playOnce, 260);
+      }
+    })();
+  </script>
+</body>
 </html>
