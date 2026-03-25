@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Brandon Scott Clark — Senior Software Engineer (Cloud, Data, IoT)</title>
+  <meta name="description" content="Print-ready resume for Brandon Scott Clark: Senior Software Engineer specializing in AWS cloud, APIs, secure IoT provisioning, and operational excellence." />
+  <meta property="og:title" content="Brandon Scott Clark — Senior Software Engineer" />
+  <meta property="og:description" content="AWS cloud, APIs, secure IoT provisioning, data platforms, operational excellence, and enablement." />
+  <meta property="og:type" content="profile" />
+  <style>
+    :root{
+      --bg:#ffffff;
+      --fg:#111827;
+      --muted:#4b5563;
+      --card:#f3f4f6;
+      --border:#e5e7eb;
+      --accent:#2563eb;
+      --accent2:#10b981;
+      --shadow:0 10px 25px rgba(0,0,0,.08);
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      --radius:14px;
+      --max:1060px;
+    }
+    html[data-theme="dark"]{
+      --bg:#0b1220;
+      --fg:#e5e7eb;
+      --muted:#a8b4d8;
+      --card:#101a31;
+      --border:#233156;
+      --accent:#60a5fa;
+      --accent2:#34d399;
+      --shadow:0 10px 30px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:var(--sans);
+      line-height:1.55;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    a:focus-visible, button:focus-visible, summary:focus-visible{
+      outline:3px solid color-mix(in srgb, var(--accent) 55%, white);
+      outline-offset:3px;
+    }
+    .skip{
+      position:absolute;
+      left:-999px;
+      top:10px;
+      background:var(--bg);
+      border:1px solid var(--border);
+      padding:.5rem .75rem;
+      border-radius:10px;
+      z-index:1000;
+    }
+    .skip:focus{left:10px}
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:22px 18px 70px;
+    }
+    header{
+      position:sticky;
+      top:0;
+      background:color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+      z-index:20;
+    }
+    .head{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:18px 18px 16px;
+      display:flex;
+      align-items:flex-start;
+      gap:18px;
+      justify-content:space-between;
+    }
+    .who h1{
+      margin:0;
+      font-size:clamp(1.35rem,3vw,2.15rem);
+      letter-spacing:-.02em;
+    }
+    .role{
+      margin:.15rem 0 0;
+      color:var(--muted);
+      font-weight:670;
+    }
+    .contact{
+      margin:.8rem 0 0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem .85rem;
+      font-size:.95rem;
+      color:var(--muted);
+    }
+    .contact li{display:flex; align-items:center; gap:.45rem}
+    .dot{
+      width:7px;height:7px;border-radius:999px;
+      background:var(--accent2);
+      display:inline-block;
+      box-shadow:0 0 0 4px color-mix(in srgb, var(--accent2) 15%, transparent);
+    }
+    .actions{
+      display:flex;
+      gap:.5rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .btn{
+      border:1px solid var(--border);
+      background:var(--card);
+      color:var(--fg);
+      padding:.55rem .75rem;
+      border-radius:999px;
+      font-weight:680;
+      cursor:pointer;
+      transition:transform .08s ease, box-shadow .2s ease;
+    }
+    .btn:hover{box-shadow:var(--shadow)}
+    .btn:active{transform:translateY(1px)}
+    main{padding-top:26px}
+    section{margin-top:26px}
+    h2{
+      margin:0 0 10px;
+      font-size:1.05rem;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+      color:color-mix(in srgb, var(--fg) 85%, var(--muted));
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow:var(--shadow);
+    }
+    .summary{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:14px;
+    }
+    @media (max-width: 900px){ .summary{grid-template-columns:1fr} }
+    .summary p{margin:.25rem 0 0}
+    .impact{
+      display:grid;
+      gap:10px;
+    }
+    .kpi{
+      border:1px dashed color-mix(in srgb, var(--accent) 35%, var(--border));
+      border-radius:14px;
+      padding:12px;
+      background:color-mix(in srgb, var(--bg) 68%, var(--card));
+    }
+    .metric{
+      font-family:var(--mono);
+      font-weight:820;
+      letter-spacing:.01em;
+      font-size:1.03rem;
+    }
+    .kpi small{color:var(--muted); display:block; margin-top:.2rem}
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 860px){ .grid2{grid-template-columns:1fr} }
+    ul{margin:.6rem 0 0; padding-left:1.1rem}
+    li{margin:.35rem 0}
+    .chips{
+      list-style:none;
+      padding:0;
+      margin:.6rem 0 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.5rem;
+    }
+    .chips li{
+      margin:0;
+      padding:.4rem .6rem;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:color-mix(in srgb, var(--bg) 65%, var(--card));
+      font-size:.92rem;
+      color:color-mix(in srgb, var(--fg) 88%, var(--muted));
+    }
+    .rolehead{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:.5rem 1rem;
+    }
+    .rolehead h3{
+      margin:0;
+      font-size:1.05rem;
+      letter-spacing:-.01em;
+    }
+    .meta{
+      color:var(--muted);
+      font-weight:730;
+      font-size:.95rem;
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:color-mix(in srgb, var(--bg) 55%, var(--card));
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:760;
+      color:color-mix(in srgb, var(--fg) 92%, var(--muted));
+    }
+    summary::-webkit-details-marker{display:none}
+    summary:before{
+      content:"▸";
+      display:inline-block;
+      width:1.2rem;
+      color:var(--accent);
+      font-weight:900;
+    }
+    details[open] summary:before{content:"▾"}
+    footer{
+      margin-top:32px;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+    .fine{
+      font-size:.9rem;
+      color:color-mix(in srgb, var(--muted) 85%, var(--fg));
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important; scroll-behavior:auto !important}
+    }
+    @media print{
+      header,.actions,.skip{display:none !important}
+      body{background:#fff;color:#000}
+      .wrap{max-width:8.5in;padding:0}
+      .card,details{box-shadow:none !important;background:#fff !important}
+      a{color:#000;text-decoration:none}
+      a[href^="http"]:after{content:" (" attr(href) ")";font-size:9pt}
+      .chips li{border:1px solid #ddd}
+      details{border:1px solid #ddd}
+      summary:before{content:""}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ProfilePage",
+    "mainEntity":{
+      "@type":"Person",
+      "name":"Brandon Scott Clark",
+      "jobTitle":"Senior Software Engineer",
+      "email":"mailto:bsc_work@yahoo.com",
+      "url":"https://theghostarbiter.github.io/static-resume/",
+      "sameAs":[
+        "https://github.com/theghostarbiter",
+        "https://www.linkedin.com/in/brandon-c-it-industry"
+      ],
+      "address":{
+        "@type":"PostalAddress",
+        "addressRegion":"WI",
+        "addressCountry":"US"
+      }
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header>
+    <div class="head">
+      <div class="who">
+        <h1>Brandon Scott Clark</h1>
+        <p class="role">Senior Software Engineer <span aria-hidden="true">•</span> Cloud, Data &amp; IoT Platforms</p>
+        <ul class="contact">
+          <li><span class="dot" aria-hidden="true"></span><span>Wisconsin (Remote)</span></li>
+          <li><a href="mailto:bsc_work@yahoo.com">bsc_work@yahoo.com</a></li>
+          <li><a href="https://github.com/theghostarbiter" rel="noopener">github.com/theghostarbiter</a></li>
+          <li><a href="https://theghostarbiter.github.io/static-resume/" rel="noopener">theghostarbiter.github.io/static-resume</a></li>
+          <li><span class="fine">LinkedIn:</span> <a href="https://www.linkedin.com/in/brandon-c-it-industry" rel="noopener">/in/brandon-c-it-industry</a></li>
+        </ul>
+      </div>
+
+      <div class="actions" aria-label="Resume actions">
+        <button class="btn" id="themeBtn" type="button">Toggle theme</button>
+        <button class="btn" id="printBtn" type="button">Print / Save PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main id="content">
+      <section aria-labelledby="summary">
+        <h2 id="summary">Summary</h2>
+        <div class="summary">
+          <div class="card">
+            <p>
+              Senior Software Engineer building AWS-based cloud, API, data, and IoT platform capabilities for digital services.
+              Strengths include secure device provisioning, serverless integrations, operational excellence (SLAs, monitoring, dashboards),
+              and team enablement through documentation, demos, mentoring, and clear technical communication.
+            </p>
+          </div>
+
+          <div class="impact">
+            <div class="kpi" aria-label="Impact metric: provisioning time">
+              <div class="metric">≈10 min → &lt; 1 min</div>
+              <small>Secure IoT device provisioning per device via CLI + APIs</small>
+            </div>
+            <div class="kpi" aria-label="Impact metric: payload efficiency">
+              <div class="metric">~40% smaller payloads</div>
+              <small>MQTT delta patterns for constrained devices</small>
+            </div>
+            <div class="kpi" aria-label="Impact metric: enablement">
+              <div class="metric">~30% faster ramp</div>
+              <small>Onboarding acceleration via README, demos, and diagrams</small>
+            </div>
+            <div class="kpi" aria-label="Impact metric: operational excellence">
+              <div class="metric">SLA dashboard</div>
+              <small>Defined service expectations and improved operational visibility</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="skills">
+        <h2 id="skills">Core Skills</h2>
+        <div class="card">
+          <ul class="chips" aria-label="Skill list">
+            <li>AWS (IoT Core, Lambda, API Gateway, Step Functions, Secrets Manager)</li>
+            <li>TypeScript / Node.js</li>
+            <li>Python (automation, tooling, CLI workflows)</li>
+            <li>Terraform / Infrastructure as Code</li>
+            <li>API design, OpenAPI, partner integrations</li>
+            <li>Auth0 / secure credential workflows</li>
+            <li>MQTT / IoT device communication patterns</li>
+            <li>Monitoring, alerting, dashboards, SLA discipline</li>
+            <li>Data platforms, tagging systems, ETL / backfill scripting</li>
+            <li>Documentation, demos, presentations, enablement</li>
+            <li>Mentorship, cross-team collaboration, technical syncs</li>
+            <li>GenAI-assisted productivity (approved tools)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="experience">
+        <h2 id="experience">Experience</h2>
+
+        <article class="card" aria-label="Milwaukee Tool Senior Software Engineer">
+          <div class="rolehead">
+            <h3>Milwaukee Tool (Digital IoT Service) — Senior Software Engineer</h3>
+            <div class="meta">2025–Present • Remote (WI)</div>
+          </div>
+          <ul>
+            <li>Led a greenfield IoT device provisioning workflow (Python CLI + supporting APIs) that standardized registration, certificate generation, and secure bootstrapping; reduced provisioning time from roughly 10 minutes to under 1 minute per device.</li>
+            <li>Integrated AWS Secrets Manager, Auth0-backed API patterns, and MQTT delta updates to improve security and reduce constrained-device payload size by roughly 40%.</li>
+            <li>Partnered with leadership to define service SLAs, identify monitoring gaps, and launch an operational dashboard that improved visibility into service health and delivery expectations.</li>
+            <li>Authored comprehensive README documentation plus reusable demos and interactive diagrams that reduced onboarding friction and accelerated contributor ramp-up.</li>
+          </ul>
+
+          <details>
+            <summary>Additional leadership and communication highlights</summary>
+            <ul>
+              <li>Designed a structured peer-mentoring approach with recurring cadence, feedback loops, and reverse-mentoring moments to strengthen collaboration and learning.</li>
+              <li>Delivered cross-team presentations and readouts that used visuals, surveys, and structured Q&amp;A to improve adoption and stakeholder alignment.</li>
+              <li>Led an innovation sprint team in an unfamiliar domain (3D modeling, Blender, and AWS IoT TwinMaker), helping software and QA contributors produce demoable proof-of-concept outcomes.</li>
+              <li>Proactively drove technical synchronization and knowledge-sharing on topics such as device security, Terraform deployment details, and new workflow patterns.</li>
+            </ul>
+          </details>
+        </article>
+
+        <article class="card" aria-label="Milwaukee Tool Software Engineer II">
+          <div class="rolehead">
+            <h3>Milwaukee Tool (Power Tool Data / Digital IoT Service) — Software Engineer II</h3>
+            <div class="meta">2024 • Remote (WI)</div>
+          </div>
+          <ul>
+            <li>Implemented a comprehensive tool-data tagging system and supported V2 tool-read integration work into QuickLink as part of Tool Data Foundations.</li>
+            <li>Strengthened partner-team support through better documentation, clearer task organization, workflow visualization, and higher-signal technical communication.</li>
+          </ul>
+        </article>
+
+        <article class="card" aria-label="Milwaukee Tool Software Engineer Integrations">
+          <div class="rolehead">
+            <h3>Milwaukee Tool (One-Key Integrations) — Software Engineer</h3>
+            <div class="meta">2021–2023 • Remote (WI)</div>
+          </div>
+          <ul>
+            <li>Built and supported external partner integrations on AWS serverless services (API Gateway, Step Functions, Lambda, DynamoDB) using Terraform as Infrastructure as Code.</li>
+            <li>Delivered Oracle Unifier integration work across UI and back-end layers, plus documentation, demos, and API doc improvements that reduced ambiguity for QA and stakeholders.</li>
+            <li>Improved reliability across environments through fixes such as dynamic deep-link generation and PDF-report behavior, while producing design diagrams and onboarding assets that scaled team knowledge.</li>
+          </ul>
+        </article>
+
+        <details class="card">
+          <summary>Earlier experience (condensed)</summary>
+          <div class="grid2">
+            <div>
+              <div class="rolehead">
+                <h3>Foundation Finance Company — Full-Stack Developer</h3>
+                <div class="meta">2020–2021</div>
+              </div>
+              <ul>
+                <li>Designed and delivered AWS-hosted web applications, CI/CD pipelines, and client-facing portals at production scale.</li>
+                <li>Shipped payment-portal features, authored internal coding standards, and improved API documentation quality.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="rolehead">
+                <h3>Foundation Finance Company — Software Developer</h3>
+                <div class="meta">2019–2020</div>
+              </div>
+              <ul>
+                <li>Built automation tooling that reduced manual work and improved the reliability of internal business processes.</li>
+                <li>Developed web platforms using JavaScript/Node, React, SQL, and cloud services.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="rolehead">
+                <h3>Aqua Finance — Web / Software Developer</h3>
+                <div class="meta">2017–2019</div>
+              </div>
+              <ul>
+                <li>Delivered full-stack solutions across .NET, Java, C#, and enterprise systems while rapidly expanding scope and ownership.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="rolehead">
+                <h3>Minnesota Attorney General’s Office — Application Developer</h3>
+                <div class="meta">2016–2017</div>
+              </div>
+              <ul>
+                <li>Built and supported internal applications and database-backed tools; improved error handling and developer productivity.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section aria-labelledby="certs">
+        <h2 id="certs">Certifications</h2>
+        <div class="card">
+          <ul>
+            <li>AWS Certified Solutions Architect – Associate (SAA-C03)</li>
+            <li>AWS Certified Cloud Practitioner (CLF-C01)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="education">
+        <h2 id="education">Education</h2>
+        <div class="card">
+          <div class="rolehead">
+            <h3>University of Wisconsin–River Falls</h3>
+            <div class="meta">B.S. Finance • Minor: Computer Science</div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="fine">
+        Self-contained HTML resume optimized for printing and PDF generation.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    (function(){
+      const html = document.documentElement;
+      const themeBtn = document.getElementById('themeBtn');
+      const printBtn = document.getElementById('printBtn');
+
+      function getPreferredTheme(){
+        const keys = ['bsc_theme', 'bsc_theme_home', 'bsc_theme2'];
+        for(const key of keys){
+          const value = localStorage.getItem(key);
+          if(value === 'light' || value === 'dark') return value;
+        }
+        return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      }
+
+      function setTheme(theme){
+        html.dataset.theme = theme;
+        localStorage.setItem('bsc_theme', theme);
+        localStorage.setItem('bsc_theme_home', theme);
+        localStorage.setItem('bsc_theme2', theme);
+      }
+
+      setTheme(getPreferredTheme());
+
+      themeBtn.addEventListener('click', () => {
+        setTheme(html.dataset.theme === 'dark' ? 'light' : 'dark');
+      });
+      printBtn.addEventListener('click', () => window.print());
+
+      let openState = null;
+      function snapshot(){
+        return Array.from(document.querySelectorAll('details')).map(d => d.open);
+      }
+      function restore(state){
+        if(!state) return;
+        Array.from(document.querySelectorAll('details')).forEach((d, i) => d.open = !!state[i]);
+      }
+      window.addEventListener('beforeprint', () => {
+        openState = snapshot();
+        document.querySelectorAll('details').forEach(d => d.open = true);
+      });
+      window.addEventListener('afterprint', () => {
+        restore(openState);
+        openState = null;
+      });
+    })();
+  </script>
+</body>
+</html>
