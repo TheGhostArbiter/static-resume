@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Brandon S. Clark — Search-Optimized Resume</title>
+  <meta name="description" content="Search-optimized resume for Brandon S. Clark: Senior Software Engineer for backend, platform, cloud, API, data, and IoT roles." />
+  <meta property="og:title" content="Brandon S. Clark — Search-Optimized Resume" />
+  <meta property="og:description" content="Senior Software Engineer | Backend, Platform, AWS, APIs, IoT, data platforms, Terraform, TypeScript, Python." />
+  <meta property="og:type" content="profile" />
+  <style>:root{
+  --bg:#f7f9fc;
+  --surface:#ffffff;
+  --surface-2:#f3f6fb;
+  --text:#0f172a;
+  --muted:#51607a;
+  --border:#d8e0ec;
+  --accent:#2563eb;
+  --accent-2:#10b981;
+  --shadow:0 14px 34px rgba(15,23,42,.08);
+  --radius:18px;
+  --max:1080px;
+  --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+html[data-theme="dark"]{
+  --bg:#0b1220;
+  --surface:#121a2c;
+  --surface-2:#0f1728;
+  --text:#e7edf8;
+  --muted:#a8b4cb;
+  --border:#25314a;
+  --accent:#7aa2ff;
+  --accent-2:#34d399;
+  --shadow:0 18px 42px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0;
+  font-family:var(--sans);
+  background:
+    radial-gradient(900px 520px at 10% 0%, rgba(37,99,235,.10), transparent 60%),
+    radial-gradient(760px 420px at 90% 10%, rgba(16,185,129,.08), transparent 60%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.58;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+:where(a,button,summary):focus-visible{
+  outline:3px solid rgba(37,99,235,.26);
+  outline-offset:3px;
+  border-radius:12px;
+}
+.skip{
+  position:absolute;left:-999px;top:10px;z-index:999;
+  padding:.55rem .8rem;border-radius:999px;
+  background:var(--surface);border:1px solid var(--border);color:var(--text);
+}
+.skip:focus{left:10px}
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(247,249,252,.84);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(216,224,236,.8);
+}
+html[data-theme="dark"] header{
+  background:rgba(11,18,32,.78);border-bottom-color:rgba(37,49,74,.8);
+}
+.wrap{max-width:var(--max);margin:0 auto;padding:22px 18px 72px}
+.head{
+  max-width:var(--max);margin:0 auto;padding:16px 18px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.navrow,.actions,.cta-row,.pill-row,.route-row,.rowBtns,.chips{
+  display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;
+}
+.navpill,.btn,.pill{
+  display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
+  min-height:44px;padding:.62rem .92rem;border-radius:999px;
+  border:1px solid var(--border);background:var(--surface-2);color:var(--text);
+  font-weight:780;text-decoration:none;box-shadow:none;
+}
+.navpill,.pill{font-size:.92rem}
+.btn{cursor:pointer;font:inherit}
+.btn.primary{
+  background:linear-gradient(135deg, rgba(37,99,235,.14), rgba(16,185,129,.10));
+  border-color:rgba(37,99,235,.35);
+}
+.who h1{margin:0;font-size:clamp(1.55rem,4vw,2.45rem);letter-spacing:-.03em;line-height:1.04}
+.role{margin:.28rem 0 0;color:var(--muted);font-weight:800}
+.contact{margin:.8rem 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.48rem .9rem;color:var(--muted);font-size:.95rem}
+.contact li{display:flex;align-items:center;gap:.45rem}
+.dot{width:8px;height:8px;border-radius:999px;background:var(--accent-2);box-shadow:0 0 0 4px rgba(16,185,129,.15)}
+main{padding-top:26px}
+section{margin-top:26px}
+h2{margin:0 0 10px;font-size:1rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+h3{margin:0;font-size:1.08rem;letter-spacing:-.01em}
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px;box-shadow:var(--shadow);
+}
+.hero{
+  padding:clamp(1.8rem,4vw,3rem);
+}
+.hero h1{font-size:clamp(2.3rem,7vw,4.6rem);line-height:.95;letter-spacing:-.05em;margin:.35rem 0 0}
+.eyebrow{margin:0;color:var(--muted);font-size:.82rem;font-weight:850;letter-spacing:.2em;text-transform:uppercase}
+.lede{max-width:44rem;margin:1rem 0 0;color:color-mix(in srgb, var(--text) 86%, var(--muted));font-size:1.06rem}
+.summary-grid,.grid2,.grid3,.route-grid{display:grid;gap:14px}
+.summary-grid{grid-template-columns:1.2fr .8fr}
+.grid2{grid-template-columns:1fr 1fr}
+.grid3,.route-grid{grid-template-columns:repeat(3, minmax(0, 1fr))}
+.impact{display:grid;gap:10px}
+.kpi{border:1px dashed rgba(37,99,235,.28);border-radius:16px;padding:12px;background:var(--surface-2)}
+.metric{display:block;font-family:var(--mono);font-weight:900;font-size:1.04rem;letter-spacing:.01em}
+.kpi small,.fine,.sub{display:block;color:var(--muted)}
+.sub{margin:.35rem 0 0}
+ul{margin:.65rem 0 0;padding-left:1.15rem}
+li{margin:.4rem 0}
+.chips{list-style:none;padding:0;margin:.6rem 0 0}
+.chips li{margin:0;padding:.42rem .68rem;border:1px solid var(--border);border-radius:999px;background:var(--surface-2);font-size:.92rem;color:var(--text)}
+.rolehead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.55rem 1rem}
+.meta{color:var(--muted);font-weight:780;font-size:.95rem}
+details{margin-top:12px;border:1px solid var(--border);border-radius:16px;background:var(--surface-2);padding:10px 12px}
+summary{cursor:pointer;font-weight:800;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";display:inline-block;width:1.15rem;color:var(--accent);font-weight:900}
+details[open] summary::before{content:"▾"}
+.route-card{padding:18px}
+.route-card .tag{display:inline-block;margin-bottom:.55rem;padding:.25rem .55rem;border-radius:999px;background:rgba(37,99,235,.10);color:var(--accent);font-size:.78rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+footer{margin-top:30px;color:var(--muted);font-size:.95rem}
+code{font-family:var(--mono);background:var(--surface-2);padding:.14rem .35rem;border-radius:8px}
+@media (max-width: 920px){.summary-grid,.grid2,.grid3,.route-grid{grid-template-columns:1fr}}
+@media (max-width: 640px){
+  .hero h1{font-size:clamp(2rem,12vw,3rem)}
+  .cta-row,.rowBtns,.actions{display:grid;grid-template-columns:1fr}
+  .cta-row .btn,.rowBtns .btn,.actions .btn{width:100%}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;scroll-behavior:auto !important}}
+@media print{
+  header,.skip,.actions,.navrow{display:none !important}
+  body{background:#fff;color:#000}
+  .wrap{max-width:8.5in;padding:0}
+  .card,details{box-shadow:none !important;background:#fff !important}
+  a{color:#000;text-decoration:none}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt}
+}</style>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header>
+    <div class="head">
+      <div class="who">
+        <div class="navrow" aria-label="Resume navigation">
+          <a class="navpill" href="index.html">← Resume gateway</a>
+          <a class="navpill" href="resume-atlas.html">Open Atlas</a>
+          <a class="navpill" href="resume-ats.txt">ATS text</a>
+        </div>
+        <h1>Brandon S. Clark</h1>
+        <p class="role">Senior Software Engineer • Backend, Platform, Cloud, Data &amp; IoT</p>
+        <ul class="contact" aria-label="Contact and profile links">
+          <li><span class="dot" aria-hidden="true"></span><span>Wisconsin (Remote)</span></li>
+          <li><a href="mailto:bsc_work@yahoo.com">bsc_work@yahoo.com</a></li>
+          <li><a href="https://github.com/theghostarbiter">github.com/theghostarbiter</a></li>
+          <li><a href="https://www.linkedin.com/in/brandon-c-it-industry">linkedin.com/in/brandon-c-it-industry</a></li>
+        </ul>
+      </div>
+      <div class="actions" aria-label="Resume actions">
+        <button class="btn" id="themeBtn" type="button">Dark mode</button>
+        <button class="btn primary" type="button" onclick="window.print()">Print / Save PDF</button>
+      </div>
+    </div>
+  </header>
+  <div class="wrap">
+    <main id="content">
+      <section aria-labelledby="summary">
+        <h2 id="summary">Professional Summary</h2>
+        <div class="summary-grid">
+          <div class="card">
+            <p>
+              Senior Software Engineer with experience in AWS backend and platform engineering, secure IoT provisioning,
+              serverless APIs, Terraform / Infrastructure as Code, operational excellence, data foundations, ETL / backfill workflows,
+              and engineering enablement through documentation, demos, diagrams, mentoring, and technical presentations.
+            </p>
+            <p class="sub"><strong>Best-fit roles:</strong> Senior Software Engineer, Backend Engineer, Platform Engineer, Cloud Engineer, IoT Engineer, or Solutions / Enablement Engineer.</p>
+          </div>
+          <div class="impact" aria-label="Selected impact metrics">
+            <div class="kpi"><span class="metric">&lt;1 min / device</span><small>Provisioning workflow reduced from roughly 10 minutes to under 1 minute</small></div>
+            <div class="kpi"><span class="metric">~40% smaller payloads</span><small>MQTT delta updates for constrained devices</small></div>
+            <div class="kpi"><span class="metric">~30% faster ramp</span><small>README, demos, and diagrams improved onboarding</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="skills">
+        <h2 id="skills">Keyword-Rich Skills</h2>
+        <div class="card">
+          <ul class="chips" aria-label="Skill list">
+            <li>AWS IoT Core</li>
+            <li>AWS Lambda</li>
+            <li>Amazon API Gateway</li>
+            <li>AWS Step Functions</li>
+            <li>AWS Secrets Manager</li>
+            <li>Terraform / IaC</li>
+            <li>TypeScript / Node.js</li>
+            <li>Python automation / CLI tooling</li>
+            <li>OpenAPI / API documentation</li>
+            <li>Auth0 integration patterns</li>
+            <li>MQTT / delta updates</li>
+            <li>DynamoDB / DocumentDB</li>
+            <li>Data tagging systems</li>
+            <li>ETL / backfill scripting</li>
+            <li>Monitoring, dashboards, SLA definitions</li>
+            <li>Serverless partner integrations</li>
+            <li>Technical documentation and demos</li>
+            <li>Cross-team enablement and mentoring</li>
+          </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="experience">
+        <h2 id="experience">Experience</h2>
+
+        <article class="card" aria-label="Milwaukee Tool Senior Software Engineer">
+          <div class="rolehead">
+            <h3>Milwaukee Tool (Digital IoT Service) — Senior Software Engineer</h3>
+            <div class="meta">2025–Present • Remote (WI)</div>
+          </div>
+          <ul>
+            <li>Initiated and delivered a greenfield IoT provisioning capability (Python CLI + supporting APIs) for secure device registration, certificate generation, and bootstrapping across dev, test, and prod.</li>
+            <li>Reduced provisioning time from roughly 10 minutes to under 1 minute per device while standardizing setup and reducing manual onboarding effort.</li>
+            <li>Integrated AWS Secrets Manager, Auth0-backed API workflows, and MQTT delta updates to strengthen security and reduce constrained-device payload size by roughly 40%.</li>
+            <li>Partnered with leadership on SLA definitions, monitoring-gap analysis, and operational visibility to establish a stronger reliability baseline.</li>
+            <li>Created README documentation, demos, and interactive diagrams that reduced onboarding friction and accelerated contributor ramp-up by an estimated ~30%.</li>
+          </ul>
+          <details>
+            <summary>Additional leadership and enablement keywords</summary>
+            <ul>
+              <li>Peer mentoring, cross-team presentations, stakeholder readouts, survey-driven communication, technical synchronization, and innovation sprint leadership.</li>
+              <li>Led a cross-functional innovation sprint in 3D modeling, Blender, and AWS IoT TwinMaker to produce demoable proof-of-concept outcomes in an unfamiliar domain.</li>
+            </ul>
+          </details>
+        </article>
+
+        <article class="card" aria-label="Milwaukee Tool Software Engineer II">
+          <div class="rolehead">
+            <h3>Milwaukee Tool (Power Tool Data / Digital IoT Service) — Software Engineer II</h3>
+            <div class="meta">2024 • Remote (WI)</div>
+          </div>
+          <ul>
+            <li>Delivered Tool Data Foundations capabilities by implementing a comprehensive tagging system and supporting V2 tool-read integration into QuickLink.</li>
+            <li>Improved partner-team support through stronger documentation, workflow visualization, task organization, and clearer technical communication.</li>
+            <li>Advanced TypeScript reusability, OpenAPI documentation practices, and data-platform support skills.</li>
+          </ul>
+        </article>
+
+        <article class="card" aria-label="Milwaukee Tool Software Engineer Integrations">
+          <div class="rolehead">
+            <h3>Milwaukee Tool (One-Key Integrations) — Software Engineer</h3>
+            <div class="meta">2021–2023 • Remote (WI)</div>
+          </div>
+          <ul>
+            <li>Built and supported AWS serverless partner integrations using API Gateway, Step Functions, Lambda, DynamoDB, and Terraform.</li>
+            <li>Delivered Oracle Unifier integration work across UI and back-end layers, plus demos, API documentation, and QA-facing implementation guidance.</li>
+            <li>Prototyped an API Gateway → Step Functions → Lambda request-bus flow for routing, validation, transformation, and internal API handoff.</li>
+            <li>Resolved dynamic deep-link and PDF/report issues across environments by moving logic server-side and handling environment-specific base URLs more safely.</li>
+            <li>Produced design diagrams, Postman how-tos, onboarding documentation, and reusable integration assets that reduced ambiguity and scaled team knowledge.</li>
+          </ul>
+        </article>
+
+        <details class="card">
+          <summary>Earlier experience (condensed)</summary>
+          <div class="grid2">
+            <div>
+              <div class="rolehead">
+                <h3>Foundation Finance Company — Full-Stack Developer</h3>
+                <div class="meta">2020–2021</div>
+              </div>
+              <ul>
+                <li>Designed and delivered AWS-hosted web applications, CI/CD pipelines, and client-facing portals.</li>
+                <li>Shipped payment-portal features and improved internal coding standards and API documentation.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="rolehead">
+                <h3>Foundation Finance Company — Software Developer</h3>
+                <div class="meta">2019–2020</div>
+              </div>
+              <ul>
+                <li>Built automation tooling that reduced manual work and improved reliability of internal processes.</li>
+                <li>Developed web platforms using JavaScript / Node.js, React, SQL, and cloud services.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="rolehead">
+                <h3>Aqua Finance — Web / Software Developer</h3>
+                <div class="meta">2017–2019</div>
+              </div>
+              <ul>
+                <li>Delivered full-stack solutions across .NET, Java, C#, and enterprise systems while expanding scope and ownership.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="rolehead">
+                <h3>Minnesota Attorney General’s Office — Application Developer</h3>
+                <div class="meta">2016–2017</div>
+              </div>
+              <ul>
+                <li>Built and supported internal applications and database-backed tools, improving error handling and developer productivity.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section aria-labelledby="certs">
+        <h2 id="certs">Certifications</h2>
+        <div class="card">
+          <ul>
+            <li>AWS Certified Solutions Architect – Associate (SAA-C03)</li>
+            <li>AWS Certified Cloud Practitioner (CLF-C01)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="education">
+        <h2 id="education">Education</h2>
+        <div class="card">
+          <div class="rolehead">
+            <h3>University of Wisconsin–River Falls</h3>
+            <div class="meta">B.S. Finance • Minor: Computer Science</div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        Denser keyword version for recruiter search, application systems, and copy / paste workflows. This version intentionally avoids unsupported extrapolated estimates.
+      </footer>
+    </main>
+  </div>
+  <script>
+(function(){
+  const htmlEl = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  function getPreferredTheme(){
+    try{
+      const saved = localStorage.getItem('bsc_theme');
+      if(saved === 'light' || saved === 'dark') return saved;
+    }catch(e){}
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function setTheme(theme){
+    htmlEl.dataset.theme = theme;
+    try{ localStorage.setItem('bsc_theme', theme); }catch(e){}
+    if(themeBtn) themeBtn.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+  }
+  setTheme(getPreferredTheme());
+  if(themeBtn){
+    themeBtn.addEventListener('click', function(){
+      setTheme(htmlEl.dataset.theme === 'dark' ? 'light' : 'dark');
+    });
+  }
+})();
+</script>
+  <script>
+  (function(){
+    let openState = null;
+    function snapshot(){ return Array.from(document.querySelectorAll('details')).map(d => d.open); }
+    function restore(state){ if(!state) return; Array.from(document.querySelectorAll('details')).forEach((d,i) => d.open = !!state[i]); }
+    window.addEventListener('beforeprint', function(){ openState = snapshot(); document.querySelectorAll('details').forEach(d => d.open = true); });
+    window.addEventListener('afterprint', function(){ restore(openState); openState = null; });
+  })();
+  </script>
+</body>
+</html>
