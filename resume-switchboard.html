@@ -1034,7 +1034,7 @@
             <li>It makes the <strong>recommended default</strong> obvious, so a good reader does not have to self-diagnose first.</li>
             <li>It surfaces <strong>documented outcomes</strong> before the reader chooses a mode, which makes the click feel earned.</li>
             <li>It explains the <strong>differences between the modes</strong> plainly, instead of assuming the reader already understands the system.</li>
-            <li>It keeps the original strengths: low motion, no analytics, local theme storage, and Signal link-building.</li>
+            <li>It keeps the original strengths: low motion, local theme storage, and Signal link-building.</li>
           </ul>
           <p class="note">If you deploy this, the cleanest production name is still <span class="mono">resume-switchboard.html</span>. This artifact uses a different filename so you can review it without overwriting the original.</p>
         </article>
@@ -1042,7 +1042,7 @@
     </section>
 
     <footer>
-      <p style="margin:0">Private by default: no analytics, trackers, or external JS libraries. Theme choice and last-used mode are stored locally in the browser only.</p>
+      <p style="margin:0">Private by default: aggregate-only analytics via Cloudflare Web Analytics — no cookies, no session replay, no ad tracking. Theme choice and last-used mode are stored locally in the browser only.</p>
     </footer>
   </main>
 
@@ -1360,5 +1360,6 @@
     });
   })();
   </script>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "24d5fbb0961d42ed81d8401bceb78648"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
