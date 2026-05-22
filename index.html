@@ -13,14 +13,14 @@
   <meta name="description" content="Cinematic resume homepage for Brandon S. Clark with Atlas, Signal, Proof Hub, tailored links, and a low-motion switchboard." />
   <link rel="canonical" href="https://theghostarbiter.github.io/static-resume/" />
   <meta property="og:title" content="Brandon S. Clark — Resume Home" />
-  <meta property="og:description" content="Secure AWS systems, maintainable APIs, and calm operational delivery for cloud, data, and IoT platforms." />
+  <meta property="og:description" content="Secure AWS systems, maintainable APIs, and calm operational delivery for backend, cloud, and data platforms." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://theghostarbiter.github.io/static-resume/" />
   <meta property="og:image" content="https://theghostarbiter.github.io/static-resume/og-image.png" />
-  <meta property="og:image:alt" content="Brandon S. Clark — Senior Software Engineer (AWS, IoT, Platform)" />
+  <meta property="og:image:alt" content="Brandon S. Clark — Senior Software Engineer (AWS Backend / Platform)" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Brandon S. Clark — Resume Home" />
-  <meta name="twitter:description" content="Secure AWS systems, maintainable APIs, and calm operational delivery for cloud, data, and IoT platforms." />
+  <meta name="twitter:description" content="Secure AWS systems, maintainable APIs, and calm operational delivery for backend, cloud, and data platforms." />
   <meta name="twitter:image" content="https://theghostarbiter.github.io/static-resume/og-image.png" />
 
   <style>
@@ -1476,7 +1476,7 @@
     "jobTitle": "Senior Software Engineer",
     "email": "mailto:bsc_work@yahoo.com",
     "url": "https://theghostarbiter.github.io/static-resume/",
-    "knowsAbout": ["AWS", "IoT", "Terraform", "TypeScript", "Python", "Node.js", "Serverless", "API Gateway", "Lambda", "DynamoDB", "Step Functions", "MQTT"],
+    "knowsAbout": ["AWS", "Lambda", "API Gateway", "Step Functions", "DynamoDB", "Terraform", "TypeScript", "Python", "Node.js", "Serverless", "Auth0", "OpenAPI", "IoT"],
     "hasOccupation": {
       "@type": "Occupation",
       "name": "Senior Software Engineer",
@@ -1554,9 +1554,9 @@
           </div>
           <p class="eyebrow">Senior software engineer</p>
           <h1><span class="name-lockup">Brandon&nbsp;S.&nbsp;Clark</span></h1>
-          <p class="strap"><span class="specular-headline" data-text="Cloud, Data &amp; IoT Platforms" id="heroHeadline">Cloud, Data &amp; IoT Platforms</span></p>
+          <p class="strap"><span class="specular-headline" data-text="AWS Backend &amp; Cloud Platform" id="heroHeadline">AWS Backend &amp; Cloud Platform</span></p>
           <p class="lede">
-            I build <span class="hero-role-text" id="hero-role">AWS IoT platforms</span> — secure systems, maintainable APIs, and calm operational delivery — then hand each reader the version of the story that fits how they review candidates.
+            I build <span class="hero-role-text" id="hero-role">serverless backend systems</span> — secure APIs, reliable cloud infrastructure, and calm operational delivery — then hand each reader the version of the story that fits how they review candidates.
           </p>
 
           <div class="cta-row" role="group" aria-label="Primary resume actions">
@@ -1842,7 +1842,7 @@
             <div aria-label="Preset links" class="presets" role="group">
               <button class="btn lift small" data-open-focus="cloud,api,opex" type="button">Cloud / Platform / AWS</button>
               <button class="btn lift small" data-open-focus="api,cloud,opex" type="button">APIs / Integrations</button>
-              <button class="btn lift small" data-open-focus="iot,cloud,api,opex" type="button">IoT / Device Services</button>
+              <button class="btn lift small" data-open-focus="iot,cloud,api,opex" type="button">Embedded / IoT</button>
               <button class="btn lift small" data-open-focus="data,cloud,api" type="button">Data Platform / ETL</button>
               <button class="btn lift small" data-open-focus="lead,enable,opex" type="button">Leadership / Enablement</button>
               <button class="btn lift small" data-open-focus="ai,enable,lead" type="button">GenAI / Automation Mindset</button>
@@ -2594,11 +2594,11 @@
       var el = document.getElementById('hero-role');
       if(!el) return;
       var roles = [
-        'AWS IoT platforms',
-        'secure serverless APIs',
+        'serverless backend systems',
+        'secure cloud APIs',
         'cloud-native infrastructure',
-        'device provisioning systems',
-        'data pipeline backends'
+        'data pipeline backends',
+        'AWS platform tooling'
       ];
       var idx = 0, charIdx = roles[0].length, deleting = false, pausing = false;
       function tick(){

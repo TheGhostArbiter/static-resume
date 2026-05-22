@@ -4,6 +4,8 @@
 
 Most resume sites force every reader through the same generic page. This one routes them to the version that fits how they actually evaluate candidates — and it does it in plain static HTML with no framework and no build step.
 
+**Senior Software Engineer — AWS Backend / Cloud Platform.** Five years at Milwaukee Tool building serverless APIs, platform tooling, and data foundations. Prior: $85M payment portal, 1,200-hour automation, and full-stack product work across fintech and public sector.
+
 **Live site:** [theghostarbiter.github.io/static-resume](https://theghostarbiter.github.io/static-resume/)
 
 ---
