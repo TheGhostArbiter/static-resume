@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark" data-atmosphere="blue">
+<html lang="en" data-theme="dark" data-atmosphere="blue" data-vanta-effect="fog">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -79,6 +79,36 @@
       --accent:#b287ff;
       --accent2:#ff9bf0;
       --accent-soft:rgba(178,135,255,.18);
+    }
+    html[data-atmosphere="ghost"]{
+      --accent:#909098;--accent2:#606068;--accent-soft:rgba(144,144,152,.16);
+      --bg:#080808;--fg:#c8c8cc;--muted:#606068;
+      --panel:rgba(20,20,22,.44);--panel-strong:rgba(20,20,22,.62);--border:rgba(200,200,204,.10);
+    }
+    html[data-atmosphere="void"]{
+      --accent:#e8e8e8;--accent2:#a0a0a0;--accent-soft:rgba(232,232,232,.14);
+      --bg:#000000;--fg:#f0f0f0;--muted:#707070;
+      --panel:rgba(16,16,16,.48);--panel-strong:rgba(16,16,16,.68);--border:rgba(240,240,240,.12);
+    }
+    html[data-atmosphere="amethyst"]{
+      --accent:#b04fff;--accent2:#7c3aed;--accent-soft:rgba(176,79,255,.18);
+      --bg:#080012;--fg:#e8d4ff;--muted:#8a68b0;
+      --panel:rgba(18,4,32,.46);--panel-strong:rgba(18,4,32,.64);--border:rgba(176,79,255,.14);
+    }
+    html[data-atmosphere="neon-rose"]{
+      --accent:#ff2d9b;--accent2:#ff6ec7;--accent-soft:rgba(255,45,155,.18);
+      --bg:#0a0008;--fg:#ffd6ee;--muted:#a04878;
+      --panel:rgba(20,0,14,.46);--panel-strong:rgba(20,0,14,.64);--border:rgba(255,45,155,.14);
+    }
+    html[data-atmosphere="chrome"]{
+      --accent:#c0c0cc;--accent2:#8890a8;--accent-soft:rgba(192,192,204,.16);
+      --bg:#080a0e;--fg:#d8d8e0;--muted:#7880a0;
+      --panel:rgba(14,16,24,.46);--panel-strong:rgba(14,16,24,.64);--border:rgba(192,192,204,.12);
+    }
+    html[data-atmosphere="prism"]{
+      --accent:#88aaff;--accent2:#88ffdd;--accent-soft:rgba(136,170,255,.16);
+      --bg:#04040c;--fg:#eeeeff;--muted:#8888aa;
+      --panel:rgba(8,8,20,.44);--panel-strong:rgba(8,8,20,.62);--border:rgba(136,170,255,.12);
     }
 
     *{box-sizing:border-box}
@@ -283,10 +313,12 @@
       color:var(--muted);
     }
     .swatch-row{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:8px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.38rem;
     }
+    .effect-row{ flex-wrap:nowrap; }
+    .effect-swatch{ flex:1; font-size:.72rem; }
     .swatch{
       min-height:44px;
       padding:.7rem .78rem;
@@ -321,6 +353,12 @@
     .swatch[data-atmosphere-btn="crimson"]{--swatch-a:#ff6b8e; --swatch-b:#ffb38a;}
     .swatch[data-atmosphere-btn="emerald"]{--swatch-a:#45e3a4; --swatch-b:#9dffe2;}
     .swatch[data-atmosphere-btn="violet"]{--swatch-a:#b287ff; --swatch-b:#ff9bf0;}
+    .swatch[data-atmosphere-btn="ghost"]{--swatch-a:#909098; --swatch-b:#606068;}
+    .swatch[data-atmosphere-btn="void"]{--swatch-a:#e8e8e8; --swatch-b:#a0a0a0;}
+    .swatch[data-atmosphere-btn="amethyst"]{--swatch-a:#b04fff; --swatch-b:#7c3aed;}
+    .swatch[data-atmosphere-btn="neon-rose"]{--swatch-a:#ff2d9b; --swatch-b:#ff6ec7;}
+    .swatch[data-atmosphere-btn="chrome"]{--swatch-a:#c0c0cc; --swatch-b:#8890a8;}
+    .swatch[data-atmosphere-btn="prism"]{--swatch-a:#88aaff; --swatch-b:#ff88dd;}
     .swatch[aria-pressed="true"]{
       border-color:color-mix(in srgb, var(--accent) 58%, var(--border));
       box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent);
@@ -1557,14 +1595,27 @@
         <a class="btn lift small" href="?plain=1" id="plainModeLink" aria-label="Toggle plain mode">Plain mode</a>
         <button class="btn lift small" id="themeBtn" type="button">Light mode</button>
         <details class="appearance-panel" id="appearancePanel">
-          <summary class="btn lift small">Atmosphere</summary>
+          <summary class="btn lift small">Look &amp; Feel</summary>
           <div class="appearance-menu">
-            <p class="appearance-kicker">Fog palette</p>
+            <p class="appearance-kicker">Effect</p>
+            <div class="swatch-row effect-row" role="group" aria-label="Visual effect">
+              <button class="swatch effect-swatch" type="button" data-effect-btn="fog"   aria-pressed="true">Fog</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="ocean" aria-pressed="false">Ocean</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="depth" aria-pressed="false">Depth</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="lava"  aria-pressed="false">Lava</button>
+            </div>
+            <p class="appearance-kicker" style="margin-top:.75rem">Colors</p>
             <div class="swatch-row" role="group" aria-label="Atmosphere colors">
-              <button class="swatch" type="button" data-atmosphere-btn="blue" aria-pressed="true">Blue</button>
-              <button class="swatch" type="button" data-atmosphere-btn="crimson" aria-pressed="false">Crimson</button>
-              <button class="swatch" type="button" data-atmosphere-btn="emerald" aria-pressed="false">Emerald</button>
-              <button class="swatch" type="button" data-atmosphere-btn="violet" aria-pressed="false">Violet</button>
+              <button class="swatch" type="button" data-atmosphere-btn="blue"      aria-pressed="true">Blue</button>
+              <button class="swatch" type="button" data-atmosphere-btn="crimson"   aria-pressed="false">Crimson</button>
+              <button class="swatch" type="button" data-atmosphere-btn="emerald"   aria-pressed="false">Emerald</button>
+              <button class="swatch" type="button" data-atmosphere-btn="violet"    aria-pressed="false">Violet</button>
+              <button class="swatch" type="button" data-atmosphere-btn="ghost"     aria-pressed="false">Ghost</button>
+              <button class="swatch" type="button" data-atmosphere-btn="void"      aria-pressed="false">Void</button>
+              <button class="swatch" type="button" data-atmosphere-btn="amethyst"  aria-pressed="false">Amethyst</button>
+              <button class="swatch" type="button" data-atmosphere-btn="neon-rose" aria-pressed="false">Neon Rose</button>
+              <button class="swatch" type="button" data-atmosphere-btn="chrome"    aria-pressed="false">Chrome</button>
+              <button class="swatch" type="button" data-atmosphere-btn="prism"     aria-pressed="false">Prism ✦</button>
             </div>
           </div>
         </details>
@@ -1921,6 +1972,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.waves.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.ripple.min.js"></script>
   <script>
     (function(){
       const html = document.documentElement;
@@ -1990,6 +2043,36 @@
           midtoneLight:0xf0ebff,
           lowlightLight:0xc87bff,
           baseLight:0xfbfbff
+        },
+        ghost:{
+          baseDarkCss:'#080808',baseLightCss:'#f2f2f2',
+          highlightDark:0x909098,midtoneDark:0x1a1a1e,lowlightDark:0x606068,baseDark:0x080808,
+          highlightLight:0x606068,midtoneLight:0xe8e8ec,lowlightLight:0x909098,baseLight:0xf2f2f2
+        },
+        void:{
+          baseDarkCss:'#000000',baseLightCss:'#f8f8f8',
+          highlightDark:0xd0d0d0,midtoneDark:0x101010,lowlightDark:0x808080,baseDark:0x000000,
+          highlightLight:0x707070,midtoneLight:0xf0f0f0,lowlightLight:0xa0a0a0,baseLight:0xf8f8f8
+        },
+        amethyst:{
+          baseDarkCss:'#080012',baseLightCss:'#f8f4ff',
+          highlightDark:0xb04fff,midtoneDark:0x1a0038,lowlightDark:0x7c3aed,baseDark:0x080012,
+          highlightLight:0x6d28d9,midtoneLight:0xede9fe,lowlightLight:0xa855f7,baseLight:0xf8f4ff
+        },
+        'neon-rose':{
+          baseDarkCss:'#0a0008',baseLightCss:'#fff4fa',
+          highlightDark:0xff2d9b,midtoneDark:0x280014,lowlightDark:0xff6ec7,baseDark:0x0a0008,
+          highlightLight:0xbe185d,midtoneLight:0xfce7f3,lowlightLight:0xf472b6,baseLight:0xfff4fa
+        },
+        chrome:{
+          baseDarkCss:'#080a0e',baseLightCss:'#f4f4f6',
+          highlightDark:0xc8c8d8,midtoneDark:0x141620,lowlightDark:0x8890a8,baseDark:0x080a0e,
+          highlightLight:0x9090a8,midtoneLight:0xeeeef4,lowlightLight:0xb8b8cc,baseLight:0xf4f4f6
+        },
+        prism:{
+          baseDarkCss:'#04040c',baseLightCss:'#f8f8ff',
+          highlightDark:0x88aaff,midtoneDark:0x0c0c20,lowlightDark:0x88ffdd,baseDark:0x04040c,
+          highlightLight:0x4466cc,midtoneLight:0xeeeeff,lowlightLight:0x44ccaa,baseLight:0xf8f8ff
         }
       };
 
@@ -2052,6 +2135,34 @@
         return ATMOSPHERES[preset] ? preset : 'blue';
       }
 
+      function currentEffect(){
+        var e = html.getAttribute('data-vanta-effect');
+        return (['fog','ocean','depth','lava'].indexOf(e) > -1) ? e : 'fog';
+      }
+
+      function getPreferredEffect(){
+        try{
+          var v = localStorage.getItem('bsc_vanta_effect');
+          if(['fog','ocean','depth','lava'].indexOf(v) > -1) return v;
+        }catch(e){}
+        return 'fog';
+      }
+
+      function syncEffectButtons(){
+        document.querySelectorAll('[data-effect-btn]').forEach(function(btn){
+          btn.setAttribute('aria-pressed', btn.getAttribute('data-effect-btn') === currentEffect() ? 'true' : 'false');
+        });
+      }
+
+      function applyEffect(name){
+        var valid = ['fog','ocean','depth','lava'];
+        var next = valid.indexOf(name) > -1 ? name : 'fog';
+        html.setAttribute('data-vanta-effect', next);
+        try{ localStorage.setItem('bsc_vanta_effect', next); }catch(e){}
+        syncEffectButtons();
+        startVanta();
+      }
+
       function updateThemeColorMeta(){
         if(!themeColorMeta) return;
         const config = ATMOSPHERES[currentAtmosphere()] || ATMOSPHERES.blue;
@@ -2111,6 +2222,8 @@
 
       applyTheme(getPreferredTheme(), true);
       applyAtmosphere(getPreferredAtmosphere(), true);
+      html.setAttribute('data-vanta-effect', getPreferredEffect());
+      syncEffectButtons();
 
       function updatePlainLinks(){
         const targets = [plainModeLink, plainModeLinkInline].filter(Boolean);
@@ -2147,10 +2260,16 @@
       }
 
       var ATM_PREVIEW = {
-        blue:    { accent:'#86a6ff', accent2:'#6fffd1', accentSoft:'rgba(120,162,255,.16)' },
-        crimson: { accent:'#ff6b8e', accent2:'#ffb38a', accentSoft:'rgba(255,107,142,.18)' },
-        emerald: { accent:'#45e3a4', accent2:'#9dffe2', accentSoft:'rgba(69,227,164,.18)'  },
-        violet:  { accent:'#b287ff', accent2:'#ff9bf0', accentSoft:'rgba(178,135,255,.18)' }
+        blue:      { accent:'#86a6ff', accent2:'#6fffd1', accentSoft:'rgba(120,162,255,.16)' },
+        crimson:   { accent:'#ff6b8e', accent2:'#ffb38a', accentSoft:'rgba(255,107,142,.18)' },
+        emerald:   { accent:'#45e3a4', accent2:'#9dffe2', accentSoft:'rgba(69,227,164,.18)'  },
+        violet:    { accent:'#b287ff', accent2:'#ff9bf0', accentSoft:'rgba(178,135,255,.18)' },
+        ghost:     { accent:'#909098', accent2:'#606068', accentSoft:'rgba(144,144,152,.16)' },
+        void:      { accent:'#e8e8e8', accent2:'#a0a0a0', accentSoft:'rgba(232,232,232,.14)' },
+        amethyst:  { accent:'#b04fff', accent2:'#7c3aed', accentSoft:'rgba(176,79,255,.18)'  },
+        'neon-rose':{ accent:'#ff2d9b', accent2:'#ff6ec7', accentSoft:'rgba(255,45,155,.18)' },
+        chrome:    { accent:'#c0c0cc', accent2:'#8890a8', accentSoft:'rgba(192,192,204,.16)' },
+        prism:     { accent:'#88aaff', accent2:'#88ffdd', accentSoft:'rgba(136,170,255,.16)' }
       };
       atmosphereButtons.forEach(function(btn){
         btn.addEventListener('click', function(){
@@ -2169,6 +2288,25 @@
           html.style.removeProperty('--accent');
           html.style.removeProperty('--accent2');
           html.style.removeProperty('--accent-soft');
+        });
+      });
+
+      var effectLabels = {
+        fog:'Fog — drifting atmospheric mist',
+        ocean:'Ocean — 3D wave surface',
+        depth:'Depth — underwater ripple rings',
+        lava:'Lava — slow molten movement'
+      };
+      document.querySelectorAll('[data-effect-btn]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          applyEffect(btn.getAttribute('data-effect-btn'));
+          if(appearancePanel) appearancePanel.open = false;
+        });
+        btn.addEventListener('mouseenter', function(){
+          setWarn(effectLabels[btn.getAttribute('data-effect-btn')] || '');
+        });
+        btn.addEventListener('mouseleave', function(){
+          setWarn('');
         });
       });
 
@@ -2331,24 +2469,66 @@
         }catch(e){ return false; }
       }
 
-      function buildFogConfig(){
-        const dark = currentTheme() === 'dark';
-        const atmosphere = ATMOSPHERES[currentAtmosphere()] || ATMOSPHERES.blue;
-        return {
-          el: '#vanta',
-          mouseControls: !prefersReduced,
-          touchControls: !prefersReduced,
-          gyroControls: false,
-          minHeight: 200.0,
-          minWidth: 200.0,
-          highlightColor: dark ? atmosphere.highlightDark : atmosphere.highlightLight,
-          midtoneColor: dark ? atmosphere.midtoneDark : atmosphere.midtoneLight,
-          lowlightColor: dark ? atmosphere.lowlightDark : atmosphere.lowlightLight,
-          baseColor: dark ? atmosphere.baseDark : atmosphere.baseLight,
-          blurFactor: dark ? 0.50 : 0.42,
-          speed: dark ? 0.82 : 0.56,
-          zoom: dark ? 0.96 : 1.04
+      function buildEffectConfig(){
+        var effect = currentEffect();
+        var dark = currentTheme() === 'dark';
+        var atm = ATMOSPHERES[currentAtmosphere()] || ATMOSPHERES.blue;
+        var base = {
+          el:'#vanta', mouseControls:!prefersReduced, touchControls:!prefersReduced,
+          gyroControls:false, minHeight:200.0, minWidth:200.0
         };
+        if(effect === 'ocean'){
+          var oceanColors = {
+            blue:dark?0x001e4a:0x1a6aaa, crimson:dark?0x2d0010:0x8a1040,
+            emerald:dark?0x002818:0x0d6648, violet:dark?0x0e0030:0x3d1880,
+            ghost:dark?0x101014:0x505058, void:dark?0x080808:0x404040,
+            amethyst:dark?0x14003a:0x4a1090, 'neon-rose':dark?0x280010:0x780038,
+            chrome:dark?0x0c1020:0x404860, prism:dark?0x080818:0x303860
+          };
+          return Object.assign({},base,{
+            color:oceanColors[currentAtmosphere()]||0x001e4a,
+            shininess:55, waveHeight:18, waveSpeed:dark?0.65:0.45, zoom:0.78
+          });
+        }
+        if(effect === 'depth'){
+          var depthColors = {
+            blue:dark?0x0d3b6e:0x1a7aaa, crimson:dark?0x4a0018:0x9a1040,
+            emerald:dark?0x063320:0x0d7848, violet:dark?0x1a0050:0x4d20a0,
+            ghost:dark?0x141418:0x606068, void:dark?0x0a0a0a:0x505050,
+            amethyst:dark?0x1e0050:0x5a18b0, 'neon-rose':dark?0x380018:0x880040,
+            chrome:dark?0x0e1428:0x485070, prism:dark?0x0a0a20:0x3a3a60
+          };
+          return Object.assign({},base,{
+            color:depthColors[currentAtmosphere()]||0x0d3b6e,
+            shininess:35, waveHeight:14, waveSpeed:dark?1.1:0.8, zoom:1.15
+          });
+        }
+        if(effect === 'lava'){
+          var lavaConfigs = {
+            blue:{h:0x4a6aff,m:0x0a0d3a,l:0x2244cc,b:0x020410},
+            crimson:{h:0xff6600,m:0xcc1800,l:0x550000,b:0x0d0000},
+            emerald:{h:0x44ff22,m:0x004400,l:0x228800,b:0x000d00},
+            violet:{h:0xcc44ff,m:0x330066,l:0x880088,b:0x080010},
+            ghost:{h:0x888888,m:0x222222,l:0x444444,b:0x060606},
+            void:{h:0xcccccc,m:0x111111,l:0x555555,b:0x000000},
+            amethyst:{h:0xdd44ff,m:0x220044,l:0x8800cc,b:0x060010},
+            'neon-rose':{h:0xff1888,m:0x440022,l:0xcc0066,b:0x0a0006},
+            chrome:{h:0xd0d0e0,m:0x181820,l:0x707080,b:0x060608},
+            prism:{h:0xff8844,m:0xcc2200,l:0x550000,b:0x0d0000}
+          };
+          var lc = lavaConfigs[currentAtmosphere()] || lavaConfigs.crimson;
+          return Object.assign({},base,{
+            highlightColor:lc.h, midtoneColor:lc.m, lowlightColor:lc.l, baseColor:lc.b,
+            blurFactor:0.66, speed:0.36, zoom:1.18
+          });
+        }
+        return Object.assign({},base,{
+          highlightColor:dark?atm.highlightDark:atm.highlightLight,
+          midtoneColor:dark?atm.midtoneDark:atm.midtoneLight,
+          lowlightColor:dark?atm.lowlightDark:atm.lowlightLight,
+          baseColor:dark?atm.baseDark:atm.baseLight,
+          blurFactor:dark?0.50:0.42, speed:dark?0.82:0.56, zoom:dark?0.96:1.04
+        });
       }
 
       function startVanta(){
@@ -2366,7 +2546,7 @@
         }
         if(!webglAvailable()){
           setAtmosphereState('fallback');
-          setWarn('Animated fog is unavailable here. The static atmosphere fallback is active.');
+          setWarn('Animated background is unavailable here. The static atmosphere fallback is active.');
           return;
         }
 
@@ -2376,13 +2556,16 @@
 
         (function waitForVanta(){
           attempts += 1;
-          if(window.VANTA && window.THREE && window.VANTA.FOG){
+          var neededEffect = currentEffect();
+          var neededKey = neededEffect === 'ocean' ? 'WAVES' : neededEffect === 'depth' ? 'RIPPLE' : 'FOG';
+          if(window.VANTA && window.THREE && window.VANTA.FOG && (neededKey === 'FOG' || window.VANTA[neededKey])){
             try{
-              vanta = window.VANTA.FOG(buildFogConfig());
+              var effectFn = window.VANTA[neededKey] || window.VANTA.FOG;
+              vanta = effectFn(buildEffectConfig());
               setAtmosphereState('vanta');
             }catch(err){
               setAtmosphereState('fallback');
-              setWarn('Animated fog could not start here. The static atmosphere fallback is active.');
+              setWarn('Animated background could not start here. The static atmosphere fallback is active.');
             }
             return;
           }
@@ -2390,7 +2573,7 @@
             window.setTimeout(waitForVanta, 200);
           }else{
             setAtmosphereState('fallback');
-            setWarn('Animated fog is unavailable in this preview. The static atmosphere fallback is active.');
+            setWarn('Animated background is unavailable in this preview. The static atmosphere fallback is active.');
           }
         })();
       }
@@ -2883,6 +3066,44 @@
         if(typeof window.bscLaunchConfetti === 'function') window.bscLaunchConfetti();
       }
     });
+  })();
+  </script>
+
+  <script>
+  /* prism rainbow-on-scroll */
+  (function(){
+    var html = document.documentElement;
+    var raf = null, lastY = -1;
+    function isPrism(){ return html.getAttribute('data-atmosphere') === 'prism'; }
+    function applyPrism(y){
+      var maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      var progress = Math.min(1, Math.max(0, y / maxScroll));
+      var hue  = Math.round(progress * 360);
+      var hue2 = (hue + 55) % 360;
+      html.style.setProperty('--accent',      'hsl('+hue+',88%,66%)');
+      html.style.setProperty('--accent2',     'hsl('+hue2+',80%,70%)');
+      html.style.setProperty('--accent-soft', 'hsla('+hue+',88%,66%,.18)');
+      html.style.setProperty('--border',      'hsla('+hue+',60%,60%,.14)');
+    }
+    function clearPrism(){
+      html.style.removeProperty('--accent');
+      html.style.removeProperty('--accent2');
+      html.style.removeProperty('--accent-soft');
+      html.style.removeProperty('--border');
+    }
+    function onScroll(){
+      if(!isPrism()){ if(raf){ cancelAnimationFrame(raf); raf=null; } return; }
+      var y = window.scrollY;
+      if(y === lastY) return;
+      lastY = y;
+      if(raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function(){ applyPrism(y); raf=null; });
+    }
+    new MutationObserver(function(){
+      if(isPrism()){ applyPrism(window.scrollY); } else { clearPrism(); }
+    }).observe(html, { attributes:true, attributeFilter:['data-atmosphere'] });
+    window.addEventListener('scroll', onScroll, { passive:true });
+    if(isPrism()) applyPrism(window.scrollY);
   })();
   </script>
 
