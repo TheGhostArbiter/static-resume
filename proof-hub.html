@@ -2088,7 +2088,7 @@
         const prov = findFirstText(/cut provisioning from/i);
         if (prov) {
           const m = prov.match(/from\s*~?(\d+)\s*min.*to\s*([<\d–\- ]+)\s*min/i);
-          metrics.push({ k: 'Provisioning speed', v: m ? (m[1] + ' min → ' + m[2].trim() + ' min') : 'Faster provisioning', s: 'Secure IoT provisioning' });
+          metrics.push({ k: 'Provisioning speed', v: m ? (m[1] + ' min → ' + m[2].trim() + ' min') : 'Faster provisioning', s: 'Secure automation workflow' });
         }
 
         const mqtt = findFirstText(/mqtt delta updates/i);

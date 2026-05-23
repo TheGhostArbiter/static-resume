@@ -182,15 +182,14 @@
     }
 
     .kpis{
-      display:flex;
-      flex-wrap:wrap;
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
       gap:.65rem;
       margin-top:12px;
     }
 
     .kpi{
-      min-width:170px;
-      padding:10px 12px;
+      padding:12px 14px;
       border-radius:16px;
       border:1px dashed rgba(109,40,217,.32);
       background:rgba(255,255,255,.72);
@@ -203,7 +202,7 @@
     .kpi b{
       display:block;
       font-family:var(--mono);
-      font-size:1.02rem;
+      font-size:1.08rem;
       letter-spacing:.01em;
     }
 
