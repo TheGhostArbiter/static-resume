@@ -10,17 +10,17 @@
   <meta name="description" content="Impact-focused resume bullet inventory with JD matching, role filters, skills pack, and ATS-friendly copy/export tools. Optimized for LinkedIn link previews (Open Graph).">
 
   <!-- Open Graph tags (LinkedIn + others) -->
-  <meta property="og:title" content="Brandon S. Clark — Senior Software Engineer (AWS / IoT / Platform)" />
+  <meta property="og:title" content="Brandon S. Clark — Senior Software Engineer (AWS Backend / Platform)" />
   <meta property="og:type" content="website" />
-  <meta property="og:description" content="Impact-focused accomplishments + resume bullets with JD match + copy tools (AWS, IoT, Terraform, serverless, data platforms)." />
+  <meta property="og:description" content="Impact-focused accomplishments + resume bullets with JD match + copy tools (AWS, Terraform, serverless, APIs, data platforms)." />
   <meta property="og:url" content="https://theghostarbiter.github.io/static-resume/proof-hub.html" />
   <meta property="og:image" content="https://theghostarbiter.github.io/static-resume/og-image.png" />
-  <meta property="og:image:alt" content="Brandon S. Clark — Senior Software Engineer (AWS, IoT, Platform)" />
+  <meta property="og:image:alt" content="Brandon S. Clark — Senior Software Engineer (AWS Backend / Platform)" />
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Brandon S. Clark — Senior Software Engineer (AWS / IoT / Platform)" />
-  <meta name="twitter:description" content="Resume bullets + JD match + ATS copy tools. Cloud/IoT/platform engineering impact." />
+  <meta name="twitter:title" content="Brandon S. Clark — Senior Software Engineer (AWS Backend / Platform)" />
+  <meta name="twitter:description" content="Resume bullets + JD match + ATS copy tools. Cloud/backend/platform engineering impact." />
   <meta name="twitter:image" content="https://theghostarbiter.github.io/static-resume/og-image.png" />
 
   <link rel="canonical" href="https://theghostarbiter.github.io/static-resume/proof-hub.html" />
@@ -33,7 +33,7 @@
   "jobTitle": "Senior Software Engineer",
   "email": "mailto:bsc_work@yahoo.com",
   "url": "https://theghostarbiter.github.io/static-resume/",
-  "knowsAbout": ["AWS","IoT","Terraform","TypeScript","Python","Node.js","Serverless","API Gateway","Lambda","DynamoDB","Step Functions","MQTT","Auth0","OpenAPI"],
+  "knowsAbout": ["AWS","Lambda","API Gateway","Step Functions","DynamoDB","Terraform","TypeScript","Python","Node.js","Serverless","Auth0","OpenAPI","IoT"],
   "hasOccupation": {
     "@type": "Occupation",
     "name": "Senior Software Engineer",
@@ -975,9 +975,9 @@
           </div>
 
           <ul class="timeline" style="margin-top:10px;">
-            <li><b>Target roles:</b> Senior Software Engineer — Backend / Platform / IoT / Cloud</li>
+            <li><b>Target roles:</b> Senior Software Engineer — Backend / Platform / Cloud</li>
             <li><b>Location:</b> Wausau, WI (Central Time) · Remote-friendly</li>
-            <li><b>Core themes:</b> AWS serverless · IoT provisioning/MQTT · Terraform/IaC · Data foundations/ETL · Enablement</li>
+            <li><b>Core themes:</b> AWS serverless · Terraform/IaC · API design · Data foundations/ETL · Security-first automation · Enablement</li>
           </ul>
 
           <div class="quick-actions" aria-label="Quick actions">
@@ -1112,15 +1112,44 @@
 
       <div class="case-grid">
         <details class="case" open>
-          <summary>🔐 Secure IoT Device Provisioning — Python CLI + AWS IoT Core</summary>
+          <summary>💳 $85M Payment Portal — Full-Stack AWS Web Application</summary>
           <div class="case-body">
-            <p><b>Problem:</b> Provisioning devices was slow/manual and easy to get wrong across multiple environments.</p>
-            <p><b>Approach:</b> Built a provisioning CLI + supporting APIs that automate device registration, certificate generation, and secure bootstrapping aligned to AWS IoT Core patterns.</p>
-            <p><b>Results:</b> Reduced provisioning from ~10 minutes/manual to &lt;1 minute/device and introduced security-first handling (Secrets Manager, credential hygiene).</p>
-            <p class="mini"><b>Use it when interviewing for:</b> IoT platform, cloud platform, backend tooling, security-minded automation.</p>
+            <p><b>Problem:</b> Needed a client-facing payment portal that was reliable, secure, and scalable enough to handle high-volume production traffic.</p>
+            <p><b>Approach:</b> Designed and delivered a full-stack AWS-hosted web application with CI/CD pipelines, role-based access, and secure payment processing. Built from scratch with maintainability and operational readiness in mind.</p>
+            <p><b>Results:</b> Processed ~250,000 payments totaling ~$85M. Zero reported payment failures attributable to the platform. Still in production after handoff.</p>
+            <p class="mini"><b>Use it when interviewing for:</b> full-stack or backend SWE, fintech, high-reliability systems, cloud-hosted web apps, CI/CD.</p>
+            <div class="search-chips" aria-label="Find related bullets">
+              <button class="search-chip" type="button" data-query="payment">🔎 Find bullets: payment portal</button>
+              <button class="search-chip" type="button" data-query="foundation finance">🔎 Find bullets: Foundation Finance</button>
+              <button class="search-chip" type="button" data-query="ci/cd">🔎 Find bullets: CI/CD</button>
+            </div>
+          </div>
+        </details>
+
+        <details class="case">
+          <summary>⚙️ 1,200-Hour Automation — Java + SQL Server ETL Program</summary>
+          <div class="case-body">
+            <p><b>Problem:</b> A manual data-entry process consumed thousands of engineering hours per year and introduced error risk through repetition.</p>
+            <p><b>Approach:</b> Built an automated data-entry program using Java and MS SQL Server that handled the full ingestion pipeline — parsing, validation, transformation, and persistence — without human intervention.</p>
+            <p><b>Results:</b> Saved more than 1,200 hours of manual work and approximately $40K annually. Delivered as a standalone tool with zero ongoing support burden.</p>
+            <p class="mini"><b>Use it when interviewing for:</b> backend automation, ETL/data engineering, operational efficiency, enterprise tooling, cost reduction.</p>
+            <div class="search-chips" aria-label="Find related bullets">
+              <button class="search-chip" type="button" data-query="automation">🔎 Find bullets: automation</button>
+              <button class="search-chip" type="button" data-query="1200">🔎 Find bullets: 1,200 hours</button>
+              <button class="search-chip" type="button" data-query="sql server">🔎 Find bullets: SQL Server</button>
+            </div>
+          </div>
+        </details>
+
+        <details class="case">
+          <summary>🔐 Secure Provisioning Automation — Python CLI + AWS</summary>
+          <div class="case-body">
+            <p><b>Problem:</b> Onboarding new devices was slow (~10 min/device), manual, and inconsistent across dev, test, and prod environments.</p>
+            <p><b>Approach:</b> Built a Python CLI + supporting APIs that automated registration, certificate generation, credential handling, and multi-environment bootstrapping. Integrated Secrets Manager and Auth0 for security-first credential hygiene.</p>
+            <p><b>Results:</b> Reduced provisioning from ~10 minutes/manual to &lt;1 minute/device. Estimated ~100 hours saved in a 100-device rollout. Published a comprehensive README and demo assets that cut onboarding time for new engineers by ~30%.</p>
+            <p class="mini"><b>Use it when interviewing for:</b> cloud platform, backend tooling, security-minded automation, DevOps/platform engineering.</p>
             <div class="search-chips" aria-label="Find related bullets">
               <button class="search-chip" type="button" data-query="provisioning">🔎 Find bullets: provisioning</button>
-              <button class="search-chip" type="button" data-query="aws iot">🔎 Find bullets: AWS IoT</button>
               <button class="search-chip" type="button" data-query="secrets manager">🔎 Find bullets: Secrets Manager</button>
               <button class="search-chip" type="button" data-query="certificate">🔎 Find bullets: certificate</button>
             </div>
@@ -1128,26 +1157,12 @@
         </details>
 
         <details class="case">
-          <summary>📦 Constrained Messaging — MQTT Delta Updates</summary>
+          <summary>🧩 Serverless Request Bus — API Gateway → Step Functions → Lambda</summary>
           <div class="case-body">
-            <p><b>Problem:</b> IoT telemetry payloads can be large/expensive on constrained networks.</p>
-            <p><b>Approach:</b> Implemented delta updates for MQTT messages so devices publish only what changed.</p>
-            <p><b>Results:</b> Reduced payload size ~40% overall and up to ~97% in an example (476B → 15B).</p>
-            <p class="mini"><b>Use it when interviewing for:</b> performance, embedded-friendly backend systems, data efficiency, cost optimization.</p>
-            <div class="search-chips">
-              <button class="search-chip" type="button" data-query="mqtt delta">🔎 Find bullets: MQTT delta</button>
-              <button class="search-chip" type="button" data-query="telemetry">🔎 Find bullets: telemetry</button>
-            </div>
-          </div>
-        </details>
-
-        <details class="case">
-          <summary>🧩 Serverless Integrations — API Gateway → Step Functions → Lambda</summary>
-          <div class="case-body">
-            <p><b>Problem:</b> Needed reliable, observable integrations with validation + flexible transformation logic.</p>
-            <p><b>Approach:</b> Built an end-to-end API gateway POC routing requests through Step Functions and multiple Lambdas (“request bus” style) for filter/transform, validation, internal API calls, and link augmentation.</p>
-            <p><b>Results:</b> Returned results in seconds and packaged reusable artifacts (definition files, Postman collections, docs) to reduce tribal knowledge.</p>
-            <p class="mini"><b>Use it when interviewing for:</b> serverless backend, integration platforms, API design, workflow orchestration.</p>
+            <p><b>Problem:</b> Needed reliable, observable partner integrations with validation, flexible transformation, and auditability — without coupling to a single Lambda.</p>
+            <p><b>Approach:</b> Prototyped an end-to-end request bus: API Gateway → Step Functions → multiple Lambdas, each responsible for a single concern (filter, validate, transform, augment, respond). Each step was independently testable and the full workflow was observable via CloudWatch.</p>
+            <p><b>Results:</b> End-to-end requests completed in seconds. Packaged reusable state machine definitions, Postman collections, and runbooks — reducing tribal knowledge and enabling faster onboarding for the next engineer.</p>
+            <p class=”mini”><b>Use it when interviewing for:</b> distributed systems, serverless backend, integration platforms, API design, workflow orchestration, system design interviews.</p>
             <div class="search-chips">
               <button class="search-chip" type="button" data-query="api gateway">🔎 Find bullets: API Gateway</button>
               <button class="search-chip" type="button" data-query="step functions">🔎 Find bullets: Step Functions</button>
@@ -2073,7 +2088,7 @@
         const prov = findFirstText(/cut provisioning from/i);
         if (prov) {
           const m = prov.match(/from\s*~?(\d+)\s*min.*to\s*([<\d–\- ]+)\s*min/i);
-          metrics.push({ k: 'Provisioning speed', v: m ? (m[1] + ' min → ' + m[2].trim() + ' min') : 'Faster provisioning', s: 'Secure IoT provisioning' });
+          metrics.push({ k: 'Provisioning speed', v: m ? (m[1] + ' min → ' + m[2].trim() + ' min') : 'Faster provisioning', s: 'Secure automation workflow' });
         }
 
         const mqtt = findFirstText(/mqtt delta updates/i);
@@ -2292,7 +2307,7 @@
         const proof = (impactMetrics && impactMetrics.length) ? impactMetrics.slice(0, 2) : [];
         const proofLine = proof.length ? ('Proof: ' + proof.map(p => p.k + ' ' + p.v).join(' | ')) : '';
         return [
-          'Senior Software Engineer (AWS / IoT / Platform) — Wausau, WI (Central) · Remote-friendly',
+          'Senior Software Engineer (AWS Backend / Platform) — Wausau, WI (Central) · Remote-friendly',
           laneLine,
           'I build secure, automation-heavy backend/platform systems on AWS, and I scale teams through docs/demos/enablement.',
           proofLine
@@ -2301,7 +2316,7 @@
 
       function buildRecruiterPack() {
         const lines = [];
-        lines.push('Brandon S. Clark — Senior Software Engineer (AWS / IoT / Platform)');
+        lines.push('Brandon S. Clark — Senior Software Engineer (AWS Backend / Platform)');
         lines.push('Wausau, WI (Central Time) · Remote-friendly');
         lines.push('LinkedIn: https://www.linkedin.com/in/brandon-c-it-industry');
         lines.push('');
@@ -3043,6 +3058,7 @@
   });
 })();
 </script>
+<script src="shared-enhancements.js"></script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "24d5fbb0961d42ed81d8401bceb78648"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
