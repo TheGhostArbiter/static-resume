@@ -6,7 +6,27 @@ on:
   pull_request:
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python test dependencies
+        run: pip install --quiet "websockets>=10,<13"
+
+      - name: Verify Chrome is available
+        run: google-chrome --version
+
+      - name: Run UI test suite (headless Chrome via CDP)
+        run: python3 tests/test_home.py
+
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: read
