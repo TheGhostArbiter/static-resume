@@ -6,6 +6,11 @@
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   var plain = html.classList.contains('plain') || params.get('plain') === '1';
 
+  function fxOn(key){
+    // Default-on when no FX system is present (e.g. on sub-pages without the panel).
+    return !window.BSC_FX || window.BSC_FX.get(key);
+  }
+
   function accentColor(){
     return getComputedStyle(html).getPropertyValue('--accent').trim() || '#86a6ff';
   }
@@ -38,11 +43,22 @@
     }
     var glowActive = false;
     document.addEventListener('mousemove',function(e){
+      if(!fxOn('spotlight')){
+        if(glowActive){ glowActive = false; glow.style.opacity = '0'; }
+        return;
+      }
       glow.style.left = e.clientX+'px';
       glow.style.top  = e.clientY+'px';
       if(!glowActive){ glowActive=true; glow.style.opacity='1'; }
     },{passive:true});
     document.addEventListener('mouseleave',function(){ glowActive=false; glow.style.opacity='0'; });
+    // Hide immediately when the user toggles spotlight off via the FX panel
+    window.addEventListener('bsc-fx-change', function(ev){
+      if(ev.detail && ev.detail.key === 'spotlight' && !ev.detail.value){
+        glowActive = false;
+        glow.style.opacity = '0';
+      }
+    });
   }
 
   /* ── card 3D tilt ────────────────────────────────────────────── */
@@ -53,6 +69,7 @@
     document.querySelectorAll('.card').forEach(function(card){
       if(hasFinePointer){
         card.addEventListener('mousemove',function(e){
+          if(!fxOn('tilt')) return;
           var r = card.getBoundingClientRect();
           var x = (e.clientX - r.left) / r.width  - 0.5;
           var y = (e.clientY - r.top)  / r.height - 0.5;
@@ -69,6 +86,7 @@
       }
       if(hasCoarsePointer){
         card.addEventListener('touchmove',function(e){
+          if(!fxOn('tilt')) return;
           var t = e.touches[0];
           var r = card.getBoundingClientRect();
           var x = (t.clientX - r.left) / r.width  - 0.5;
@@ -81,6 +99,16 @@
           card.style.transform   = '';
           card.style.willChange  = '';
           card.style.transition  = 'transform .28s ease';
+        });
+      }
+    });
+    // Snap all cards back when tilt is turned off mid-hover
+    window.addEventListener('bsc-fx-change', function(ev){
+      if(ev.detail && ev.detail.key === 'tilt' && !ev.detail.value){
+        document.querySelectorAll('.card').forEach(function(card){
+          card.style.transform = '';
+          card.style.boxShadow = '';
+          card.style.willChange = '';
         });
       }
     });
@@ -122,11 +150,13 @@
     }
 
     document.addEventListener('click',function(e){
+      if(!fxOn('sparks')) return;
       if(e.target.closest('a,button,input,select,textarea,summary,label')) return;
       spawnSparks(e.clientX,e.clientY);
     });
 
     document.addEventListener('touchend',function(e){
+      if(!fxOn('sparks')) return;
       if(e.target.closest('a,button,input,select,textarea,summary,label')) return;
       var t = e.changedTouches[0];
       spawnSparks(t.clientX,t.clientY);

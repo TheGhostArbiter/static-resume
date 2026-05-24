@@ -368,6 +368,152 @@
       box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent);
     }
 
+    /* ───── FX panel (glass HUD with rocker toggles) ───── */
+    .fx-panel{ position:relative; }
+    .fx-panel summary{ list-style:none; cursor:pointer; }
+    .fx-panel summary::-webkit-details-marker{ display:none; }
+    .fx-panel[open] summary{
+      border-color:color-mix(in srgb, var(--accent) 60%, var(--border));
+      box-shadow:var(--shadow-hover), 0 0 16px color-mix(in srgb, var(--accent) 22%, transparent);
+    }
+    .fx-menu{
+      position:absolute;
+      right:0;
+      top:calc(100% + .55rem);
+      width:min(340px, calc(100vw - 40px));
+      padding:12px 12px 10px;
+      border:1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+      border-radius:20px;
+      background:
+        radial-gradient(120% 80% at 100% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+        linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 92%, transparent), color-mix(in srgb, var(--panel) 96%, transparent));
+      box-shadow:var(--shadow-soft), 0 0 28px color-mix(in srgb, var(--accent) 16%, transparent);
+      backdrop-filter:blur(18px);
+      z-index:14;
+      display:grid;
+      gap:6px;
+      transform-origin:top right;
+      animation:fxPopIn .14s ease-out;
+    }
+    @keyframes fxPopIn{
+      from{ opacity:0; transform:translateY(-6px) scale(.96); }
+      to  { opacity:1; transform:translateY(0)    scale(1); }
+    }
+    .fx-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:2px 4px 6px;
+      border-bottom:1px dashed color-mix(in srgb, var(--accent) 22%, transparent);
+    }
+    .fx-title{
+      font-size:.72rem; font-weight:860;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:color-mix(in srgb, var(--accent) 70%, var(--fg));
+    }
+    .fx-led{
+      display:inline-flex; align-items:center; gap:.4rem;
+      font-size:.62rem; font-weight:780; letter-spacing:.18em;
+      color:var(--muted);
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    }
+    .fx-led::before{
+      content:""; width:.42rem; height:.42rem; border-radius:999px;
+      background:var(--accent); box-shadow:0 0 6px var(--accent);
+      animation:fxBlink 2.4s ease-in-out infinite;
+    }
+    @keyframes fxBlink{ 0%,100%{opacity:.45} 50%{opacity:1} }
+    .fx-list{ list-style:none; margin:0; padding:0; display:grid; gap:2px; }
+    .fx-row{ position:relative; }
+    .fx-row > label{
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      align-items:center;
+      gap:.7rem;
+      padding:.5rem .55rem;
+      border-radius:12px;
+      cursor:pointer;
+      border:1px solid transparent;
+      transition:background .18s ease, border-color .18s ease;
+    }
+    .fx-row > label:hover{
+      background:color-mix(in srgb, var(--accent) 6%, transparent);
+      border-color:color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .fx-icon{
+      width:1.85rem; height:1.85rem; border-radius:10px;
+      display:inline-flex; align-items:center; justify-content:center;
+      background:color-mix(in srgb, var(--panel-strong) 70%, transparent);
+      border:1px solid var(--border); font-size:.95rem;
+      color:color-mix(in srgb, var(--accent) 75%, var(--fg));
+      flex:none;
+    }
+    .fx-text{ display:grid; line-height:1.25; min-width:0; }
+    .fx-name{ font-weight:780; font-size:.84rem; color:var(--fg); }
+    .fx-desc{
+      font-size:.7rem; color:var(--muted);
+      overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    }
+    .fx-toggle{
+      position:absolute; opacity:0;
+      width:1px; height:1px;
+      pointer-events:none;
+    }
+    .fx-switch{
+      --w:42px; --h:22px;
+      position:relative;
+      width:var(--w); height:var(--h);
+      border-radius:999px;
+      background:color-mix(in srgb, #000 55%, var(--panel-strong));
+      border:1px solid var(--border);
+      box-shadow:inset 0 1px 2px rgba(0,0,0,.55), inset 0 -1px 0 rgba(255,255,255,.04);
+      transition:background .22s ease, border-color .22s ease, box-shadow .22s ease;
+      flex:none;
+    }
+    .fx-switch::after{
+      content:""; position:absolute;
+      top:50%; left:3px; transform:translateY(-50%);
+      width:calc(var(--h) - 8px); height:calc(var(--h) - 8px);
+      border-radius:999px;
+      background:linear-gradient(180deg, #f4f4f8, #c4c8d2);
+      box-shadow:0 1px 2px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.08);
+      transition:transform .22s cubic-bezier(.5,.05,.2,1.45), background .22s ease, box-shadow .22s ease;
+    }
+    .fx-toggle:checked ~ .fx-switch{
+      background:linear-gradient(180deg, color-mix(in srgb, var(--accent) 78%, #000 12%), color-mix(in srgb, var(--accent) 36%, #000 50%));
+      border-color:color-mix(in srgb, var(--accent) 60%, var(--border));
+      box-shadow:inset 0 1px 2px rgba(0,0,0,.45), 0 0 10px color-mix(in srgb, var(--accent) 38%, transparent);
+    }
+    .fx-toggle:checked ~ .fx-switch::after{
+      transform:translate(calc(var(--w) - var(--h)), -50%);
+      background:linear-gradient(180deg, #ffffff, color-mix(in srgb, var(--accent) 28%, #ffffff 72%));
+      box-shadow:0 1px 3px rgba(0,0,0,.5), 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent);
+    }
+    .fx-toggle:focus-visible ~ .fx-switch{
+      outline:2px solid color-mix(in srgb, var(--accent) 70%, transparent);
+      outline-offset:2px;
+    }
+    .fx-row[data-on="false"] .fx-name{ color:color-mix(in srgb, var(--fg) 68%, var(--muted)); }
+    .fx-row[data-on="false"] .fx-icon{ opacity:.65; }
+    .fx-foot{
+      margin:4px 2px 0;
+      padding:6px 4px 2px;
+      font-size:.7rem; color:var(--muted);
+      border-top:1px dashed color-mix(in srgb, var(--accent) 18%, transparent);
+      display:flex; gap:.5rem; flex-wrap:wrap; align-items:center;
+    }
+    .fx-foot kbd{
+      display:inline-block; padding:.06rem .38rem; border-radius:5px;
+      background:color-mix(in srgb, var(--panel-strong) 85%, transparent);
+      border:1px solid var(--border); font-size:.66rem;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      color:var(--fg);
+    }
+    @media (max-width:560px){
+      .fx-menu{ width:min(320px, calc(100vw - 24px)); }
+    }
+    @media print{ .fx-panel{ display:none !important; } }
+
     .btn{
       min-height:50px;
       display:inline-flex;
@@ -1598,6 +1744,76 @@
         <button class="btn lift small" id="cmdPalBtn" type="button" aria-label="Open command palette">⌘K</button>
         <a class="btn lift small" href="?plain=1" id="plainModeLink" aria-label="Toggle plain mode">Plain mode</a>
         <button class="btn lift small" id="themeBtn" type="button">Light mode</button>
+        <details class="fx-panel" id="fxPanel">
+          <summary class="btn lift small" aria-label="Toggle visual effects">✨ FX</summary>
+          <div class="fx-menu" role="group" aria-label="Visual effect toggles">
+            <div class="fx-head">
+              <span class="fx-title">Effects panel</span>
+              <span class="fx-led" aria-hidden="true">LIVE</span>
+            </div>
+            <ul class="fx-list">
+              <li class="fx-row" data-on="true" data-fx-row="spotlight">
+                <label>
+                  <span class="fx-icon" aria-hidden="true">◎</span>
+                  <span class="fx-text">
+                    <span class="fx-name">Cursor spotlight</span>
+                    <span class="fx-desc">Soft glow that follows the cursor.</span>
+                  </span>
+                  <input class="fx-toggle" type="checkbox" role="switch" data-fx="spotlight">
+                  <span class="fx-switch" aria-hidden="true"></span>
+                </label>
+              </li>
+              <li class="fx-row" data-on="true" data-fx-row="tilt">
+                <label>
+                  <span class="fx-icon" aria-hidden="true">◰</span>
+                  <span class="fx-text">
+                    <span class="fx-name">3D card tilt</span>
+                    <span class="fx-desc">Cards rotate slightly under the pointer.</span>
+                  </span>
+                  <input class="fx-toggle" type="checkbox" role="switch" data-fx="tilt">
+                  <span class="fx-switch" aria-hidden="true"></span>
+                </label>
+              </li>
+              <li class="fx-row" data-on="true" data-fx-row="sparks">
+                <label>
+                  <span class="fx-icon" aria-hidden="true">✶</span>
+                  <span class="fx-text">
+                    <span class="fx-name">Click sparks</span>
+                    <span class="fx-desc">Particles burst from each tap.</span>
+                  </span>
+                  <input class="fx-toggle" type="checkbox" role="switch" data-fx="sparks">
+                  <span class="fx-switch" aria-hidden="true"></span>
+                </label>
+              </li>
+              <li class="fx-row" data-on="true" data-fx-row="swipe">
+                <label>
+                  <span class="fx-icon" aria-hidden="true">↔</span>
+                  <span class="fx-text">
+                    <span class="fx-name">Swipe to switch</span>
+                    <span class="fx-desc">Swipe ←/→ to change atmosphere.</span>
+                  </span>
+                  <input class="fx-toggle" type="checkbox" role="switch" data-fx="swipe">
+                  <span class="fx-switch" aria-hidden="true"></span>
+                </label>
+              </li>
+              <li class="fx-row" data-on="true" data-fx-row="confetti">
+                <label>
+                  <span class="fx-icon" aria-hidden="true">🎉</span>
+                  <span class="fx-text">
+                    <span class="fx-name">Confetti bursts</span>
+                    <span class="fx-desc">Welcome burst + swipe-down trigger.</span>
+                  </span>
+                  <input class="fx-toggle" type="checkbox" role="switch" data-fx="confetti">
+                  <span class="fx-switch" aria-hidden="true"></span>
+                </label>
+              </li>
+            </ul>
+            <p class="fx-foot">
+              <span>Swipe ↑ <kbd>⌘K</kbd></span>
+              <span>· Swipe ↓ 🎉</span>
+            </p>
+          </div>
+        </details>
         <details class="appearance-panel" id="appearancePanel">
           <summary class="btn lift small">Look &amp; Feel</summary>
           <div class="appearance-menu">
@@ -1990,7 +2206,36 @@
       const plainModeLink = document.getElementById('plainModeLink');
       const plainModeLinkInline = document.getElementById('plainModeLinkInline');
       const appearancePanel = document.getElementById('appearancePanel');
+      const fxPanel = document.getElementById('fxPanel');
       const atmosphereButtons = Array.from(document.querySelectorAll('[data-atmosphere-btn]'));
+
+      // BSC_FX: runtime feature toggles persisted to localStorage. Defined before
+      // any feature script runs so they can gate behavior via window.BSC_FX.get().
+      const BSC_FX_DEFAULTS = { spotlight:true, tilt:true, sparks:true, confetti:true, swipe:true };
+      let fxState = (function(){
+        try{
+          const raw = localStorage.getItem('bsc_fx');
+          if(raw){
+            const parsed = JSON.parse(raw);
+            const out = {};
+            for(const k in BSC_FX_DEFAULTS){
+              out[k] = (typeof parsed[k] === 'boolean') ? parsed[k] : BSC_FX_DEFAULTS[k];
+            }
+            return out;
+          }
+        }catch(e){}
+        return Object.assign({}, BSC_FX_DEFAULTS);
+      })();
+      function fxSave(){ try{ localStorage.setItem('bsc_fx', JSON.stringify(fxState)); }catch(e){} }
+      window.BSC_FX = {
+        get: function(k){ return (k in fxState) ? !!fxState[k] : true; },
+        set: function(k, v){
+          fxState[k] = !!v;
+          fxSave();
+          window.dispatchEvent(new CustomEvent('bsc-fx-change', { detail:{ key:k, value:!!v } }));
+        },
+        all: function(){ return Object.assign({}, fxState); }
+      };
       const tailorTools = document.getElementById('tailorTools');
       const tailorToolsLabel = tailorTools ? tailorTools.querySelector('.summaryMeta') : null;
 
@@ -2839,6 +3084,131 @@
           rememberMode(link.getAttribute('data-mode') || page || link.getAttribute('href'));
         });
       });
+
+      /* ── FX panel: wire toggle switches to BSC_FX state ───────────── */
+      if(fxPanel){
+        const fxToggles = Array.from(fxPanel.querySelectorAll('input.fx-toggle'));
+        const byKey = {};
+        fxToggles.forEach(function(input){
+          const key = input.getAttribute('data-fx');
+          if(!key) return;
+          byKey[key] = input;
+          const row = input.closest('.fx-row');
+          const reflect = function(on){
+            input.checked = !!on;
+            if(row) row.setAttribute('data-on', on ? 'true' : 'false');
+          };
+          reflect(window.BSC_FX.get(key));
+          input.addEventListener('change', function(){
+            window.BSC_FX.set(key, input.checked);
+            reflect(input.checked);
+            if(input.checked && row){
+              row.animate(
+                [
+                  { background:'color-mix(in srgb, var(--accent) 18%, transparent)' },
+                  { background:'transparent' }
+                ],
+                { duration:340, easing:'ease-out' }
+              );
+            }
+          });
+        });
+        // Keep checkboxes in sync if state changes from elsewhere (or another tab).
+        window.addEventListener('bsc-fx-change', function(ev){
+          const k = ev.detail && ev.detail.key;
+          const input = byKey[k];
+          if(!input || input.checked === !!ev.detail.value) return;
+          input.checked = !!ev.detail.value;
+          const row = input.closest('.fx-row');
+          if(row) row.setAttribute('data-on', input.checked ? 'true' : 'false');
+        });
+        window.addEventListener('storage', function(e){
+          if(e.key !== 'bsc_fx' || !e.newValue) return;
+          try{
+            const next = JSON.parse(e.newValue);
+            Object.keys(byKey).forEach(function(k){
+              if(typeof next[k] === 'boolean'){
+                byKey[k].checked = next[k];
+                const row = byKey[k].closest('.fx-row');
+                if(row) row.setAttribute('data-on', next[k] ? 'true' : 'false');
+                fxState[k] = next[k];
+              }
+            });
+          }catch(_e){}
+        });
+        document.addEventListener('click', function(event){
+          if(fxPanel.open && !fxPanel.contains(event.target)){
+            fxPanel.open = false;
+          }
+        });
+        document.addEventListener('keydown', function(e){
+          if(e.key === 'Escape' && fxPanel.open) fxPanel.open = false;
+        });
+      }
+
+      /* ── Swipe gestures: full horizontal flick cycles atmosphere ──── */
+      (function setupSwipeGestures(){
+        if(prefersReduced) return;
+        const ORDER = ['blue','crimson','emerald','violet','ghost','void','amethyst','neon-rose','chrome','prism','castle'];
+        const INTERACTIVE = 'a, button, input, select, textarea, summary, label, .fx-menu, .appearance-menu, #cmd-pal, .bsc-dock, .formats-grid, [contenteditable]';
+        let drag = null;
+
+        function isInteractive(target){
+          return !!(target && target.closest && target.closest(INTERACTIVE));
+        }
+        function commit(){
+          if(!drag) return;
+          const dx = drag.lx - drag.x;
+          const dy = drag.ly - drag.y;
+          const dt = Math.max(1, performance.now() - drag.t);
+          const ax = Math.abs(dx), ay = Math.abs(dy);
+          drag = null;
+          if(dt > 900) return;
+          const vw = Math.max(320, window.innerWidth || 0);
+          const horizThreshold = Math.min(200, vw * 0.30);
+          const vertThreshold = 200;
+          const minVel = 0.35; // px / ms
+
+          if(ax >= horizThreshold && ax >= ay * 2.4 && (ax / dt) >= minVel){
+            const cur = currentAtmosphere();
+            let idx = ORDER.indexOf(cur);
+            if(idx < 0) idx = 0;
+            const step = dx < 0 ? 1 : -1; // swipe-left → next, swipe-right → previous
+            const next = ORDER[((idx + step) % ORDER.length + ORDER.length) % ORDER.length];
+            applyAtmosphere(next);
+            const arrow = step > 0 ? '→' : '←';
+            toastMsg(arrow + ' ' + next.replace('-', ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); }));
+            return;
+          }
+          if(ay >= vertThreshold && ay >= ax * 2.4 && (ay / dt) >= minVel){
+            if(dy < 0){
+              const cmdBtn = document.getElementById('cmdPalBtn');
+              if(cmdBtn) cmdBtn.click();
+            }else{
+              if(typeof window.bscLaunchConfetti === 'function' && window.BSC_FX.get('confetti')){
+                window.bscLaunchConfetti();
+              }
+            }
+          }
+        }
+
+        document.addEventListener('pointerdown', function(e){
+          if(e.pointerType === 'mouse' && e.button !== 0) return;
+          if(!window.BSC_FX.get('swipe')){ drag = null; return; }
+          if(isInteractive(e.target)){ drag = null; return; }
+          drag = { x:e.clientX, y:e.clientY, lx:e.clientX, ly:e.clientY, t:performance.now(), id:e.pointerId };
+        }, { passive:true });
+        document.addEventListener('pointermove', function(e){
+          if(!drag || drag.id !== e.pointerId) return;
+          drag.lx = e.clientX; drag.ly = e.clientY;
+        }, { passive:true });
+        document.addEventListener('pointerup', function(e){
+          if(!drag || drag.id !== e.pointerId) return;
+          drag.lx = e.clientX; drag.ly = e.clientY;
+          commit();
+        }, { passive:true });
+        document.addEventListener('pointercancel', function(){ commit(); }, { passive:true });
+      })();
     })();
   </script>
 
@@ -3011,11 +3381,14 @@
       }
 
       window.bscLaunchConfetti = function(){
+        if(window.BSC_FX && !window.BSC_FX.get('confetti')) return;
         if(active) stop();
         startTs = 0;
         launch();
       };
-      if(!seen) window.setTimeout(launch, 520);
+      if(!seen && (!window.BSC_FX || window.BSC_FX.get('confetti'))){
+        window.setTimeout(launch, 520);
+      }
     })();
   </script>
 
