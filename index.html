@@ -110,6 +110,11 @@
       --bg:#04040c;--fg:#eeeeff;--muted:#8888aa;
       --panel:rgba(8,8,20,.44);--panel-strong:rgba(8,8,20,.62);--border:rgba(136,170,255,.12);
     }
+    html[data-atmosphere="castle"]{
+      --accent:#e8640a;--accent2:#aa2200;--accent-soft:rgba(232,100,10,.18);
+      --bg:#0a0605;--fg:#f5d8b8;--muted:#8a6450;
+      --panel:rgba(20,10,6,.46);--panel-strong:rgba(20,10,6,.64);--border:rgba(232,100,10,.14);
+    }
 
     *{box-sizing:border-box}
     html,body{min-height:100%}
@@ -161,7 +166,7 @@
     #vanta{z-index:0}
     .atmosphere-fallback{
       z-index:0;
-      opacity:0;
+      opacity:.96;
       transition:opacity .45s ease;
       background:
         radial-gradient(46rem 24rem at 16% 18%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 66%),
@@ -170,8 +175,6 @@
       filter:blur(18px) saturate(1.05);
       will-change:opacity,transform;
     }
-    html.use-fallback .atmosphere-fallback,
-    html.plain .atmosphere-fallback{opacity:.96}
     html.vanta-active .atmosphere-fallback{opacity:0}
     @keyframes fog-fallback-drift{
       0%  { transform:scale(1.09) translate(0%,   0%);   }
@@ -359,6 +362,7 @@
     .swatch[data-atmosphere-btn="neon-rose"]{--swatch-a:#ff2d9b; --swatch-b:#ff6ec7;}
     .swatch[data-atmosphere-btn="chrome"]{--swatch-a:#c0c0cc; --swatch-b:#8890a8;}
     .swatch[data-atmosphere-btn="prism"]{--swatch-a:#88aaff; --swatch-b:#ff88dd;}
+    .swatch[data-atmosphere-btn="castle"]{--swatch-a:#e8640a; --swatch-b:#1a0c06;}
     .swatch[aria-pressed="true"]{
       border-color:color-mix(in srgb, var(--accent) 58%, var(--border));
       box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent);
@@ -518,7 +522,7 @@
     }
     .lede{
       margin:1.35rem auto 0;
-      max-width:38rem;
+      max-width:32rem;
       font-size:clamp(1.02rem, 2.1vw, 1.18rem);
       color:color-mix(in srgb, var(--fg) 84%, var(--muted));
       font-weight:620;
@@ -1617,6 +1621,7 @@
               <button class="swatch" type="button" data-atmosphere-btn="neon-rose" aria-pressed="false">Neon Rose</button>
               <button class="swatch" type="button" data-atmosphere-btn="chrome"    aria-pressed="false">Chrome</button>
               <button class="swatch" type="button" data-atmosphere-btn="prism"     aria-pressed="false">Prism ✦</button>
+              <button class="swatch" type="button" data-atmosphere-btn="castle"    aria-pressed="false">Castle 🏰</button>
             </div>
           </div>
         </details>
@@ -1636,7 +1641,7 @@
           <h1><span class="name-lockup">Brandon&nbsp;S.&nbsp;Clark</span></h1>
           <p class="strap"><span class="specular-headline" data-text="AWS Backend &amp; Cloud Platform" id="heroHeadline">AWS Backend &amp; Cloud Platform</span></p>
           <p class="lede">
-            I build <span class="hero-role-text" id="hero-role">serverless backend systems</span> — secure APIs, reliable cloud infrastructure, and calm operational delivery — then hand each reader the version of the story that fits how they review candidates.
+            I build <span class="hero-role-text" id="hero-role">serverless backend systems</span> that hold up under real pressure — then give you the format that fits how you read engineers.
           </p>
 
           <div class="cta-row" role="group" aria-label="Primary resume actions">
@@ -1963,7 +1968,7 @@
         </details>
 
         <footer>
-          <p style="margin:0">Privacy by default: aggregate-only analytics via Cloudflare Web Analytics — no cookies, no session replay, no ad tracking. Use <a class="plainLink mono" href="?plain=1">?plain=1</a> for a recruiter-safe, no-animation version, or jump into the Switchboard from the mode dock.</p>
+          <p style="margin:0">Privacy by default: aggregate-only analytics via Cloudflare Web Analytics — no cookies, no session replay, no ad tracking. Use <a class="plainLink mono" href="?plain=1" id="plainModeLinkFooter">?plain=1</a> for a recruiter-safe, no-animation version, or jump into the Switchboard from the mode dock.</p>
         </footer>
       </div>
     </main>
@@ -2074,6 +2079,11 @@
           baseDarkCss:'#04040c',baseLightCss:'#f8f8ff',
           highlightDark:0x88aaff,midtoneDark:0x0c0c20,lowlightDark:0x88ffdd,baseDark:0x04040c,
           highlightLight:0x4466cc,midtoneLight:0xeeeeff,lowlightLight:0x44ccaa,baseLight:0xf8f8ff
+        },
+        castle:{
+          baseDarkCss:'#0a0605',baseLightCss:'#fff4ed',
+          highlightDark:0xe05000,midtoneDark:0x1a0c06,lowlightDark:0x7a1800,baseDark:0x0a0605,
+          highlightLight:0xc04000,midtoneLight:0xffe4d0,lowlightLight:0x8a2400,baseLight:0xfff4ed
         }
       };
 
@@ -2243,6 +2253,20 @@
             link.title = 'Open in recruiter-safe plain mode';
           }
         });
+        var footerLink = document.getElementById('plainModeLinkFooter');
+        if(footerLink){
+          const p = new URLSearchParams(location.search);
+          if(plain){
+            p.delete('plain');
+            const query = p.toString();
+            footerLink.href = location.pathname + (query ? ('?' + query) : '') + location.hash;
+            footerLink.title = 'Return to animated mode';
+          }else{
+            p.set('plain', '1');
+            footerLink.href = location.pathname + '?' + p.toString() + location.hash;
+            footerLink.title = 'Open in recruiter-safe plain mode';
+          }
+        }
       }
       updatePlainLinks();
 
@@ -2270,7 +2294,8 @@
         amethyst:  { accent:'#b04fff', accent2:'#7c3aed', accentSoft:'rgba(176,79,255,.18)'  },
         'neon-rose':{ accent:'#ff2d9b', accent2:'#ff6ec7', accentSoft:'rgba(255,45,155,.18)' },
         chrome:    { accent:'#c0c0cc', accent2:'#8890a8', accentSoft:'rgba(192,192,204,.16)' },
-        prism:     { accent:'#88aaff', accent2:'#88ffdd', accentSoft:'rgba(136,170,255,.16)' }
+        prism:     { accent:'#88aaff', accent2:'#88ffdd', accentSoft:'rgba(136,170,255,.16)' },
+        castle:    { accent:'#e8640a', accent2:'#aa2200', accentSoft:'rgba(232,100,10,.18)'  }
       };
       atmosphereButtons.forEach(function(btn){
         btn.addEventListener('click', function(){
@@ -2466,6 +2491,7 @@
           'neon-rose': { bg:'#090005', b:['rgba(255,35,145,', 'rgba(255,75,175,', 'rgba(215,15,115,', 'rgba(255,95,155,'] },
           chrome:      { bg:'#060708', b:['rgba(175,180,205,','rgba(145,150,175,','rgba(195,200,220,','rgba(125,130,155,'] },
           prism:       { bg:'#030009', b:['rgba(90,155,255,', 'rgba(155,75,255,', 'rgba(55,215,175,', 'rgba(255,95,75,']  },
+          castle:      { bg:'#0a0605', b:['rgba(232,100,10,', 'rgba(170,34,0,',   'rgba(255,140,40,', 'rgba(122,24,0,']   },
         };
 
         var p = palettes[atmosphere] || palettes.blue;
@@ -2483,8 +2509,12 @@
         var W, H;
 
         function resize() {
-          W = canvas.width  = el.offsetWidth  || window.innerWidth;
-          H = canvas.height = el.offsetHeight || window.innerHeight;
+          var dpr = Math.min(window.devicePixelRatio || 1, 2);
+          W = el.offsetWidth  || window.innerWidth;
+          H = el.offsetHeight || window.innerHeight;
+          canvas.width  = Math.max(1, Math.floor(W * dpr));
+          canvas.height = Math.max(1, Math.floor(H * dpr));
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         }
         window.addEventListener('resize', resize);
         resize();
@@ -2583,6 +2613,7 @@
           'neon-rose': {bg:'#090004', c:['#ff1188','#cc0066','#ff2299','#ee0077']},
           chrome:      {bg:'#060708', c:['#c8c8d8','#d8d8e8','#b8b8cc','#e0e0ee']},
           prism:       {bg:'#040008', c:['#ff5500','#ff3300','#cc2200','#ff7733']},
+          castle:      {bg:'#0a0605', c:['#e8640a','#ff7722','#aa2200','#c43a08']},
         };
 
         var p = palettes[atmosphere] || palettes.crimson;
@@ -2615,9 +2646,18 @@
         el.appendChild(wrap);
         var raf, alive = true;
 
+        function onResize() {
+          W = window.innerWidth; H = window.innerHeight;
+          for (var i = 0; i < blobs.length; i++) {
+            var b = blobs[i];
+            if (b.x > W + b.r) b.x = W - b.r;
+            if (b.x < -b.r)    b.x = b.r;
+          }
+        }
+        window.addEventListener('resize', onResize);
+
         function tick() {
           if (!alive) return;
-          W = window.innerWidth; H = window.innerHeight;
           for (var i = 0; i < blobs.length; i++) {
             var b = blobs[i];
             b.phase += b.spd;
@@ -2637,7 +2677,12 @@
 
         tick();
         return {
-          destroy: function() { alive = false; cancelAnimationFrame(raf); wrap.remove(); }
+          destroy: function() {
+            alive = false;
+            cancelAnimationFrame(raf);
+            window.removeEventListener('resize', onResize);
+            wrap.remove();
+          }
         };
       }
 
@@ -2675,7 +2720,8 @@
             emerald:dark?0x002818:0x0d6648, violet:dark?0x0e0030:0x3d1880,
             ghost:dark?0x101014:0x505058, void:dark?0x080808:0x404040,
             amethyst:dark?0x14003a:0x4a1090, 'neon-rose':dark?0x280010:0x780038,
-            chrome:dark?0x0c1020:0x404860, prism:dark?0x080818:0x303860
+            chrome:dark?0x0c1020:0x404860, prism:dark?0x080818:0x303860,
+            castle:dark?0x2a0a00:0x8a3a08
           };
           return Object.assign({},base,{
             color:oceanColors[currentAtmosphere()]||0x001e4a,
@@ -2688,7 +2734,8 @@
             emerald:dark?0x063320:0x0d7848, violet:dark?0x1a0050:0x4d20a0,
             ghost:dark?0x141418:0x606068, void:dark?0x0a0a0a:0x505050,
             amethyst:dark?0x1e0050:0x5a18b0, 'neon-rose':dark?0x380018:0x880040,
-            chrome:dark?0x0e1428:0x485070, prism:dark?0x0a0a20:0x3a3a60
+            chrome:dark?0x0e1428:0x485070, prism:dark?0x0a0a20:0x3a3a60,
+            castle:dark?0x3a1200:0xa04a10
           };
           return Object.assign({},base,{
             color:depthColors[currentAtmosphere()]||0x0d3b6e,
@@ -2781,7 +2828,6 @@
         syncParallax();
         window.addEventListener('scroll', syncParallax, { passive:true });
       }
-      window.setTimeout(function(){ html.classList.add('show-dock'); }, 2600);
 
       const current = location.pathname.split('/').pop() || 'index.html';
       document.querySelectorAll('.bsc-dock-link').forEach(function(link){
@@ -3056,10 +3102,10 @@
       });
       var roles = [
         'serverless backend systems',
-        'secure cloud APIs',
-        'cloud-native infrastructure',
+        'event-driven platforms',
+        'resilient cloud APIs',
         'data pipeline backends',
-        'AWS platform tooling'
+        'cloud-native services'
       ];
       var idx = 0, charIdx = roles[0].length, deleting = false, pausing = false;
       function tick(){
