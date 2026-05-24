@@ -1599,10 +1599,11 @@
           <div class="appearance-menu">
             <p class="appearance-kicker">Effect</p>
             <div class="swatch-row effect-row" role="group" aria-label="Visual effect">
-              <button class="swatch effect-swatch" type="button" data-effect-btn="fog"   aria-pressed="true">Fog</button>
-              <button class="swatch effect-swatch" type="button" data-effect-btn="ocean" aria-pressed="false">Ocean</button>
-              <button class="swatch effect-swatch" type="button" data-effect-btn="depth" aria-pressed="false">Depth</button>
-              <button class="swatch effect-swatch" type="button" data-effect-btn="lava"  aria-pressed="false">Lava</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="fog"    aria-pressed="true">Fog</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="ocean"  aria-pressed="false">Ocean</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="depth"  aria-pressed="false">Depth</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="lava"   aria-pressed="false">Lava</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="aurora" aria-pressed="false">Aurora</button>
             </div>
             <p class="appearance-kicker" style="margin-top:.75rem">Colors</p>
             <div class="swatch-row" role="group" aria-label="Atmosphere colors">
@@ -1962,7 +1963,7 @@
         </details>
 
         <footer>
-          <p style="margin:0">Privacy by default: aggregate-only analytics via Cloudflare Web Analytics — no cookies, no session replay, no ad tracking. Use <span class="mono">?plain=1</span> for a recruiter-safe, no-animation version, or jump into the Switchboard from the mode dock.</p>
+          <p style="margin:0">Privacy by default: aggregate-only analytics via Cloudflare Web Analytics — no cookies, no session replay, no ad tracking. Use <a class="plainLink mono" href="?plain=1">?plain=1</a> for a recruiter-safe, no-animation version, or jump into the Switchboard from the mode dock.</p>
         </footer>
       </div>
     </main>
@@ -2137,13 +2138,13 @@
 
       function currentEffect(){
         var e = html.getAttribute('data-vanta-effect');
-        return (['fog','ocean','depth','lava'].indexOf(e) > -1) ? e : 'fog';
+        return (['fog','ocean','depth','lava','aurora'].indexOf(e) > -1) ? e : 'fog';
       }
 
       function getPreferredEffect(){
         try{
           var v = localStorage.getItem('bsc_vanta_effect');
-          if(['fog','ocean','depth','lava'].indexOf(v) > -1) return v;
+          if(['fog','ocean','depth','lava','aurora'].indexOf(v) > -1) return v;
         }catch(e){}
         return 'fog';
       }
@@ -2155,7 +2156,7 @@
       }
 
       function applyEffect(name){
-        var valid = ['fog','ocean','depth','lava'];
+        var valid = ['fog','ocean','depth','lava','aurora'];
         var next = valid.indexOf(name) > -1 ? name : 'fog';
         html.setAttribute('data-vanta-effect', next);
         try{ localStorage.setItem('bsc_vanta_effect', next); }catch(e){}
@@ -2295,7 +2296,8 @@
         fog:'Fog — drifting atmospheric mist',
         ocean:'Ocean — 3D wave surface',
         depth:'Depth — underwater ripple rings',
-        lava:'Lava — slow molten movement'
+        lava:'Lava — slow molten movement',
+        aurora:'Aurora — northern lights curtains'
       };
       document.querySelectorAll('[data-effect-btn]').forEach(function(btn){
         btn.addEventListener('click', function(){
@@ -2449,6 +2451,196 @@
       const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       let vanta = null;
 
+      function startAuroraCanvas(atmosphere) {
+        var el = document.getElementById('vanta');
+        if (!el) return null;
+
+        var palettes = {
+          blue:        { bg:'#010a18', b:['rgba(64,160,255,', 'rgba(40,220,200,', 'rgba(80,140,255,', 'rgba(20,200,180,'] },
+          crimson:     { bg:'#0f0003', b:['rgba(255,50,80,',  'rgba(255,130,50,', 'rgba(220,30,90,',  'rgba(255,90,30,']  },
+          emerald:     { bg:'#010e04', b:['rgba(40,220,110,', 'rgba(70,255,170,', 'rgba(20,180,90,',  'rgba(90,255,150,'] },
+          violet:      { bg:'#060011', b:['rgba(150,70,255,', 'rgba(200,110,255,','rgba(110,50,220,', 'rgba(210,130,255,']},
+          ghost:       { bg:'#060606', b:['rgba(155,155,170,','rgba(125,125,140,','rgba(175,175,190,','rgba(105,105,120,'] },
+          void:        { bg:'#000000', b:['rgba(195,195,205,','rgba(155,155,165,','rgba(215,215,225,','rgba(135,135,145,'] },
+          amethyst:    { bg:'#050010', b:['rgba(175,55,255,', 'rgba(135,35,215,', 'rgba(195,75,255,', 'rgba(115,25,195,'] },
+          'neon-rose': { bg:'#090005', b:['rgba(255,35,145,', 'rgba(255,75,175,', 'rgba(215,15,115,', 'rgba(255,95,155,'] },
+          chrome:      { bg:'#060708', b:['rgba(175,180,205,','rgba(145,150,175,','rgba(195,200,220,','rgba(125,130,155,'] },
+          prism:       { bg:'#030009', b:['rgba(90,155,255,', 'rgba(155,75,255,', 'rgba(55,215,175,', 'rgba(255,95,75,']  },
+        };
+
+        var p = palettes[atmosphere] || palettes.blue;
+
+        var bgDiv = document.createElement('div');
+        bgDiv.style.cssText = 'position:absolute;inset:0;background:' + p.bg + ';';
+
+        var canvas = document.createElement('canvas');
+        canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
+
+        el.appendChild(bgDiv);
+        el.appendChild(canvas);
+
+        var ctx = canvas.getContext('2d');
+        var W, H;
+
+        function resize() {
+          W = canvas.width  = el.offsetWidth  || window.innerWidth;
+          H = canvas.height = el.offsetHeight || window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        var defs = [
+          { yi:0.08, amp:0.050, thick:0.26, freq:0.60, spd:0.0022, ci:0, op:0.34 },
+          { yi:0.14, amp:0.070, thick:0.20, freq:0.88, spd:0.0030, ci:1, op:0.30 },
+          { yi:0.20, amp:0.060, thick:0.17, freq:1.12, spd:0.0026, ci:2, op:0.26 },
+          { yi:0.11, amp:0.040, thick:0.14, freq:1.35, spd:0.0038, ci:3, op:0.22 },
+          { yi:0.28, amp:0.090, thick:0.38, freq:0.72, spd:0.0019, ci:0, op:0.20 },
+          { yi:0.24, amp:0.075, thick:0.30, freq:0.96, spd:0.0027, ci:1, op:0.22 },
+          { yi:0.36, amp:0.105, thick:0.52, freq:0.62, spd:0.0016, ci:2, op:0.15 },
+          { yi:0.32, amp:0.095, thick:0.42, freq:0.82, spd:0.0021, ci:3, op:0.17 },
+        ];
+
+        var bands = defs.map(function(d) {
+          return {
+            yBase: d.yi, amp: d.amp, thick: d.thick, freq: d.freq,
+            spd: d.spd, col: p.b[d.ci], op: d.op,
+            phase: Math.random() * Math.PI * 2,
+          };
+        });
+
+        var STEPS = 80;
+        var alive = true, raf;
+
+        function drawBand(band) {
+          band.phase += band.spd;
+          var yc = band.yBase * H;
+          var amp = band.amp * H;
+          var halfT = band.thick * H * 0.5;
+
+          var pts = [];
+          for (var j = 0; j <= STEPS; j++) {
+            var t = j / STEPS;
+            var x = t * W;
+            var s1 = Math.sin(t * Math.PI * 2 * band.freq + band.phase);
+            var s2 = Math.sin(t * Math.PI * 2 * band.freq * 0.71 + band.phase * 1.3 + 1.1);
+            pts.push([x, yc + s1 * amp + s2 * amp * 0.38]);
+          }
+
+          var midY = pts[Math.floor(STEPS / 2)][1];
+          var topY = midY - halfT * 0.28;
+          var botY = midY + halfT * 0.72;
+
+          ctx.beginPath();
+          ctx.moveTo(pts[0][0], pts[0][1] - halfT * 0.28);
+          for (var j = 1; j <= STEPS; j++) ctx.lineTo(pts[j][0], pts[j][1] - halfT * 0.28);
+          for (var j = STEPS; j >= 0; j--) ctx.lineTo(pts[j][0], pts[j][1] + halfT * 0.72);
+          ctx.closePath();
+
+          var g = ctx.createLinearGradient(0, topY, 0, botY);
+          g.addColorStop(0.00, band.col + '0)');
+          g.addColorStop(0.10, band.col + (band.op * 0.55).toFixed(3) + ')');
+          g.addColorStop(0.25, band.col + band.op.toFixed(3) + ')');
+          g.addColorStop(0.50, band.col + (band.op * 0.50).toFixed(3) + ')');
+          g.addColorStop(0.75, band.col + (band.op * 0.20).toFixed(3) + ')');
+          g.addColorStop(1.00, band.col + '0)');
+          ctx.fillStyle = g;
+          ctx.fill();
+        }
+
+        function tick() {
+          if (!alive) return;
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.clearRect(0, 0, W, H);
+          ctx.globalCompositeOperation = 'lighter';
+          bands.forEach(drawBand);
+          raf = requestAnimationFrame(tick);
+        }
+
+        tick();
+        return {
+          destroy: function() {
+            alive = false;
+            cancelAnimationFrame(raf);
+            window.removeEventListener('resize', resize);
+            canvas.remove();
+            bgDiv.remove();
+          }
+        };
+      }
+
+      function startLavaCanvas(atmosphere) {
+        var el = document.getElementById('vanta');
+        if (!el) return null;
+
+        var palettes = {
+          blue:        {bg:'#010216', c:['#1a3aff','#2244ee','#3355ff','#0d1acc']},
+          crimson:     {bg:'#0e0000', c:['#ff4400','#ff6600','#cc2200','#ff7722']},
+          emerald:     {bg:'#000e02', c:['#00cc44','#009933','#22bb44','#00aa33']},
+          violet:      {bg:'#050012', c:['#9933ff','#7722cc','#aa44ff','#6611bb']},
+          ghost:       {bg:'#060606', c:['#777777','#999999','#888888','#aaaaaa']},
+          void:        {bg:'#000000', c:['#cccccc','#dddddd','#eeeeee','#bbbbbb']},
+          amethyst:    {bg:'#05000f', c:['#bb33ff','#9911ee','#cc44ff','#8800dd']},
+          'neon-rose': {bg:'#090004', c:['#ff1188','#cc0066','#ff2299','#ee0077']},
+          chrome:      {bg:'#060708', c:['#c8c8d8','#d8d8e8','#b8b8cc','#e0e0ee']},
+          prism:       {bg:'#040008', c:['#ff5500','#ff3300','#cc2200','#ff7733']},
+        };
+
+        var p = palettes[atmosphere] || palettes.crimson;
+
+        var wrap = document.createElement('div');
+        wrap.style.cssText = 'position:absolute;inset:0;overflow:hidden;background:' + p.bg + ';filter:blur(22px) contrast(26);';
+
+        var W = window.innerWidth, H = window.innerHeight;
+        var specs = [300,260,220,195,175,160,145,130,120,110,100,185,240,150];
+        var blobs = [];
+
+        for (var i = 0; i < specs.length; i++) {
+          var sz = specs[i] * (0.78 + Math.random() * 0.44);
+          var color = p.c[i % p.c.length];
+          var div = document.createElement('div');
+          div.style.cssText = 'position:absolute;border-radius:50%;width:' + sz + 'px;height:' + sz + 'px;background:' + color + ';will-change:transform;';
+          wrap.appendChild(div);
+          blobs.push({
+            el: div, r: sz / 2,
+            x: sz / 2 + Math.random() * Math.max(1, W - sz),
+            y: H * 0.15 + Math.random() * H * 0.85,
+            vy: -(0.22 + Math.random() * 0.52),
+            vx: (Math.random() - 0.5) * 0.22,
+            phase: Math.random() * Math.PI * 2,
+            spd: 0.005 + Math.random() * 0.007,
+            wob: 0.5 + Math.random() * 1.5,
+          });
+        }
+
+        el.appendChild(wrap);
+        var raf, alive = true;
+
+        function tick() {
+          if (!alive) return;
+          W = window.innerWidth; H = window.innerHeight;
+          for (var i = 0; i < blobs.length; i++) {
+            var b = blobs[i];
+            b.phase += b.spd;
+            b.x += b.vx + Math.sin(b.phase) * b.wob;
+            b.y += b.vy;
+            if (b.y + b.r < 0) {
+              b.y = H + b.r;
+              b.x = b.r + Math.random() * Math.max(1, W - b.r * 2);
+              b.phase = Math.random() * Math.PI * 2;
+            }
+            if (b.x < -b.r) b.x = W + b.r;
+            if (b.x > W + b.r) b.x = -b.r;
+            b.el.style.transform = 'translate(' + (b.x - b.r).toFixed(1) + 'px,' + (b.y - b.r).toFixed(1) + 'px)';
+          }
+          raf = requestAnimationFrame(tick);
+        }
+
+        tick();
+        return {
+          destroy: function() { alive = false; cancelAnimationFrame(raf); wrap.remove(); }
+        };
+      }
+
       function setAtmosphereState(mode){
         html.classList.toggle('vanta-active', mode === 'vanta');
         html.classList.toggle('use-fallback', mode === 'fallback');
@@ -2487,7 +2679,7 @@
           };
           return Object.assign({},base,{
             color:oceanColors[currentAtmosphere()]||0x001e4a,
-            shininess:55, waveHeight:18, waveSpeed:dark?0.65:0.45, zoom:0.78
+            shininess:92, waveHeight:10, waveSpeed:dark?0.42:0.28, zoom:0.82
           });
         }
         if(effect === 'depth'){
@@ -2500,28 +2692,10 @@
           };
           return Object.assign({},base,{
             color:depthColors[currentAtmosphere()]||0x0d3b6e,
-            shininess:35, waveHeight:14, waveSpeed:dark?1.1:0.8, zoom:1.15
+            shininess:18, waveHeight:7, waveSpeed:dark?0.38:0.24, zoom:1.30
           });
         }
-        if(effect === 'lava'){
-          var lavaConfigs = {
-            blue:{h:0x4a6aff,m:0x0a0d3a,l:0x2244cc,b:0x020410},
-            crimson:{h:0xff6600,m:0xcc1800,l:0x550000,b:0x0d0000},
-            emerald:{h:0x44ff22,m:0x004400,l:0x228800,b:0x000d00},
-            violet:{h:0xcc44ff,m:0x330066,l:0x880088,b:0x080010},
-            ghost:{h:0x888888,m:0x222222,l:0x444444,b:0x060606},
-            void:{h:0xcccccc,m:0x111111,l:0x555555,b:0x000000},
-            amethyst:{h:0xdd44ff,m:0x220044,l:0x8800cc,b:0x060010},
-            'neon-rose':{h:0xff1888,m:0x440022,l:0xcc0066,b:0x0a0006},
-            chrome:{h:0xd0d0e0,m:0x181820,l:0x707080,b:0x060608},
-            prism:{h:0xff8844,m:0xcc2200,l:0x550000,b:0x0d0000}
-          };
-          var lc = lavaConfigs[currentAtmosphere()] || lavaConfigs.crimson;
-          return Object.assign({},base,{
-            highlightColor:lc.h, midtoneColor:lc.m, lowlightColor:lc.l, baseColor:lc.b,
-            blurFactor:0.66, speed:0.36, zoom:1.18
-          });
-        }
+
         return Object.assign({},base,{
           highlightColor:dark?atm.highlightDark:atm.highlightLight,
           midtoneColor:dark?atm.midtoneDark:atm.midtoneLight,
@@ -2544,6 +2718,15 @@
           setWarn('Reduced motion is enabled, so the static atmosphere is being used.');
           return;
         }
+
+        var eff = currentEffect();
+        if(eff === 'lava' || eff === 'aurora'){
+          setWarn('');
+          vanta = eff === 'lava' ? startLavaCanvas(currentAtmosphere()) : startAuroraCanvas(currentAtmosphere());
+          setAtmosphereState(vanta ? 'vanta' : 'fallback');
+          return;
+        }
+
         if(!webglAvailable()){
           setAtmosphereState('fallback');
           setWarn('Animated background is unavailable here. The static atmosphere fallback is active.');
