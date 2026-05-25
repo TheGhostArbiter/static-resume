@@ -48,6 +48,8 @@ class ChromeSession:
 
     async def start(self):
         profile = f"/tmp/cdp-{os.getpid()}-{self.port}"
+        self._log_path = f"/tmp/chrome-{os.getpid()}-{self.port}.log"
+        log_fh = open(self._log_path, "wb")
         self.proc = subprocess.Popen(
             [
                 self.chrome_path,
@@ -55,24 +57,37 @@ class ChromeSession:
                 "--disable-gpu",
                 "--no-sandbox",
                 "--disable-dev-shm-usage",
+                "--disable-features=VizDisplayCompositor,Translate",
+                "--no-first-run",
+                "--no-default-browser-check",
                 f"--remote-debugging-port={self.port}",
                 f"--user-data-dir={profile}",
                 f"--window-size={self.window[0]},{self.window[1]}",
                 "about:blank",
             ],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+            stdout=log_fh,
+            stderr=log_fh,
         )
-        for _ in range(60):
+        # Poll up to 30s — runners can be slow on the first profile bootstrap.
+        last_err = None
+        for _ in range(150):
+            if self.proc.poll() is not None:
+                self._raise_with_log(
+                    f"Chrome exited early with code {self.proc.returncode}"
+                )
             try:
                 urllib.request.urlopen(
                     f"http://localhost:{self.port}/json/version", timeout=1
                 ).read()
                 break
-            except Exception:
+            except Exception as e:
+                last_err = e
                 await asyncio.sleep(0.2)
         else:
-            raise RuntimeError("Chrome failed to start in 12s")
+            self._raise_with_log(
+                f"Chrome DevTools endpoint never became ready in 30s "
+                f"(last error: {last_err!r})"
+            )
         targets = json.loads(
             urllib.request.urlopen(f"http://localhost:{self.port}/json").read()
         )
@@ -94,6 +109,22 @@ class ChromeSession:
             except Exception:
                 self.proc.kill()
             self.proc = None
+
+    def _raise_with_log(self, message):
+        tail = ""
+        try:
+            with open(self._log_path, "rb") as f:
+                data = f.read()[-4000:]
+            tail = data.decode("utf-8", errors="replace")
+        except Exception:
+            pass
+        try:
+            self.proc.kill()
+        except Exception:
+            pass
+        raise RuntimeError(
+            message + ("\n--- chrome log tail ---\n" + tail if tail else "")
+        )
 
     async def call(self, method, params=None):
         self._id += 1
