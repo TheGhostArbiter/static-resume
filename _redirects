@@ -1,0 +1,4 @@
+# Pretty URLs for per-recipient personalization
+# `/for/stripe` → home with ?for=stripe so the personalization handler kicks in
+/for/:slug   /?for=:slug   302
+/for/:slug/  /?for=:slug   302

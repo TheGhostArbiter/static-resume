@@ -114,6 +114,68 @@
     });
   }
 
+  /* ── ?for=<company> personalization ─────────────────────────── */
+  (function personalize(){
+    var slug = (params.get('for') || '').toLowerCase().replace(/[^a-z0-9-]/g,'');
+    if(!slug) return;
+    fetch('companies.json', {cache:'force-cache'})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if(!data || !data[slug]) return;
+        var co = data[slug];
+
+        // 1. Pin atmosphere (existing CSS-var system)
+        if(co.atmosphere){
+          html.setAttribute('data-atmosphere', co.atmosphere);
+        }
+
+        // 2. Apply focus chips (resume-signal mechanism: checkboxes with [value])
+        if(co.focus){
+          var values = co.focus.split(',').map(function(s){return s.trim();}).filter(Boolean);
+          var changed = false;
+          document.querySelectorAll('input[type="checkbox"][value]').forEach(function(inp){
+            if(values.indexOf(inp.value) !== -1 && !inp.checked){
+              inp.checked = true;
+              inp.dispatchEvent(new Event('change', {bubbles:true}));
+              changed = true;
+            }
+          });
+          // Some pages init filters from URL only; nudge them by also pushing ?focus=
+          if(!changed){
+            var u = new URLSearchParams(location.search);
+            u.set('focus', co.focus);
+            history.replaceState(null, '', location.pathname + '?' + u.toString());
+          }
+        }
+
+        // 3. "Tailored for <Co>" badge — fixed top-right, accessible
+        if(document.querySelector('[data-for-badge]')) return;
+        var b = document.createElement('div');
+        b.setAttribute('data-for-badge','');
+        b.setAttribute('role','status');
+        b.setAttribute('aria-label','Personalized view for ' + co.name);
+        b.style.cssText = [
+          'position:fixed','top:14px','right:14px','z-index:20',
+          'display:inline-flex','align-items:center','gap:8px',
+          'padding:7px 13px','border-radius:999px',
+          'background:color-mix(in srgb,var(--accent) 14%,transparent)',
+          'border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)',
+          'color:var(--fg,#fff)','font-size:.78rem','font-weight:600',
+          'box-shadow:0 6px 20px rgba(0,0,0,.22)',
+          'letter-spacing:.02em','line-height:1'
+        ].join(';');
+        var dot = document.createElement('span');
+        dot.setAttribute('aria-hidden','true');
+        dot.style.cssText = 'width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)';
+        b.appendChild(dot);
+        var txt = document.createElement('span');
+        txt.textContent = 'Tailored for ' + co.name;
+        b.appendChild(txt);
+        document.body.appendChild(b);
+      })
+      .catch(function(){ /* silent — never break the page over a missing file */ });
+  })();
+
   /* ── stack-disclosure line in footer ────────────────────────── */
   (function injectStack(){
     if(document.querySelector('[data-bsc-stack]')) return;
