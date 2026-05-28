@@ -116,6 +116,29 @@
       --panel:rgba(20,10,6,.46);--panel-strong:rgba(20,10,6,.64);--border:rgba(232,100,10,.14);
     }
 
+    /* Refined v2 atmospheres — restrained, material-named, editorial */
+    html[data-atmosphere="graphite"]{
+      --accent:#98a8c2;--accent2:#c2cad8;--accent-soft:rgba(152,168,194,.14);
+      --bg:#08090d;--fg:#d8dde6;--muted:#6f7a8c;
+      --panel:rgba(14,16,22,.46);--panel-strong:rgba(14,16,22,.66);--border:rgba(176,188,210,.10);
+    }
+    html[data-atmosphere="ink"]{
+      --accent:#7c8cb8;--accent2:#4a567a;--accent-soft:rgba(124,140,184,.12);
+      --bg:#04060c;--fg:#c8cee0;--muted:#5a6480;
+      --panel:rgba(8,10,18,.50);--panel-strong:rgba(8,10,18,.70);--border:rgba(120,140,180,.10);
+    }
+    html[data-atmosphere="bronze"]{
+      --accent:#c8924a;--accent2:#8a5e2c;--accent-soft:rgba(200,146,74,.14);
+      --bg:#0c0805;--fg:#e8d8c0;--muted:#8a6850;
+      --panel:rgba(20,14,8,.46);--panel-strong:rgba(20,14,8,.66);--border:rgba(200,146,74,.12);
+    }
+    /* Autumn — modern editorial fall: clay, oxblood, dusk. Not pumpkin-cartoon. */
+    html[data-atmosphere="autumn"]{
+      --accent:#d97a4a;--accent2:#8e3a2a;--accent-soft:rgba(217,122,74,.16);
+      --bg:#0d0907;--fg:#f0d8b8;--muted:#9a6a52;
+      --panel:rgba(22,14,10,.48);--panel-strong:rgba(22,14,10,.68);--border:rgba(217,122,74,.14);
+    }
+
     *{box-sizing:border-box}
     html,body{min-height:100%}
     html{scroll-behavior:smooth}
@@ -315,6 +338,23 @@
       text-transform:uppercase;
       color:var(--muted);
     }
+    .appearance-sub{
+      margin:.35rem 0 .15rem;
+      font-size:.66rem;
+      font-weight:780;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      color:color-mix(in srgb, var(--muted) 78%, transparent);
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+    }
+    .appearance-sub::after{
+      content:"";
+      flex:1;
+      height:1px;
+      background:linear-gradient(90deg, color-mix(in srgb, var(--border) 80%, transparent), transparent);
+    }
     .swatch-row{
       display:flex;
       flex-wrap:wrap;
@@ -363,6 +403,10 @@
     .swatch[data-atmosphere-btn="chrome"]{--swatch-a:#c0c0cc; --swatch-b:#8890a8;}
     .swatch[data-atmosphere-btn="prism"]{--swatch-a:#88aaff; --swatch-b:#ff88dd;}
     .swatch[data-atmosphere-btn="castle"]{--swatch-a:#e8640a; --swatch-b:#1a0c06;}
+    .swatch[data-atmosphere-btn="graphite"]{--swatch-a:#98a8c2; --swatch-b:#4a5160;}
+    .swatch[data-atmosphere-btn="ink"]{--swatch-a:#7c8cb8; --swatch-b:#1a2240;}
+    .swatch[data-atmosphere-btn="bronze"]{--swatch-a:#c8924a; --swatch-b:#5a3a18;}
+    .swatch[data-atmosphere-btn="autumn"]{--swatch-a:#d97a4a; --swatch-b:#8e3a2a;}
     .swatch[aria-pressed="true"]{
       border-color:color-mix(in srgb, var(--accent) 58%, var(--border));
       box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent);
@@ -495,6 +539,25 @@
     }
     .fx-row[data-on="false"] .fx-name{ color:color-mix(in srgb, var(--fg) 68%, var(--muted)); }
     .fx-row[data-on="false"] .fx-icon{ opacity:.65; }
+    .fx-preset{
+      margin:6px 4px 2px;
+      display:flex; flex-direction:column; align-items:flex-start;
+      padding:.55rem .7rem;
+      border-radius:12px;
+      border:1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+      background:color-mix(in srgb, var(--accent) 8%, transparent);
+      color:var(--fg);
+      cursor:pointer;
+      text-align:left;
+      transition:background .18s ease, border-color .18s ease, transform .12s ease;
+    }
+    .fx-preset:hover, .fx-preset:focus-visible{
+      background:color-mix(in srgb, var(--accent) 14%, transparent);
+      border-color:color-mix(in srgb, var(--accent) 48%, var(--border));
+    }
+    .fx-preset:active{ transform:translateY(1px); }
+    .fx-preset-name{ font-size:.84rem; font-weight:820; }
+    .fx-preset-desc{ font-size:.68rem; color:var(--muted); margin-top:1px; }
     @media (max-width:560px){
       .fx-menu{ width:min(320px, calc(100vw - 24px)); }
     }
@@ -1727,6 +1790,10 @@
               <span class="fx-title">Effects panel</span>
               <span class="fx-led" aria-hidden="true">LIVE</span>
             </div>
+            <button class="fx-preset" type="button" id="fxReadingMode" aria-label="Turn off all visual effects and use still background">
+              <span class="fx-preset-name">Reading mode</span>
+              <span class="fx-preset-desc">All FX off · Still background</span>
+            </button>
             <ul class="fx-list">
               <li class="fx-row" data-on="true" data-fx-row="spotlight">
                 <label>
@@ -1779,7 +1846,14 @@
           <summary class="btn lift small">Look &amp; Feel</summary>
           <div class="appearance-menu">
             <p class="appearance-kicker">Effect</p>
-            <div class="swatch-row effect-row" role="group" aria-label="Visual effect">
+            <p class="appearance-sub">Refined</p>
+            <div class="swatch-row effect-row" role="group" aria-label="Refined visual effects">
+              <button class="swatch effect-swatch" type="button" data-effect-btn="still"  aria-pressed="false">Still</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="mist"   aria-pressed="false">Mist</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="leaves" aria-pressed="false">Leaves</button>
+            </div>
+            <p class="appearance-sub">Classic</p>
+            <div class="swatch-row effect-row" role="group" aria-label="Classic visual effects">
               <button class="swatch effect-swatch" type="button" data-effect-btn="fog"    aria-pressed="true">Fog</button>
               <button class="swatch effect-swatch" type="button" data-effect-btn="ocean"  aria-pressed="false">Ocean</button>
               <button class="swatch effect-swatch" type="button" data-effect-btn="depth"  aria-pressed="false">Depth</button>
@@ -1787,7 +1861,15 @@
               <button class="swatch effect-swatch" type="button" data-effect-btn="aurora" aria-pressed="false">Aurora</button>
             </div>
             <p class="appearance-kicker" style="margin-top:.75rem">Colors</p>
-            <div class="swatch-row" role="group" aria-label="Atmosphere colors">
+            <p class="appearance-sub">Refined</p>
+            <div class="swatch-row" role="group" aria-label="Refined atmosphere colors">
+              <button class="swatch" type="button" data-atmosphere-btn="graphite" aria-pressed="false">Graphite</button>
+              <button class="swatch" type="button" data-atmosphere-btn="ink"      aria-pressed="false">Ink</button>
+              <button class="swatch" type="button" data-atmosphere-btn="bronze"   aria-pressed="false">Bronze</button>
+              <button class="swatch" type="button" data-atmosphere-btn="autumn"   aria-pressed="false">Autumn</button>
+            </div>
+            <p class="appearance-sub">Classic</p>
+            <div class="swatch-row" role="group" aria-label="Classic atmosphere colors">
               <button class="swatch" type="button" data-atmosphere-btn="blue"      aria-pressed="true">Blue</button>
               <button class="swatch" type="button" data-atmosphere-btn="crimson"   aria-pressed="false">Crimson</button>
               <button class="swatch" type="button" data-atmosphere-btn="emerald"   aria-pressed="false">Emerald</button>
@@ -2289,6 +2371,26 @@
           baseDarkCss:'#0a0605',baseLightCss:'#fff4ed',
           highlightDark:0xe05000,midtoneDark:0x1a0c06,lowlightDark:0x7a1800,baseDark:0x0a0605,
           highlightLight:0xc04000,midtoneLight:0xffe4d0,lowlightLight:0x8a2400,baseLight:0xfff4ed
+        },
+        graphite:{
+          baseDarkCss:'#08090d',baseLightCss:'#f5f6f8',
+          highlightDark:0x98a8c2,midtoneDark:0x121620,lowlightDark:0x4a5160,baseDark:0x08090d,
+          highlightLight:0x5a6478,midtoneLight:0xe8eaf0,lowlightLight:0x8c95a8,baseLight:0xf5f6f8
+        },
+        ink:{
+          baseDarkCss:'#04060c',baseLightCss:'#f0f2f8',
+          highlightDark:0x7c8cb8,midtoneDark:0x0a0e1a,lowlightDark:0x4a567a,baseDark:0x04060c,
+          highlightLight:0x3a4878,midtoneLight:0xe8ebf5,lowlightLight:0x6878a8,baseLight:0xf0f2f8
+        },
+        bronze:{
+          baseDarkCss:'#0c0805',baseLightCss:'#faf3ec',
+          highlightDark:0xc8924a,midtoneDark:0x1a1208,lowlightDark:0x7a5020,baseDark:0x0c0805,
+          highlightLight:0x7a5020,midtoneLight:0xf0e4d0,lowlightLight:0xb07c3a,baseLight:0xfaf3ec
+        },
+        autumn:{
+          baseDarkCss:'#0d0907',baseLightCss:'#fdf4ec',
+          highlightDark:0xd97a4a,midtoneDark:0x180e08,lowlightDark:0x8e3a2a,baseDark:0x0d0907,
+          highlightLight:0xb04820,midtoneLight:0xfae4d0,lowlightLight:0xd97a4a,baseLight:0xfdf4ec
         }
       };
 
@@ -2351,15 +2453,17 @@
         return ATMOSPHERES[preset] ? preset : 'blue';
       }
 
+      var VALID_EFFECTS = ['fog','ocean','depth','lava','aurora','still','mist','leaves'];
+
       function currentEffect(){
         var e = html.getAttribute('data-vanta-effect');
-        return (['fog','ocean','depth','lava','aurora'].indexOf(e) > -1) ? e : 'fog';
+        return (VALID_EFFECTS.indexOf(e) > -1) ? e : 'fog';
       }
 
       function getPreferredEffect(){
         try{
           var v = localStorage.getItem('bsc_vanta_effect');
-          if(['fog','ocean','depth','lava','aurora'].indexOf(v) > -1) return v;
+          if(VALID_EFFECTS.indexOf(v) > -1) return v;
         }catch(e){}
         return 'fog';
       }
@@ -2371,8 +2475,7 @@
       }
 
       function applyEffect(name){
-        var valid = ['fog','ocean','depth','lava','aurora'];
-        var next = valid.indexOf(name) > -1 ? name : 'fog';
+        var next = VALID_EFFECTS.indexOf(name) > -1 ? name : 'fog';
         html.setAttribute('data-vanta-effect', next);
         try{ localStorage.setItem('bsc_vanta_effect', next); }catch(e){}
         syncEffectButtons();
@@ -2500,7 +2603,11 @@
         'neon-rose':{ accent:'#ff2d9b', accent2:'#ff6ec7', accentSoft:'rgba(255,45,155,.18)' },
         chrome:    { accent:'#c0c0cc', accent2:'#8890a8', accentSoft:'rgba(192,192,204,.16)' },
         prism:     { accent:'#88aaff', accent2:'#88ffdd', accentSoft:'rgba(136,170,255,.16)' },
-        castle:    { accent:'#e8640a', accent2:'#aa2200', accentSoft:'rgba(232,100,10,.18)'  }
+        castle:    { accent:'#e8640a', accent2:'#aa2200', accentSoft:'rgba(232,100,10,.18)'  },
+        graphite:  { accent:'#98a8c2', accent2:'#c2cad8', accentSoft:'rgba(152,168,194,.14)' },
+        ink:       { accent:'#7c8cb8', accent2:'#4a567a', accentSoft:'rgba(124,140,184,.12)' },
+        bronze:    { accent:'#c8924a', accent2:'#8a5e2c', accentSoft:'rgba(200,146,74,.14)'  },
+        autumn:    { accent:'#d97a4a', accent2:'#8e3a2a', accentSoft:'rgba(217,122,74,.16)'  }
       };
       atmosphereButtons.forEach(function(btn){
         btn.addEventListener('click', function(){
@@ -2527,7 +2634,10 @@
         ocean:'Ocean — 3D wave surface',
         depth:'Depth — underwater ripple rings',
         lava:'Lava — slow molten movement',
-        aurora:'Aurora — northern lights curtains'
+        aurora:'Aurora — northern lights curtains',
+        still:'Still — no animation, just a refined gradient',
+        mist:'Mist — slow, soft, ambient (refined fog)',
+        leaves:'Leaves — sparse falling foliage'
       };
       document.querySelectorAll('[data-effect-btn]').forEach(function(btn){
         btn.addEventListener('click', function(){
@@ -2803,6 +2913,121 @@
         };
       }
 
+      /* Refined "Leaves" effect — sparse, slow-drifting fall foliage silhouettes.
+         Always uses an autumn palette regardless of current atmosphere (semantic),
+         but the backdrop tints to match the current atmosphere base for cohesion. */
+      function startLeavesCanvas(atmosphere) {
+        var el = document.getElementById('vanta');
+        if (!el) return null;
+
+        var bgBase = (ATMOSPHERES[atmosphere] && ATMOSPHERES[atmosphere].baseDarkCss) || '#0d0907';
+        var leafColors = ['#c8642a','#8e3a2a','#d97a4a','#a04018','#b85a3a','#7a3018'];
+
+        var bgDiv = document.createElement('div');
+        bgDiv.style.cssText =
+          'position:absolute;inset:0;background:' +
+          'radial-gradient(60rem 32rem at 18% 22%, rgba(217,122,74,.10), transparent 62%),' +
+          'radial-gradient(48rem 26rem at 82% 14%, rgba(142,58,42,.08), transparent 60%),' +
+          bgBase + ';';
+
+        var canvas = document.createElement('canvas');
+        canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
+
+        el.appendChild(bgDiv);
+        el.appendChild(canvas);
+
+        var ctx = canvas.getContext('2d');
+        var W, H, dpr;
+
+        function resize(){
+          dpr = Math.min(window.devicePixelRatio || 1, 2);
+          W = el.offsetWidth  || window.innerWidth;
+          H = el.offsetHeight || window.innerHeight;
+          canvas.width  = Math.max(1, Math.floor(W * dpr));
+          canvas.height = Math.max(1, Math.floor(H * dpr));
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function makeLeaf(seedY){
+          return {
+            x: Math.random() * W,
+            y: seedY != null ? seedY : -20 - Math.random() * H,
+            size: 10 + Math.random() * 18,
+            color: leafColors[(Math.random() * leafColors.length) | 0],
+            vy: 0.22 + Math.random() * 0.38,
+            vx: (Math.random() - 0.5) * 0.35,
+            sway: 0.4 + Math.random() * 0.9,
+            swaySpd: 0.004 + Math.random() * 0.006,
+            rot: Math.random() * Math.PI * 2,
+            rotSpd: (Math.random() - 0.5) * 0.012,
+            phase: Math.random() * Math.PI * 2,
+            opacity: 0.34 + Math.random() * 0.36
+          };
+        }
+
+        var COUNT = Math.max(14, Math.min(32, Math.round(W * H / 70000)));
+        var leaves = [];
+        for (var i = 0; i < COUNT; i++) leaves.push(makeLeaf(Math.random() * H));
+
+        function drawLeaf(l){
+          ctx.save();
+          ctx.translate(l.x, l.y);
+          ctx.rotate(l.rot);
+          ctx.globalAlpha = l.opacity;
+          /* Stylized teardrop with a stem — abstract maple/oak silhouette */
+          ctx.fillStyle = l.color;
+          ctx.beginPath();
+          ctx.moveTo(0, -l.size);
+          ctx.bezierCurveTo(l.size * 0.78, -l.size * 0.62, l.size * 0.62, l.size * 0.32, 0, l.size * 0.74);
+          ctx.bezierCurveTo(-l.size * 0.62, l.size * 0.32, -l.size * 0.78, -l.size * 0.62, 0, -l.size);
+          ctx.closePath();
+          ctx.fill();
+          /* Subtle central vein */
+          ctx.globalAlpha = l.opacity * 0.45;
+          ctx.strokeStyle = '#1a0a04';
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(0, -l.size * 0.85);
+          ctx.lineTo(0, l.size * 0.62);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        var raf, alive = true;
+        function tick(){
+          if (!alive) return;
+          ctx.clearRect(0, 0, W, H);
+          for (var i = 0; i < leaves.length; i++){
+            var l = leaves[i];
+            l.phase += l.swaySpd;
+            l.x += l.vx + Math.sin(l.phase) * l.sway * 0.6;
+            l.y += l.vy;
+            l.rot += l.rotSpd;
+            if (l.y - l.size > H){
+              leaves[i] = makeLeaf(-l.size - Math.random() * 80);
+              continue;
+            }
+            if (l.x < -l.size * 2) l.x = W + l.size;
+            if (l.x > W + l.size * 2) l.x = -l.size;
+            drawLeaf(l);
+          }
+          raf = requestAnimationFrame(tick);
+        }
+        tick();
+
+        return {
+          destroy: function(){
+            alive = false;
+            cancelAnimationFrame(raf);
+            window.removeEventListener('resize', resize);
+            canvas.remove();
+            bgDiv.remove();
+          }
+        };
+      }
+
       function startLavaCanvas(atmosphere) {
         var el = document.getElementById('vanta');
         if (!el) return null;
@@ -2948,6 +3173,17 @@
           });
         }
 
+        if(effect === 'mist'){
+          /* Refined fog: same engine, ~half speed, more blur, zoomed in for ambient feel */
+          return Object.assign({},base,{
+            highlightColor:dark?atm.highlightDark:atm.highlightLight,
+            midtoneColor:dark?atm.midtoneDark:atm.midtoneLight,
+            lowlightColor:dark?atm.lowlightDark:atm.lowlightLight,
+            baseColor:dark?atm.baseDark:atm.baseLight,
+            blurFactor:dark?0.68:0.58, speed:dark?0.40:0.26, zoom:dark?1.12:1.22
+          });
+        }
+
         return Object.assign({},base,{
           highlightColor:dark?atm.highlightDark:atm.highlightLight,
           midtoneColor:dark?atm.midtoneDark:atm.midtoneLight,
@@ -2972,9 +3208,18 @@
         }
 
         var eff = currentEffect();
-        if(eff === 'lava' || eff === 'aurora'){
+
+        if(eff === 'still'){
+          setAtmosphereState('fallback');
           setWarn('');
-          vanta = eff === 'lava' ? startLavaCanvas(currentAtmosphere()) : startAuroraCanvas(currentAtmosphere());
+          return;
+        }
+
+        if(eff === 'lava' || eff === 'aurora' || eff === 'leaves'){
+          setWarn('');
+          if(eff === 'lava') vanta = startLavaCanvas(currentAtmosphere());
+          else if(eff === 'aurora') vanta = startAuroraCanvas(currentAtmosphere());
+          else vanta = startLeavesCanvas(currentAtmosphere());
           setAtmosphereState(vanta ? 'vanta' : 'fallback');
           return;
         }
@@ -3096,6 +3341,23 @@
             });
           }catch(_e){}
         });
+        var readingBtn = document.getElementById('fxReadingMode');
+        if(readingBtn){
+          readingBtn.addEventListener('click', function(){
+            ['spotlight','tilt','sparks','confetti'].forEach(function(k){
+              if(byKey[k]){
+                byKey[k].checked = false;
+                window.BSC_FX.set(k, false);
+                var row = byKey[k].closest('.fx-row');
+                if(row) row.setAttribute('data-on', 'false');
+              }
+            });
+            applyEffect('still');
+            toastMsg('Reading mode on');
+            fxPanel.open = false;
+          });
+        }
+
         document.addEventListener('click', function(event){
           if(fxPanel.open && !fxPanel.contains(event.target)){
             fxPanel.open = false;
