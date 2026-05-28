@@ -495,20 +495,6 @@
     }
     .fx-row[data-on="false"] .fx-name{ color:color-mix(in srgb, var(--fg) 68%, var(--muted)); }
     .fx-row[data-on="false"] .fx-icon{ opacity:.65; }
-    .fx-foot{
-      margin:4px 2px 0;
-      padding:6px 4px 2px;
-      font-size:.7rem; color:var(--muted);
-      border-top:1px dashed color-mix(in srgb, var(--accent) 18%, transparent);
-      display:flex; gap:.5rem; flex-wrap:wrap; align-items:center;
-    }
-    .fx-foot kbd{
-      display:inline-block; padding:.06rem .38rem; border-radius:5px;
-      background:color-mix(in srgb, var(--panel-strong) 85%, transparent);
-      border:1px solid var(--border); font-size:.66rem;
-      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-      color:var(--fg);
-    }
     @media (max-width:560px){
       .fx-menu{ width:min(320px, calc(100vw - 24px)); }
     }
@@ -884,14 +870,6 @@
       flex-wrap:wrap;
       gap:.6rem;
       align-items:center;
-    }
-    .swipe-hint{
-      display:none;
-      margin:2px 0 0;
-      color:var(--muted);
-      font-weight:730;
-      font-size:.92rem;
-      text-align:center;
     }
     .tools-card{
       padding:16px 18px;
@@ -1588,7 +1566,6 @@
 
     @media (max-width: 900px){
       .split-panels{grid-template-columns:1fr}
-      .swipe-hint{display:none}
       .formats-grid{
         grid-template-columns:repeat(2, minmax(0, 1fr));
       }
@@ -1626,7 +1603,6 @@
       }
       .cta-row .btn{width:100%}
       .subtle-note{font-size:.92rem}
-      .swipe-hint{display:block}
       .formats-grid{
         grid-auto-flow:column;
         grid-template-columns:none;
@@ -1785,33 +1761,18 @@
                   <span class="fx-switch" aria-hidden="true"></span>
                 </label>
               </li>
-              <li class="fx-row" data-on="true" data-fx-row="swipe">
-                <label>
-                  <span class="fx-icon" aria-hidden="true">↔</span>
-                  <span class="fx-text">
-                    <span class="fx-name">Swipe to switch</span>
-                    <span class="fx-desc">Swipe ←/→ to change atmosphere.</span>
-                  </span>
-                  <input class="fx-toggle" type="checkbox" role="switch" data-fx="swipe">
-                  <span class="fx-switch" aria-hidden="true"></span>
-                </label>
-              </li>
               <li class="fx-row" data-on="true" data-fx-row="confetti">
                 <label>
                   <span class="fx-icon" aria-hidden="true">🎉</span>
                   <span class="fx-text">
                     <span class="fx-name">Confetti bursts</span>
-                    <span class="fx-desc">Welcome burst + swipe-down trigger.</span>
+                    <span class="fx-desc">Welcome burst on first visit.</span>
                   </span>
                   <input class="fx-toggle" type="checkbox" role="switch" data-fx="confetti">
                   <span class="fx-switch" aria-hidden="true"></span>
                 </label>
               </li>
             </ul>
-            <p class="fx-foot">
-              <span>Swipe ↑ <kbd>⌘K</kbd></span>
-              <span>· Swipe ↓ 🎉</span>
-            </p>
           </div>
         </details>
         <details class="appearance-panel" id="appearancePanel">
@@ -1894,7 +1855,6 @@
           </div>
         </section>
 
-        <p class="swipe-hint">On phones, swipe sideways through the resume format cards.</p>
         <div aria-label="Resume formats" class="grid formats-grid">
           <section aria-label="Interactive resume" class="card">
             <div class="kicker">Interactive resume</div>
@@ -2211,7 +2171,7 @@
 
       // BSC_FX: runtime feature toggles persisted to localStorage. Defined before
       // any feature script runs so they can gate behavior via window.BSC_FX.get().
-      const BSC_FX_DEFAULTS = { spotlight:true, tilt:true, sparks:true, confetti:true, swipe:true };
+      const BSC_FX_DEFAULTS = { spotlight:true, tilt:true, sparks:true, confetti:true };
       let fxState = (function(){
         try{
           const raw = localStorage.getItem('bsc_fx');
@@ -3146,69 +3106,6 @@
         });
       }
 
-      /* ── Swipe gestures: full horizontal flick cycles atmosphere ──── */
-      (function setupSwipeGestures(){
-        if(prefersReduced) return;
-        const ORDER = ['blue','crimson','emerald','violet','ghost','void','amethyst','neon-rose','chrome','prism','castle'];
-        const INTERACTIVE = 'a, button, input, select, textarea, summary, label, .fx-menu, .appearance-menu, #cmd-pal, .bsc-dock, .formats-grid, [contenteditable]';
-        let drag = null;
-
-        function isInteractive(target){
-          return !!(target && target.closest && target.closest(INTERACTIVE));
-        }
-        function commit(){
-          if(!drag) return;
-          const dx = drag.lx - drag.x;
-          const dy = drag.ly - drag.y;
-          const dt = Math.max(1, performance.now() - drag.t);
-          const ax = Math.abs(dx), ay = Math.abs(dy);
-          drag = null;
-          if(dt > 900) return;
-          const vw = Math.max(320, window.innerWidth || 0);
-          const horizThreshold = Math.min(200, vw * 0.30);
-          const vertThreshold = 200;
-          const minVel = 0.35; // px / ms
-
-          if(ax >= horizThreshold && ax >= ay * 2.4 && (ax / dt) >= minVel){
-            const cur = currentAtmosphere();
-            let idx = ORDER.indexOf(cur);
-            if(idx < 0) idx = 0;
-            const step = dx < 0 ? 1 : -1; // swipe-left → next, swipe-right → previous
-            const next = ORDER[((idx + step) % ORDER.length + ORDER.length) % ORDER.length];
-            applyAtmosphere(next);
-            const arrow = step > 0 ? '→' : '←';
-            toastMsg(arrow + ' ' + next.replace('-', ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); }));
-            return;
-          }
-          if(ay >= vertThreshold && ay >= ax * 2.4 && (ay / dt) >= minVel){
-            if(dy < 0){
-              const cmdBtn = document.getElementById('cmdPalBtn');
-              if(cmdBtn) cmdBtn.click();
-            }else{
-              if(typeof window.bscLaunchConfetti === 'function' && window.BSC_FX.get('confetti')){
-                window.bscLaunchConfetti();
-              }
-            }
-          }
-        }
-
-        document.addEventListener('pointerdown', function(e){
-          if(e.pointerType === 'mouse' && e.button !== 0) return;
-          if(!window.BSC_FX.get('swipe')){ drag = null; return; }
-          if(isInteractive(e.target)){ drag = null; return; }
-          drag = { x:e.clientX, y:e.clientY, lx:e.clientX, ly:e.clientY, t:performance.now(), id:e.pointerId };
-        }, { passive:true });
-        document.addEventListener('pointermove', function(e){
-          if(!drag || drag.id !== e.pointerId) return;
-          drag.lx = e.clientX; drag.ly = e.clientY;
-        }, { passive:true });
-        document.addEventListener('pointerup', function(e){
-          if(!drag || drag.id !== e.pointerId) return;
-          drag.lx = e.clientX; drag.ly = e.clientY;
-          commit();
-        }, { passive:true });
-        document.addEventListener('pointercancel', function(){ commit(); }, { passive:true });
-      })();
     })();
   </script>
 
