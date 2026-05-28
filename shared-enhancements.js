@@ -114,6 +114,28 @@
     });
   }
 
+  /* ── stack-disclosure line in footer ────────────────────────── */
+  (function injectStack(){
+    if(document.querySelector('[data-bsc-stack]')) return;
+    var p = document.createElement('p');
+    p.setAttribute('data-bsc-stack','');
+    p.className = 'mono';
+    p.style.cssText = 'margin:10px 0 0;font-size:.78rem;opacity:.62;line-height:1.55';
+    p.innerHTML = 'Built with HTML + vanilla JS + CSS · FX by Three.js / Vanta · '+
+                  'OG art via Pillow · Hosted on Cloudflare Pages · '+
+                  'CI: GitHub Actions + headless Chrome · '+
+                  '<a href="https://github.com/TheGhostArbiter/static-resume" rel="noopener" target="_blank" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Zero build, zero deps</a>.';
+    var footer = document.querySelector('footer');
+    if(footer){
+      footer.appendChild(p);
+    } else {
+      var f = document.createElement('footer');
+      f.style.cssText = 'margin:48px auto 0;padding:24px 16px;text-align:center;max-width:960px';
+      f.appendChild(p);
+      (document.querySelector('main') || document.body).appendChild(f);
+    }
+  })();
+
   /* ── click / tap sparks ──────────────────────────────────────── */
   if(!reduced && !plain){
     function spawnSparks(cx,cy){
