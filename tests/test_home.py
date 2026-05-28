@@ -348,6 +348,116 @@ async def test_confetti_off_blocks_swipe_down(c):
     )
 
 
+# ─── New: stack footer, ?for= personalization, /now, per-case share ─────
+
+async def test_stack_footer_injected_on_home(c):
+    await c.goto(BASE + "/", clear_storage=True)
+    await asyncio.sleep(0.15)
+    present = await c.eval("!!document.querySelector('[data-bsc-stack]')")
+    return (
+        "Stack-disclosure line is injected into the footer",
+        bool(present),
+        f"present={present}",
+    )
+
+
+async def test_stack_footer_present_on_all_entry_points(c):
+    pages = (
+        "/",
+        "resume-atlas.html",
+        "resume-signal.html",
+        "proof-hub.html",
+        "resume-switchboard.html",
+        "now.html",
+    )
+    failures = []
+    for page in pages:
+        url = BASE + ("/" + page if not page.startswith("/") else page)
+        await c.goto(url, clear_storage=True)
+        await asyncio.sleep(0.15)
+        present = await c.eval("!!document.querySelector('[data-bsc-stack]')")
+        if not present:
+            failures.append(page)
+    return (
+        "Stack-disclosure footer present on all 6 entry points",
+        not failures,
+        "; ".join(failures) or f"{len(pages)}/{len(pages)} pages OK",
+    )
+
+
+async def test_for_param_personalizes(c):
+    await c.goto(BASE + "/?for=stripe", clear_storage=True)
+    # Give the fetch + DOM injection a moment to settle.
+    for _ in range(20):
+        present = await c.eval("!!document.querySelector('[data-for-badge]')")
+        if present:
+            break
+        await asyncio.sleep(0.1)
+    atm = await c.eval(GET_ATM)
+    badge_text = await c.eval(
+        "(function(){var b=document.querySelector('[data-for-badge]');"
+        "return b ? b.textContent : '';})()"
+    )
+    return (
+        "?for=stripe pins emerald atmosphere AND shows 'Tailored for Stripe' badge",
+        atm == "emerald" and "Stripe" in (badge_text or ""),
+        f"atmosphere={atm} badge_text={badge_text!r}",
+    )
+
+
+async def test_for_param_unknown_slug_is_silent(c):
+    await c.goto(BASE + "/?for=nonexistent-co-99", clear_storage=True)
+    await asyncio.sleep(0.3)
+    badge = await c.eval("!!document.querySelector('[data-for-badge]')")
+    real_errors = [e for e in c.errors if "three.js" not in e.lower()]
+    return (
+        "Unknown ?for= slug fails silently — no badge, no JS error",
+        not badge and not real_errors,
+        f"badge={badge} errors={real_errors!r}",
+    )
+
+
+async def test_now_page_loads_with_sections(c):
+    await c.goto(BASE + "/now.html", clear_storage=True)
+    real_errors = [e for e in c.errors if "three.js" not in e.lower()]
+    sections = await c.eval(
+        "Array.from(document.querySelectorAll('section.card h2'))"
+        ".map(function(h){return h.textContent.trim();}).join('|')"
+    )
+    expected = ["Currently building", "Currently learning", "Currently reading", "Open to"]
+    missing = [s for s in expected if s not in sections]
+    return (
+        "/now.html loads with all four expected section headings and no JS errors",
+        not real_errors and not missing,
+        f"errors={real_errors!r} missing={missing} got={sections!r}",
+    )
+
+
+async def test_proof_hub_case_anchors_exist(c):
+    await c.goto(BASE + "/proof-hub.html", clear_storage=True)
+    ids = await c.eval(
+        "Array.from(document.querySelectorAll('[id^=\"case-\"]'))"
+        ".map(function(el){return el.id;}).sort().join(',')"
+    )
+    expected = "case-data-foundations,case-java-etl,case-payment-portal,case-secure-provisioning,case-serverless-bus"
+    return (
+        "Proof Hub exposes all 5 case anchors (id=case-<slug>)",
+        ids == expected,
+        f"got: {ids}",
+    )
+
+
+async def test_proof_hub_case_share_buttons_render(c):
+    await c.goto(BASE + "/proof-hub.html", clear_storage=True)
+    await asyncio.sleep(0.2)
+    count = await c.eval("document.querySelectorAll('[data-case-share]').length")
+    return (
+        "Each case anchor gets a [data-case-share] copy-link button",
+        count == 5,
+        f"count={count}",
+    )
+
+
 # ─── Runner ──────────────────────────────────────────────────────────────
 
 TESTS = [
@@ -369,6 +479,13 @@ TESTS = [
     test_swipe_up_opens_palette,
     test_swipe_down_triggers_confetti,
     test_confetti_off_blocks_swipe_down,
+    test_stack_footer_injected_on_home,
+    test_stack_footer_present_on_all_entry_points,
+    test_for_param_personalizes,
+    test_for_param_unknown_slug_is_silent,
+    test_now_page_loads_with_sections,
+    test_proof_hub_case_anchors_exist,
+    test_proof_hub_case_share_buttons_render,
 ]
 
 
