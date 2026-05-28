@@ -114,6 +114,62 @@
     });
   }
 
+  /* ── per-case "copy share link" buttons ─────────────────────── */
+  (function caseShareLinks(){
+    var cases = document.querySelectorAll('[id^="case-"]');
+    if(!cases.length) return;
+    var origin = location.origin + location.pathname.replace(/[^/]*$/, '');
+    cases.forEach(function(el){
+      var slug = el.id.replace(/^case-/, '');
+      if(!slug) return;
+      var summary = el.querySelector('summary');
+      var host = summary || el;
+      if(host.querySelector('[data-case-share]')) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('data-case-share','');
+      btn.setAttribute('aria-label','Copy shareable link to '+slug+' case');
+      btn.title = 'Copy shareable link';
+      btn.textContent = '🔗';
+      btn.style.cssText = [
+        'margin-left:8px','font-size:.85em','padding:1px 8px',
+        'border:1px solid currentColor','border-radius:6px',
+        'background:transparent','color:inherit','opacity:.5',
+        'cursor:pointer','vertical-align:middle','line-height:1.4'
+      ].join(';');
+      btn.addEventListener('mouseenter', function(){ btn.style.opacity = '1'; });
+      btn.addEventListener('mouseleave', function(){ btn.style.opacity = '.5'; });
+      btn.addEventListener('focus',      function(){ btn.style.opacity = '1'; });
+      btn.addEventListener('blur',       function(){ btn.style.opacity = '.5'; });
+      btn.addEventListener('click', function(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+        var url = origin + 'case/' + slug + '/';
+        var done = function(){
+          var prev = btn.textContent;
+          btn.textContent = '✓';
+          setTimeout(function(){ btn.textContent = prev; }, 1400);
+          var toast = document.getElementById('toast');
+          if(toast){ toast.textContent = 'Link copied'; toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); }, 1600); }
+        };
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(url).then(done, function(){ fallback(); });
+        } else { fallback(); }
+        function fallback(){
+          var ta = document.createElement('textarea');
+          ta.value = url;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); done(); } catch(e){}
+          document.body.removeChild(ta);
+        }
+      });
+      host.appendChild(btn);
+    });
+  })();
+
   /* ── ?for=<company> personalization ─────────────────────────── */
   (function personalize(){
     var slug = (params.get('for') || '').toLowerCase().replace(/[^a-z0-9-]/g,'');

@@ -37,6 +37,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Pillow for OG generation
+        run: pip install --quiet Pillow
+
+      - name: Generate per-case OG images and stub pages
+        run: python3 scripts/gen_cases.py
+
       - name: Create Pages project if it doesn't exist
         run: npx wrangler pages project create static-resume --production-branch=main || true
         env:
