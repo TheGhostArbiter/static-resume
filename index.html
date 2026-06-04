@@ -591,11 +591,23 @@
       opacity:.7;
     }
     .btn.small{
-      min-height:44px;
-      padding:.72rem .96rem;
-      font-size:.92rem;
-      font-weight:790;
+      min-height:32px;
+      padding:.32rem .65rem;
+      font-size:.78rem;
+      font-weight:580;
+      border-radius:5px;
+      backdrop-filter:blur(8px);
+      box-shadow:none;
     }
+    .btn.small::before{ display:none; }
+    .btn.small.lift:hover,
+    .btn.small.lift:focus-visible{
+      transform:none;
+      box-shadow:none;
+      border-color:color-mix(in srgb, var(--accent) 50%, var(--border));
+      background:color-mix(in srgb, var(--accent) 8%, var(--panel-strong));
+    }
+    .btn.small.lift:active{ transform:none; filter:none; }
 
     .warn{
       width:min(var(--hero), calc(100vw - 40px));
@@ -1652,6 +1664,7 @@
     @media (max-width: 520px){
       .top-actions{width:100%; justify-content:center}
       .top-actions .btn{flex:1 1 calc(50% - .45rem)}
+      #cmdPalBtn{display:none}
       .route-actions,
       .rowBtns,
       .cta-row{grid-template-columns:1fr}
@@ -1821,6 +1834,7 @@
             <p class="appearance-sub">Classic</p>
             <div class="swatch-row effect-row" role="group" aria-label="Classic visual effects">
               <button class="swatch effect-swatch" type="button" data-effect-btn="fog"    aria-pressed="true">Fog</button>
+              <button class="swatch effect-swatch" type="button" data-effect-btn="clouds" aria-pressed="false">Clouds</button>
               <button class="swatch effect-swatch" type="button" data-effect-btn="ocean"  aria-pressed="false">Ocean</button>
               <button class="swatch effect-swatch" type="button" data-effect-btn="depth"  aria-pressed="false">Depth</button>
             </div>
@@ -2196,6 +2210,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.clouds.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.waves.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.ripple.min.js"></script>
   <script>
@@ -2374,13 +2389,10 @@
       }
 
       function getPreferredAtmosphere(){
-        const keys = ['bsc_atmosphere_home', 'bsc_atmosphere'];
-        for(const key of keys){
-          try{
-            const value = localStorage.getItem(key);
-            if(ATMOSPHERES[value]) return value;
-          }catch(e){}
-        }
+        try{
+          const value = localStorage.getItem('bsc_atmosphere');
+          if(ATMOSPHERES[value]) return value;
+        }catch(e){}
         const preset = html.getAttribute('data-atmosphere');
         return ATMOSPHERES[preset] ? preset : 'blue';
       }
@@ -2390,7 +2402,7 @@
         return ATMOSPHERES[preset] ? preset : 'blue';
       }
 
-      var VALID_EFFECTS = ['fog','ocean','depth','still','mist','leaves'];
+      var VALID_EFFECTS = ['fog','clouds','ocean','depth','still','mist','leaves'];
 
       function currentEffect(){
         var e = html.getAttribute('data-vanta-effect');
@@ -2454,7 +2466,6 @@
         html.setAttribute('data-atmosphere', next);
         flashAtmosphereChange();
         try{
-          localStorage.setItem('bsc_atmosphere_home', next);
           localStorage.setItem('bsc_atmosphere', next);
         }catch(e){}
         syncAtmosphereButtons();
@@ -2562,6 +2573,7 @@
 
       var effectLabels = {
         fog:'Fog — drifting atmospheric mist',
+        clouds:'Clouds — volumetric sky with slow drift',
         ocean:'Ocean — 3D wave surface',
         depth:'Depth — underwater ripple rings',
         still:'Still — no animation, just a refined gradient',
@@ -2899,6 +2911,21 @@
           });
         }
 
+        if(effect === 'clouds'){
+          /* Vanta CLOUDS — sky shader with volumetric cloud drift. Sun colors
+             stay warm regardless of atmosphere (sunlight is sunlight). Sky and
+             cloud tones shift with theme so dark mode reads as dusk. */
+          return Object.assign({},base,{
+            skyColor:        dark?0x0a1428:0x68b8d7,
+            cloudColor:      dark?0x2a334a:0xadc1de,
+            cloudShadowColor:dark?0x050a14:0x183550,
+            sunColor:        dark?0x6a3a0a:0xff9919,
+            sunGlareColor:   dark?0x4a1a08:0xff6633,
+            sunlightColor:   dark?0x6a4418:0xff9933,
+            speed:0.6
+          });
+        }
+
         return Object.assign({},base,{
           highlightColor:dark?atm.highlightDark:atm.highlightLight,
           midtoneColor:dark?atm.midtoneDark:atm.midtoneLight,
@@ -2950,7 +2977,7 @@
         (function waitForVanta(){
           attempts += 1;
           var neededEffect = currentEffect();
-          var neededKey = neededEffect === 'ocean' ? 'WAVES' : neededEffect === 'depth' ? 'RIPPLE' : 'FOG';
+          var neededKey = neededEffect === 'ocean' ? 'WAVES' : neededEffect === 'depth' ? 'RIPPLE' : neededEffect === 'clouds' ? 'CLOUDS' : 'FOG';
           if(window.VANTA && window.THREE && window.VANTA.FOG && (neededKey === 'FOG' || window.VANTA[neededKey])){
             try{
               var effectFn = window.VANTA[neededKey] || window.VANTA.FOG;
