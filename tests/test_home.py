@@ -77,11 +77,11 @@ async def test_fx_defaults(c):
     await c.goto(BASE + "/", clear_storage=True)
     state = json.loads(await c.eval("JSON.stringify(window.BSC_FX.all())"))
     expected = {
-        "spotlight": True, "tilt": True, "sparks": True,
-        "confetti": True,
+        "spotlight": False, "tilt": False, "sparks": False,
+        "confetti": False,
     }
     return (
-        "BSC_FX defaults are all-on",
+        "BSC_FX defaults are all-off (opt-in only)",
         state == expected,
         f"got {state}",
     )
