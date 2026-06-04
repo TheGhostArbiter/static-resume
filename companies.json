@@ -12,7 +12,7 @@
   "cloudflare": {
     "name": "Cloudflare",
     "focus": "cloud,api,opex",
-    "atmosphere": "neon-rose"
+    "atmosphere": "autumn"
   },
   "aws": {
     "name": "AWS",
@@ -27,7 +27,7 @@
   "vercel": {
     "name": "Vercel",
     "focus": "api,cloud,opex",
-    "atmosphere": "chrome"
+    "atmosphere": "graphite"
   },
   "snowflake": {
     "name": "Snowflake",
