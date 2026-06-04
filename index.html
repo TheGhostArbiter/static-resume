@@ -2990,18 +2990,6 @@
       syncDockVisibility();
       window.addEventListener('scroll', syncDockVisibility, { passive:true });
 
-      var vantaEl = document.getElementById('vanta');
-      var fallbackEl = document.querySelector('.atmosphere-fallback');
-      function syncParallax(){
-        var shift = (window.scrollY * 0.22).toFixed(1);
-        if(vantaEl) vantaEl.style.transform = 'translateY('+shift+'px)';
-        if(fallbackEl) fallbackEl.style.transform = 'translateY('+shift+'px)';
-      }
-      if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
-        syncParallax();
-        window.addEventListener('scroll', syncParallax, { passive:true });
-      }
-
       const current = location.pathname.split('/').pop() || 'index.html';
       document.querySelectorAll('.bsc-dock-link').forEach(function(link){
         const page = link.getAttribute('data-page');
