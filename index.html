@@ -95,26 +95,6 @@
       --bg:#080012;--fg:#e8d4ff;--muted:#8a68b0;
       --panel:rgba(18,4,32,.46);--panel-strong:rgba(18,4,32,.64);--border:rgba(176,79,255,.14);
     }
-    html[data-atmosphere="neon-rose"]{
-      --accent:#ff2d9b;--accent2:#ff6ec7;--accent-soft:rgba(255,45,155,.18);
-      --bg:#0a0008;--fg:#ffd6ee;--muted:#a04878;
-      --panel:rgba(20,0,14,.46);--panel-strong:rgba(20,0,14,.64);--border:rgba(255,45,155,.14);
-    }
-    html[data-atmosphere="chrome"]{
-      --accent:#c0c0cc;--accent2:#8890a8;--accent-soft:rgba(192,192,204,.16);
-      --bg:#080a0e;--fg:#d8d8e0;--muted:#7880a0;
-      --panel:rgba(14,16,24,.46);--panel-strong:rgba(14,16,24,.64);--border:rgba(192,192,204,.12);
-    }
-    html[data-atmosphere="prism"]{
-      --accent:#88aaff;--accent2:#88ffdd;--accent-soft:rgba(136,170,255,.16);
-      --bg:#04040c;--fg:#eeeeff;--muted:#8888aa;
-      --panel:rgba(8,8,20,.44);--panel-strong:rgba(8,8,20,.62);--border:rgba(136,170,255,.12);
-    }
-    html[data-atmosphere="castle"]{
-      --accent:#e8640a;--accent2:#aa2200;--accent-soft:rgba(232,100,10,.18);
-      --bg:#0a0605;--fg:#f5d8b8;--muted:#8a6450;
-      --panel:rgba(20,10,6,.46);--panel-strong:rgba(20,10,6,.64);--border:rgba(232,100,10,.14);
-    }
 
     /* Refined v2 atmospheres — restrained, material-named, editorial */
     html[data-atmosphere="graphite"]{
@@ -399,10 +379,6 @@
     .swatch[data-atmosphere-btn="ghost"]{--swatch-a:#909098; --swatch-b:#606068;}
     .swatch[data-atmosphere-btn="void"]{--swatch-a:#e8e8e8; --swatch-b:#a0a0a0;}
     .swatch[data-atmosphere-btn="amethyst"]{--swatch-a:#b04fff; --swatch-b:#7c3aed;}
-    .swatch[data-atmosphere-btn="neon-rose"]{--swatch-a:#ff2d9b; --swatch-b:#ff6ec7;}
-    .swatch[data-atmosphere-btn="chrome"]{--swatch-a:#c0c0cc; --swatch-b:#8890a8;}
-    .swatch[data-atmosphere-btn="prism"]{--swatch-a:#88aaff; --swatch-b:#ff88dd;}
-    .swatch[data-atmosphere-btn="castle"]{--swatch-a:#e8640a; --swatch-b:#1a0c06;}
     .swatch[data-atmosphere-btn="graphite"]{--swatch-a:#98a8c2; --swatch-b:#4a5160;}
     .swatch[data-atmosphere-btn="ink"]{--swatch-a:#7c8cb8; --swatch-b:#1a2240;}
     .swatch[data-atmosphere-btn="bronze"]{--swatch-a:#c8924a; --swatch-b:#5a3a18;}
@@ -1857,8 +1833,6 @@
               <button class="swatch effect-swatch" type="button" data-effect-btn="fog"    aria-pressed="true">Fog</button>
               <button class="swatch effect-swatch" type="button" data-effect-btn="ocean"  aria-pressed="false">Ocean</button>
               <button class="swatch effect-swatch" type="button" data-effect-btn="depth"  aria-pressed="false">Depth</button>
-              <button class="swatch effect-swatch" type="button" data-effect-btn="lava"   aria-pressed="false">Lava</button>
-              <button class="swatch effect-swatch" type="button" data-effect-btn="aurora" aria-pressed="false">Aurora</button>
             </div>
             <p class="appearance-kicker" style="margin-top:.75rem">Colors</p>
             <p class="appearance-sub">Refined</p>
@@ -1877,10 +1851,6 @@
               <button class="swatch" type="button" data-atmosphere-btn="ghost"     aria-pressed="false">Ghost</button>
               <button class="swatch" type="button" data-atmosphere-btn="void"      aria-pressed="false">Void</button>
               <button class="swatch" type="button" data-atmosphere-btn="amethyst"  aria-pressed="false">Amethyst</button>
-              <button class="swatch" type="button" data-atmosphere-btn="neon-rose" aria-pressed="false">Neon Rose</button>
-              <button class="swatch" type="button" data-atmosphere-btn="chrome"    aria-pressed="false">Chrome</button>
-              <button class="swatch" type="button" data-atmosphere-btn="prism"     aria-pressed="false">Prism ✦</button>
-              <button class="swatch" type="button" data-atmosphere-btn="castle"    aria-pressed="false">Castle 🏰</button>
             </div>
           </div>
         </details>
@@ -2253,7 +2223,7 @@
 
       // BSC_FX: runtime feature toggles persisted to localStorage. Defined before
       // any feature script runs so they can gate behavior via window.BSC_FX.get().
-      const BSC_FX_DEFAULTS = { spotlight:true, tilt:true, sparks:true, confetti:true };
+      const BSC_FX_DEFAULTS = { spotlight:false, tilt:false, sparks:false, confetti:false };
       let fxState = (function(){
         try{
           const raw = localStorage.getItem('bsc_fx');
@@ -2352,26 +2322,6 @@
           highlightDark:0xb04fff,midtoneDark:0x1a0038,lowlightDark:0x7c3aed,baseDark:0x080012,
           highlightLight:0x6d28d9,midtoneLight:0xede9fe,lowlightLight:0xa855f7,baseLight:0xf8f4ff
         },
-        'neon-rose':{
-          baseDarkCss:'#0a0008',baseLightCss:'#fff4fa',
-          highlightDark:0xff2d9b,midtoneDark:0x280014,lowlightDark:0xff6ec7,baseDark:0x0a0008,
-          highlightLight:0xbe185d,midtoneLight:0xfce7f3,lowlightLight:0xf472b6,baseLight:0xfff4fa
-        },
-        chrome:{
-          baseDarkCss:'#080a0e',baseLightCss:'#f4f4f6',
-          highlightDark:0xc8c8d8,midtoneDark:0x141620,lowlightDark:0x8890a8,baseDark:0x080a0e,
-          highlightLight:0x9090a8,midtoneLight:0xeeeef4,lowlightLight:0xb8b8cc,baseLight:0xf4f4f6
-        },
-        prism:{
-          baseDarkCss:'#04040c',baseLightCss:'#f8f8ff',
-          highlightDark:0x88aaff,midtoneDark:0x0c0c20,lowlightDark:0x88ffdd,baseDark:0x04040c,
-          highlightLight:0x4466cc,midtoneLight:0xeeeeff,lowlightLight:0x44ccaa,baseLight:0xf8f8ff
-        },
-        castle:{
-          baseDarkCss:'#0a0605',baseLightCss:'#fff4ed',
-          highlightDark:0xe05000,midtoneDark:0x1a0c06,lowlightDark:0x7a1800,baseDark:0x0a0605,
-          highlightLight:0xc04000,midtoneLight:0xffe4d0,lowlightLight:0x8a2400,baseLight:0xfff4ed
-        },
         graphite:{
           baseDarkCss:'#08090d',baseLightCss:'#f5f6f8',
           highlightDark:0x98a8c2,midtoneDark:0x121620,lowlightDark:0x4a5160,baseDark:0x08090d,
@@ -2418,13 +2368,10 @@
       window.bscToast = toastMsg;
 
       function getPreferredTheme(){
-        const keys = ['bsc_theme_home', 'bsc_theme2', 'bsc_theme'];
-        for(const key of keys){
-          try{
-            const value = localStorage.getItem(key);
-            if(value === 'light' || value === 'dark') return value;
-          }catch(e){}
-        }
+        try{
+          const value = localStorage.getItem('bsc_theme');
+          if(value === 'light' || value === 'dark') return value;
+        }catch(e){}
         try{
           return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
         }catch(e){
@@ -2453,7 +2400,7 @@
         return ATMOSPHERES[preset] ? preset : 'blue';
       }
 
-      var VALID_EFFECTS = ['fog','ocean','depth','lava','aurora','still','mist','leaves'];
+      var VALID_EFFECTS = ['fog','ocean','depth','still','mist','leaves'];
 
       function currentEffect(){
         var e = html.getAttribute('data-vanta-effect');
@@ -2528,8 +2475,6 @@
       function applyTheme(theme, skipAtmosphere){
         html.setAttribute('data-theme', theme);
         try{
-          localStorage.setItem('bsc_theme_home', theme);
-          localStorage.setItem('bsc_theme2', theme);
           localStorage.setItem('bsc_theme', theme);
         }catch(e){}
         if(themeBtn){
@@ -2600,10 +2545,6 @@
         ghost:     { accent:'#909098', accent2:'#606068', accentSoft:'rgba(144,144,152,.16)' },
         void:      { accent:'#e8e8e8', accent2:'#a0a0a0', accentSoft:'rgba(232,232,232,.14)' },
         amethyst:  { accent:'#b04fff', accent2:'#7c3aed', accentSoft:'rgba(176,79,255,.18)'  },
-        'neon-rose':{ accent:'#ff2d9b', accent2:'#ff6ec7', accentSoft:'rgba(255,45,155,.18)' },
-        chrome:    { accent:'#c0c0cc', accent2:'#8890a8', accentSoft:'rgba(192,192,204,.16)' },
-        prism:     { accent:'#88aaff', accent2:'#88ffdd', accentSoft:'rgba(136,170,255,.16)' },
-        castle:    { accent:'#e8640a', accent2:'#aa2200', accentSoft:'rgba(232,100,10,.18)'  },
         graphite:  { accent:'#98a8c2', accent2:'#c2cad8', accentSoft:'rgba(152,168,194,.14)' },
         ink:       { accent:'#7c8cb8', accent2:'#4a567a', accentSoft:'rgba(124,140,184,.12)' },
         bronze:    { accent:'#c8924a', accent2:'#8a5e2c', accentSoft:'rgba(200,146,74,.14)'  },
@@ -2633,8 +2574,6 @@
         fog:'Fog — drifting atmospheric mist',
         ocean:'Ocean — 3D wave surface',
         depth:'Depth — underwater ripple rings',
-        lava:'Lava — slow molten movement',
-        aurora:'Aurora — northern lights curtains',
         still:'Still — no animation, just a refined gradient',
         mist:'Mist — slow, soft, ambient (refined fog)',
         leaves:'Leaves — sparse falling foliage'
@@ -2791,128 +2730,6 @@
       const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       let vanta = null;
 
-      function startAuroraCanvas(atmosphere) {
-        var el = document.getElementById('vanta');
-        if (!el) return null;
-
-        var palettes = {
-          blue:        { bg:'#010a18', b:['rgba(64,160,255,', 'rgba(40,220,200,', 'rgba(80,140,255,', 'rgba(20,200,180,'] },
-          crimson:     { bg:'#0f0003', b:['rgba(255,50,80,',  'rgba(255,130,50,', 'rgba(220,30,90,',  'rgba(255,90,30,']  },
-          emerald:     { bg:'#010e04', b:['rgba(40,220,110,', 'rgba(70,255,170,', 'rgba(20,180,90,',  'rgba(90,255,150,'] },
-          violet:      { bg:'#060011', b:['rgba(150,70,255,', 'rgba(200,110,255,','rgba(110,50,220,', 'rgba(210,130,255,']},
-          ghost:       { bg:'#060606', b:['rgba(155,155,170,','rgba(125,125,140,','rgba(175,175,190,','rgba(105,105,120,'] },
-          void:        { bg:'#000000', b:['rgba(195,195,205,','rgba(155,155,165,','rgba(215,215,225,','rgba(135,135,145,'] },
-          amethyst:    { bg:'#050010', b:['rgba(175,55,255,', 'rgba(135,35,215,', 'rgba(195,75,255,', 'rgba(115,25,195,'] },
-          'neon-rose': { bg:'#090005', b:['rgba(255,35,145,', 'rgba(255,75,175,', 'rgba(215,15,115,', 'rgba(255,95,155,'] },
-          chrome:      { bg:'#060708', b:['rgba(175,180,205,','rgba(145,150,175,','rgba(195,200,220,','rgba(125,130,155,'] },
-          prism:       { bg:'#030009', b:['rgba(90,155,255,', 'rgba(155,75,255,', 'rgba(55,215,175,', 'rgba(255,95,75,']  },
-          castle:      { bg:'#0a0605', b:['rgba(232,100,10,', 'rgba(170,34,0,',   'rgba(255,140,40,', 'rgba(122,24,0,']   },
-        };
-
-        var p = palettes[atmosphere] || palettes.blue;
-
-        var bgDiv = document.createElement('div');
-        bgDiv.style.cssText = 'position:absolute;inset:0;background:' + p.bg + ';';
-
-        var canvas = document.createElement('canvas');
-        canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
-
-        el.appendChild(bgDiv);
-        el.appendChild(canvas);
-
-        var ctx = canvas.getContext('2d');
-        var W, H;
-
-        function resize() {
-          var dpr = Math.min(window.devicePixelRatio || 1, 2);
-          W = el.offsetWidth  || window.innerWidth;
-          H = el.offsetHeight || window.innerHeight;
-          canvas.width  = Math.max(1, Math.floor(W * dpr));
-          canvas.height = Math.max(1, Math.floor(H * dpr));
-          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        var defs = [
-          { yi:0.08, amp:0.050, thick:0.26, freq:0.60, spd:0.0022, ci:0, op:0.34 },
-          { yi:0.14, amp:0.070, thick:0.20, freq:0.88, spd:0.0030, ci:1, op:0.30 },
-          { yi:0.20, amp:0.060, thick:0.17, freq:1.12, spd:0.0026, ci:2, op:0.26 },
-          { yi:0.11, amp:0.040, thick:0.14, freq:1.35, spd:0.0038, ci:3, op:0.22 },
-          { yi:0.28, amp:0.090, thick:0.38, freq:0.72, spd:0.0019, ci:0, op:0.20 },
-          { yi:0.24, amp:0.075, thick:0.30, freq:0.96, spd:0.0027, ci:1, op:0.22 },
-          { yi:0.36, amp:0.105, thick:0.52, freq:0.62, spd:0.0016, ci:2, op:0.15 },
-          { yi:0.32, amp:0.095, thick:0.42, freq:0.82, spd:0.0021, ci:3, op:0.17 },
-        ];
-
-        var bands = defs.map(function(d) {
-          return {
-            yBase: d.yi, amp: d.amp, thick: d.thick, freq: d.freq,
-            spd: d.spd, col: p.b[d.ci], op: d.op,
-            phase: Math.random() * Math.PI * 2,
-          };
-        });
-
-        var STEPS = 80;
-        var alive = true, raf;
-
-        function drawBand(band) {
-          band.phase += band.spd;
-          var yc = band.yBase * H;
-          var amp = band.amp * H;
-          var halfT = band.thick * H * 0.5;
-
-          var pts = [];
-          for (var j = 0; j <= STEPS; j++) {
-            var t = j / STEPS;
-            var x = t * W;
-            var s1 = Math.sin(t * Math.PI * 2 * band.freq + band.phase);
-            var s2 = Math.sin(t * Math.PI * 2 * band.freq * 0.71 + band.phase * 1.3 + 1.1);
-            pts.push([x, yc + s1 * amp + s2 * amp * 0.38]);
-          }
-
-          var midY = pts[Math.floor(STEPS / 2)][1];
-          var topY = midY - halfT * 0.28;
-          var botY = midY + halfT * 0.72;
-
-          ctx.beginPath();
-          ctx.moveTo(pts[0][0], pts[0][1] - halfT * 0.28);
-          for (var j = 1; j <= STEPS; j++) ctx.lineTo(pts[j][0], pts[j][1] - halfT * 0.28);
-          for (var j = STEPS; j >= 0; j--) ctx.lineTo(pts[j][0], pts[j][1] + halfT * 0.72);
-          ctx.closePath();
-
-          var g = ctx.createLinearGradient(0, topY, 0, botY);
-          g.addColorStop(0.00, band.col + '0)');
-          g.addColorStop(0.10, band.col + (band.op * 0.55).toFixed(3) + ')');
-          g.addColorStop(0.25, band.col + band.op.toFixed(3) + ')');
-          g.addColorStop(0.50, band.col + (band.op * 0.50).toFixed(3) + ')');
-          g.addColorStop(0.75, band.col + (band.op * 0.20).toFixed(3) + ')');
-          g.addColorStop(1.00, band.col + '0)');
-          ctx.fillStyle = g;
-          ctx.fill();
-        }
-
-        function tick() {
-          if (!alive) return;
-          ctx.globalCompositeOperation = 'source-over';
-          ctx.clearRect(0, 0, W, H);
-          ctx.globalCompositeOperation = 'lighter';
-          bands.forEach(drawBand);
-          raf = requestAnimationFrame(tick);
-        }
-
-        tick();
-        return {
-          destroy: function() {
-            alive = false;
-            cancelAnimationFrame(raf);
-            window.removeEventListener('resize', resize);
-            canvas.remove();
-            bgDiv.remove();
-          }
-        };
-      }
-
       /* Refined "Leaves" effect — sparse, slow-drifting fall foliage silhouettes.
          Always uses an autumn palette regardless of current atmosphere (semantic),
          but the backdrop tints to match the current atmosphere base for cohesion. */
@@ -3028,94 +2845,6 @@
         };
       }
 
-      function startLavaCanvas(atmosphere) {
-        var el = document.getElementById('vanta');
-        if (!el) return null;
-
-        var palettes = {
-          blue:        {bg:'#010216', c:['#1a3aff','#2244ee','#3355ff','#0d1acc']},
-          crimson:     {bg:'#0e0000', c:['#ff4400','#ff6600','#cc2200','#ff7722']},
-          emerald:     {bg:'#000e02', c:['#00cc44','#009933','#22bb44','#00aa33']},
-          violet:      {bg:'#050012', c:['#9933ff','#7722cc','#aa44ff','#6611bb']},
-          ghost:       {bg:'#060606', c:['#777777','#999999','#888888','#aaaaaa']},
-          void:        {bg:'#000000', c:['#cccccc','#dddddd','#eeeeee','#bbbbbb']},
-          amethyst:    {bg:'#05000f', c:['#bb33ff','#9911ee','#cc44ff','#8800dd']},
-          'neon-rose': {bg:'#090004', c:['#ff1188','#cc0066','#ff2299','#ee0077']},
-          chrome:      {bg:'#060708', c:['#c8c8d8','#d8d8e8','#b8b8cc','#e0e0ee']},
-          prism:       {bg:'#040008', c:['#ff5500','#ff3300','#cc2200','#ff7733']},
-          castle:      {bg:'#0a0605', c:['#e8640a','#ff7722','#aa2200','#c43a08']},
-        };
-
-        var p = palettes[atmosphere] || palettes.crimson;
-
-        var wrap = document.createElement('div');
-        wrap.style.cssText = 'position:absolute;inset:0;overflow:hidden;background:' + p.bg + ';filter:blur(22px) contrast(26);';
-
-        var W = window.innerWidth, H = window.innerHeight;
-        var specs = [300,260,220,195,175,160,145,130,120,110,100,185,240,150];
-        var blobs = [];
-
-        for (var i = 0; i < specs.length; i++) {
-          var sz = specs[i] * (0.78 + Math.random() * 0.44);
-          var color = p.c[i % p.c.length];
-          var div = document.createElement('div');
-          div.style.cssText = 'position:absolute;border-radius:50%;width:' + sz + 'px;height:' + sz + 'px;background:' + color + ';will-change:transform;';
-          wrap.appendChild(div);
-          blobs.push({
-            el: div, r: sz / 2,
-            x: sz / 2 + Math.random() * Math.max(1, W - sz),
-            y: H * 0.15 + Math.random() * H * 0.85,
-            vy: -(0.22 + Math.random() * 0.52),
-            vx: (Math.random() - 0.5) * 0.22,
-            phase: Math.random() * Math.PI * 2,
-            spd: 0.005 + Math.random() * 0.007,
-            wob: 0.5 + Math.random() * 1.5,
-          });
-        }
-
-        el.appendChild(wrap);
-        var raf, alive = true;
-
-        function onResize() {
-          W = window.innerWidth; H = window.innerHeight;
-          for (var i = 0; i < blobs.length; i++) {
-            var b = blobs[i];
-            if (b.x > W + b.r) b.x = W - b.r;
-            if (b.x < -b.r)    b.x = b.r;
-          }
-        }
-        window.addEventListener('resize', onResize);
-
-        function tick() {
-          if (!alive) return;
-          for (var i = 0; i < blobs.length; i++) {
-            var b = blobs[i];
-            b.phase += b.spd;
-            b.x += b.vx + Math.sin(b.phase) * b.wob;
-            b.y += b.vy;
-            if (b.y + b.r < 0) {
-              b.y = H + b.r;
-              b.x = b.r + Math.random() * Math.max(1, W - b.r * 2);
-              b.phase = Math.random() * Math.PI * 2;
-            }
-            if (b.x < -b.r) b.x = W + b.r;
-            if (b.x > W + b.r) b.x = -b.r;
-            b.el.style.transform = 'translate(' + (b.x - b.r).toFixed(1) + 'px,' + (b.y - b.r).toFixed(1) + 'px)';
-          }
-          raf = requestAnimationFrame(tick);
-        }
-
-        tick();
-        return {
-          destroy: function() {
-            alive = false;
-            cancelAnimationFrame(raf);
-            window.removeEventListener('resize', onResize);
-            wrap.remove();
-          }
-        };
-      }
-
       function setAtmosphereState(mode){
         html.classList.toggle('vanta-active', mode === 'vanta');
         html.classList.toggle('use-fallback', mode === 'fallback');
@@ -3149,9 +2878,7 @@
             blue:dark?0x001e4a:0x1a6aaa, crimson:dark?0x2d0010:0x8a1040,
             emerald:dark?0x002818:0x0d6648, violet:dark?0x0e0030:0x3d1880,
             ghost:dark?0x101014:0x505058, void:dark?0x080808:0x404040,
-            amethyst:dark?0x14003a:0x4a1090, 'neon-rose':dark?0x280010:0x780038,
-            chrome:dark?0x0c1020:0x404860, prism:dark?0x080818:0x303860,
-            castle:dark?0x2a0a00:0x8a3a08
+            amethyst:dark?0x14003a:0x4a1090
           };
           return Object.assign({},base,{
             color:oceanColors[currentAtmosphere()]||0x001e4a,
@@ -3163,9 +2890,7 @@
             blue:dark?0x0d3b6e:0x1a7aaa, crimson:dark?0x4a0018:0x9a1040,
             emerald:dark?0x063320:0x0d7848, violet:dark?0x1a0050:0x4d20a0,
             ghost:dark?0x141418:0x606068, void:dark?0x0a0a0a:0x505050,
-            amethyst:dark?0x1e0050:0x5a18b0, 'neon-rose':dark?0x380018:0x880040,
-            chrome:dark?0x0e1428:0x485070, prism:dark?0x0a0a20:0x3a3a60,
-            castle:dark?0x3a1200:0xa04a10
+            amethyst:dark?0x1e0050:0x5a18b0
           };
           return Object.assign({},base,{
             color:depthColors[currentAtmosphere()]||0x0d3b6e,
@@ -3215,11 +2940,9 @@
           return;
         }
 
-        if(eff === 'lava' || eff === 'aurora' || eff === 'leaves'){
+        if(eff === 'leaves'){
           setWarn('');
-          if(eff === 'lava') vanta = startLavaCanvas(currentAtmosphere());
-          else if(eff === 'aurora') vanta = startAuroraCanvas(currentAtmosphere());
-          else vanta = startLeavesCanvas(currentAtmosphere());
+          vanta = startLeavesCanvas(currentAtmosphere());
           setAtmosphereState(vanta ? 'vanta' : 'fallback');
           return;
         }
@@ -3831,44 +3554,6 @@
         if(typeof window.bscLaunchConfetti === 'function') window.bscLaunchConfetti();
       }
     });
-  })();
-  </script>
-
-  <script>
-  /* prism rainbow-on-scroll */
-  (function(){
-    var html = document.documentElement;
-    var raf = null, lastY = -1;
-    function isPrism(){ return html.getAttribute('data-atmosphere') === 'prism'; }
-    function applyPrism(y){
-      var maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
-      var progress = Math.min(1, Math.max(0, y / maxScroll));
-      var hue  = Math.round(progress * 360);
-      var hue2 = (hue + 55) % 360;
-      html.style.setProperty('--accent',      'hsl('+hue+',88%,66%)');
-      html.style.setProperty('--accent2',     'hsl('+hue2+',80%,70%)');
-      html.style.setProperty('--accent-soft', 'hsla('+hue+',88%,66%,.18)');
-      html.style.setProperty('--border',      'hsla('+hue+',60%,60%,.14)');
-    }
-    function clearPrism(){
-      html.style.removeProperty('--accent');
-      html.style.removeProperty('--accent2');
-      html.style.removeProperty('--accent-soft');
-      html.style.removeProperty('--border');
-    }
-    function onScroll(){
-      if(!isPrism()){ if(raf){ cancelAnimationFrame(raf); raf=null; } return; }
-      var y = window.scrollY;
-      if(y === lastY) return;
-      lastY = y;
-      if(raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(function(){ applyPrism(y); raf=null; });
-    }
-    new MutationObserver(function(){
-      if(isPrism()){ applyPrism(window.scrollY); } else { clearPrism(); }
-    }).observe(html, { attributes:true, attributeFilter:['data-atmosphere'] });
-    window.addEventListener('scroll', onScroll, { passive:true });
-    if(isPrism()) applyPrism(window.scrollY);
   })();
   </script>
 
