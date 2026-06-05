@@ -1727,8 +1727,13 @@
       const root = document.documentElement;
       const themeBtn = document.getElementById('themeBtn');
 
-      const stored = localStorage.getItem('mr_theme'); // 'light' | 'dark' | 'auto'
-      let theme = stored || 'auto';
+      // mr_theme stores proof-hub's 3-state pick ('light' | 'dark' | 'auto').
+      // bsc_theme is the cross-page shared key written by the other resume pages.
+      let theme = localStorage.getItem('mr_theme');
+      if(theme !== 'auto' && theme !== 'light' && theme !== 'dark'){
+        const bsc = localStorage.getItem('bsc_theme');
+        theme = (bsc === 'light' || bsc === 'dark') ? bsc : 'auto';
+      }
 
       function applyTheme() {
         let t = theme;
@@ -1736,6 +1741,7 @@
           t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
         }
         root.setAttribute('data-theme', t);
+        try{ localStorage.setItem('bsc_theme', t); }catch(e){}
         const label = (theme === 'auto') ? 'Auto' : (theme === 'dark' ? 'Dark' : 'Light');
         themeBtn.textContent = 'Theme: ' + label;
       }

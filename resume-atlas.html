@@ -534,19 +534,14 @@
       const printBtn = document.getElementById('printBtn');
 
       function getPreferredTheme(){
-        const keys = ['bsc_theme', 'bsc_theme_home', 'bsc_theme2'];
-        for(const key of keys){
-          const value = localStorage.getItem(key);
-          if(value === 'light' || value === 'dark') return value;
-        }
+        const v = localStorage.getItem('bsc_theme');
+        if(v === 'light' || v === 'dark') return v;
         return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
       }
 
       function setTheme(theme){
         html.dataset.theme = theme;
         localStorage.setItem('bsc_theme', theme);
-        localStorage.setItem('bsc_theme_home', theme);
-        localStorage.setItem('bsc_theme2', theme);
       }
 
       setTheme(getPreferredTheme());
